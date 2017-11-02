@@ -7,7 +7,7 @@ package gestiondubar.decore;
 
 import gestiondubar.decore.bars.Stock;
 import gestiondubar.humains.Humain;
-
+//
 /**
  *
  * Bar qui contient Patronne, Caisse, Barman, Serveur, Boissons 
