@@ -7,7 +7,7 @@ package gestiondubar.decore;
 
 import gestiondubar.decore.bars.Stock;
 import gestiondubar.humains.Humain;
-// Jean-charles est un peu homo 
+// Jean-charles est un peu homo git
 /**
  *
  * Bar qui contient Patronne, Caisse, Barman, Serveur, Boissons 
