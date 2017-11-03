@@ -6,6 +6,9 @@
 package gestiondubar;
 import gestiondubar.decore.*;
 import gestiondubar.humains.clients.*;
+import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -28,7 +31,11 @@ public class GestionDuBar {
         Barman babar=patronne.getBarman();
         
         Boisson b= luc.commanderBoisson(Boisson.SHOOTER, serv);
-        luc.boire(b);
+        try {
+            luc.boire(b);
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(GestionDuBar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         System.out.println(luc.toString());
         
         System.out.println(serv.toString());
