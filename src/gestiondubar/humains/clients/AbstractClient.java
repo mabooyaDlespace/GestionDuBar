@@ -8,12 +8,14 @@ package gestiondubar.humains.clients;
 import gestiondubar.humains.Humain;
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ISEN
  */
-public class AbstractClient extends Humain {
+public abstract class AbstractClient extends Humain {
 
     Boisson boissonFavorite = Boisson.EAU;
 
@@ -45,14 +47,20 @@ public class AbstractClient extends Humain {
     }
 
     @Override
-    public int payer(Humain humain, Integer prix) {
-        if (humain.getClass().getSimpleName().equals("Serveur")) {
+    public void payer(Humain humain, Integer prix) throws AbstractClientException {
+        if (humain instanceof Serveur
+                || humain instanceof Barman){
+             if( prix instanceof Integer) {
             Serveur serveur = (Serveur) humain;
             serveur.setMonnaieDuBar(serveur.getMonnaieDuBar() + prix);
             super.setPorteMonnaie(super.getPorteMonnaie() - prix);
-            return 1;
+             }else{
+                    throw new AbstractClientException("Le prix doit être non null");
+            
+                    }
         } else {
-            return 0;
+            throw new AbstractClientException("Le parametre humain doit etre un barman ou un serveur");
+            
         }
     }
 
@@ -68,7 +76,12 @@ public class AbstractClient extends Humain {
         if (humain.getClass().getSimpleName().equals("Serveur")) {
             Serveur serveur = (Serveur) humain;
             Integer prix = boisson.getPrix();
-            this.payer(serveur, prix);
+            try {
+                this.payer(serveur, prix);
+            } catch (AbstractClientException ex) {
+                //  Logger.getLogger(AbstractClient.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
             //this.boire(boisson);
             return boisson;
         }

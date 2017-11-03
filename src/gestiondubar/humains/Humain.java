@@ -138,7 +138,7 @@ public abstract class Humain {
         return "CLA:"+this.getClass().getSimpleName()+" NAM:"+this.prenom+" "+this.surnom+" ARG:"+this.porteMonnaie+" SEXE:"+this.sexe+" "+coteDePopularite+" "+crisignificatif+" ";
     }
     public abstract void boire(Boisson boisson)throws AbstractClientException ;
-    public abstract int payer(Humain humain, Integer prix) ;
+    public abstract void payer(Humain humain, Integer prix) throws AbstractClientException;
     public abstract String sePresenterA(Humain humain);
     public abstract void offrirUnVerre(Humain humain, Humain serv)throws AbstractClientException ;
 }

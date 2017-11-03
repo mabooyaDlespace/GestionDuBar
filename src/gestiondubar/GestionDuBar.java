@@ -21,7 +21,7 @@ public class GestionDuBar {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        AbstractClient luc = new AbstractClient("Luc");
+        AbstractClient luc = new Client("Luc");
       
         Patronne patronne= new Patronne("Davida");
           Serveur serv = new Serveur("serv",patronne);
