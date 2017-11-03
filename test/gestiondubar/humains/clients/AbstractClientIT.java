@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.Humain;
+import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -77,7 +78,7 @@ public class AbstractClientIT {
      * Test of setDegreAlccolemie method, of class AbstractClient.
      */
     @Test
-    public void testSetDegreAlccolemie() {
+    public void testSetDegreAlccolemie() throws AbstractClientException {
         System.out.println("setDegreAlccolemie");
         Integer degreAlccolemie = null;
         AbstractClient instance = new AbstractClientImp("Al");
@@ -90,7 +91,7 @@ public class AbstractClientIT {
      * Test of boire method, of class AbstractClient.
      */
     @Test
-    public void testBoire() {
+    public void testBoire() throws AbstractClientException{
         System.out.println("boire");
         Boisson boisson = null;
         AbstractClient instance = new AbstractClientImp("Al");
@@ -164,7 +165,7 @@ public class AbstractClientIT {
      * Test of offrirUnVerre method, of class AbstractClient.
      */
     @Test
-    public void testOffrirUnVerre() {
+    public void testOffrirUnVerre() throws AbstractClientException{
         System.out.println("offrirUnVerre");
         Humain humainChanceux = null;
         Humain personnelServant = null;
