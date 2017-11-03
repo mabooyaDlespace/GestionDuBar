@@ -130,13 +130,21 @@ public class AbstractClientIT {
      * Test of boire method, of class AbstractClient.
      */
     @Test
-    public void testBoire() throws AbstractClientException{
+    public void testBoire()  {
         System.out.println("boire");
         Boisson boisson = null;
         AbstractClient instance = new AbstractClientImp("Al");
+       
+         try {
         instance.boire(boisson);
+                 fail("The test case is a prototype.");
+        } catch (AbstractClientException e) {
+            assertThat(e.getMessage(), is("Le parametre boisson doit être une instance de Boisson"));
+            //fail();
+        }
+        //assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
