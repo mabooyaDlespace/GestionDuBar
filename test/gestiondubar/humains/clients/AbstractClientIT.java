@@ -76,15 +76,54 @@ public class AbstractClientIT {
 
     /**
      * Test of setDegreAlccolemie method, of class AbstractClient.
+     * cant be set to null
      */
     @Test
     public void testSetDegreAlccolemie() throws AbstractClientException {
         System.out.println("setDegreAlccolemie");
         Integer degreAlccolemie = null;
         AbstractClient instance = new AbstractClientImp("Al");
+        try {
         instance.setDegreAlccolemie(degreAlccolemie);
-        // TODO review the generated test code and remove the default call to fail.
-       
+             fail();      
+        } catch (AbstractClientException e) {
+            assertThat(e.getMessage(), is("Degrealcolemie ne peut pas etre inférieur à 0"));
+            //fail();
+        }
+    }
+    /**
+     * Test of setDegreAlccolemie method, of class AbstractClient.
+     */
+    @Test
+    public void testSetDegreAlccolemie_01() throws AbstractClientException {
+        System.out.println("setDegreAlccolemie");
+        Integer degreAlccolemie = 0;
+        AbstractClient instance = new AbstractClientImp("Al");
+        try {
+        instance.setDegreAlccolemie(degreAlccolemie);
+                 
+        } catch (AbstractClientException e) {
+            assertThat(e.getMessage(), is("Degrealcolemie ne peut pas etre inférieur à 0"));
+            //fail();
+        }
+        assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
+    }
+     /**
+     * Test of setDegreAlccolemie method, of class AbstractClient.
+     */
+    @Test
+    public void testSetDegreAlccolemie_02() throws AbstractClientException {
+        System.out.println("setDegreAlccolemie");
+        Integer degreAlccolemie = 8;
+        AbstractClient instance = new AbstractClientImp("Al");
+        try {
+        instance.setDegreAlccolemie(degreAlccolemie);
+                 
+        } catch (AbstractClientException e) {
+            assertThat(e.getMessage(), is("Degrealcolemie ne peut pas etre inférieur à 0"));
+            //fail();
+        }
+        assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
     }
 
     /**

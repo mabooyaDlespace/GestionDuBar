@@ -28,7 +28,7 @@ public class AbstractClient extends Humain {
     }
     
     public void setDegreAlccolemie(Integer degreAlccolemie) throws AbstractClientException {
-        if (degreAlccolemie.compareTo(0) > -1) {
+        if (degreAlccolemie instanceof Integer && degreAlccolemie.compareTo(0) > -1) {
             this.degreAlccolemie = degreAlccolemie;
         } else {
             throw new AbstractClientException("Degrealcolemie ne peut pas etre inférieur à 0");
