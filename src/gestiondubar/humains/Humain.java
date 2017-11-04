@@ -24,9 +24,11 @@ public abstract class Humain {
     /**
      * initie avec un prenom
      * @param prenom 
+     * @throws gestiondubar.humains.clients.exceptions.AbstractClientException 
      */
-    public Humain(String prenom) {
-        this.prenom=prenom;
+    public Humain(String prenom) throws AbstractClientException {
+       if(prenom instanceof String) this.prenom=prenom;
+       else throw new  AbstractClientException("Le prénom ne peut pas être vide");
     }
 
     

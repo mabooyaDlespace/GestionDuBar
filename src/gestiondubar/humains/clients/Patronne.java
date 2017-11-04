@@ -6,6 +6,7 @@
 package gestiondubar.humains.clients;
 
 import gestiondubar.decore.Bar;
+import gestiondubar.humains.clients.exceptions.AbstractClientException;
 
 /**
  * La patronne n'a pas forcément de barman(peut etre un clone de lui) mais le
@@ -15,11 +16,9 @@ import gestiondubar.decore.Bar;
  * @author ISEN
  */
 public class Patronne extends AbstractClient {
-//    String nomDeLaPatronne;
 
-    Bar bar;
-
-    Barman barman;
+    private Bar bar;
+    private Barman barman;
 
     /**
      * Constructeur: Initie le nom, le bar , et le barman.
@@ -27,7 +26,7 @@ public class Patronne extends AbstractClient {
      * @param nomDeLaPatronne
      * @see Bar
      */
-    public Patronne(String nomDeLaPatronne) {
+    public Patronne(String nomDeLaPatronne) throws AbstractClientException {
         super(nomDeLaPatronne);
         bar = new Bar(nomDeLaPatronne);
 //    this.nomDeLaPatronne=nomDeLaPatronne;

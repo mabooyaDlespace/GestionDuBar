@@ -6,6 +6,7 @@
 package gestiondubar.humains.clients;
 
 import gestiondubar.decore.Boisson;
+import gestiondubar.humains.clients.exceptions.AbstractClientException;
 
 /**
  *
@@ -15,7 +16,7 @@ public class Client extends AbstractClient {
 
     private Boisson boissonSecours = Boisson.EAU;
 
-    public Client(String prenom) {
+    public Client(String prenom) throws AbstractClientException {
         super(prenom);
     }
 
