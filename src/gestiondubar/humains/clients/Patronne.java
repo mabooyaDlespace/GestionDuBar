@@ -15,11 +15,9 @@ import gestiondubar.decore.Bar;
  * @author ISEN
  */
 public class Patronne extends AbstractClient {
-//    String nomDeLaPatronne;
 
-    Bar bar;
-
-    Barman barman;
+    private Bar bar;
+    private Barman barman;
 
     /**
      * Constructeur: Initie le nom, le bar , et le barman.

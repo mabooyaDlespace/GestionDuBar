@@ -7,7 +7,7 @@ package gestiondubar.humains.clients;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.*;
 import gestiondubar.humains.clients.interfaces.Servir;
-import gestiondubar.humains.clients.interfaces.barmanetserveur.ServirClient;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
 /**
  *
  * @author ISEN

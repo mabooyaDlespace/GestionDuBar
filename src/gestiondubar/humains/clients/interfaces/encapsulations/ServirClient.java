@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestiondubar.humains.clients.interfaces.barmanetserveur;
+package gestiondubar.humains.clients.interfaces.encapsulations;
 
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.Barman;
