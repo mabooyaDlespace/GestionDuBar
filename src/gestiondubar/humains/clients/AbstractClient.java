@@ -8,8 +8,7 @@ package gestiondubar.humains.clients;
 import gestiondubar.humains.Humain;
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import gestiondubar.humains.clients.interfaces.Servir;
 
 /**
  *
@@ -21,7 +20,7 @@ public abstract class AbstractClient extends Humain {
 
     Integer degreAlccolemie = 0;
 
-    public AbstractClient(String prenom) {
+    public AbstractClient(String prenom) throws AbstractClientException {
         super(prenom);
     }
 
@@ -45,23 +44,36 @@ public abstract class AbstractClient extends Humain {
             throw new AbstractClientException("Le parametre boisson doit être une instance de Boisson");
         }
     }
-
+    
     @Override
     public void payer(Humain humain, Integer prix) throws AbstractClientException {
-        if (humain instanceof Serveur
-                || humain instanceof Barman){
-             if( prix instanceof Integer) {
-            Serveur serveur = (Serveur) humain;
-            serveur.setMonnaieDuBar(serveur.getMonnaieDuBar() + prix);
-            super.setPorteMonnaie(super.getPorteMonnaie() - prix);
-             }else{
-                    throw new AbstractClientException("Le prix doit être non null");
-            
-                    }
+
+        if (humain instanceof Serveur) {
+            Serveur personnel = (Serveur) humain;
+            if (prix instanceof Integer) {
+
+                personnel.setMonnaieDuBar(personnel.getMonnaieDuBar() + prix);
+                super.setPorteMonnaie(super.getPorteMonnaie() - prix);
+            } else {
+                throw new AbstractClientException("Le prix doit être non null");
+
+            }
+        } else if (humain instanceof Barman) {
+            Barman personnel = (Barman) humain;
+            if (prix instanceof Integer) {
+
+                personnel.setMonnaieDuBar(personnel.getMonnaieDuBar() + prix);
+                super.setPorteMonnaie(super.getPorteMonnaie() - prix);
+            } else {
+                throw new AbstractClientException("Le prix doit être non null");
+
+            }
         } else {
+
             throw new AbstractClientException("Le parametre humain doit etre un barman ou un serveur");
-            
+
         }
+
     }
 
     /**
@@ -73,12 +85,12 @@ public abstract class AbstractClient extends Humain {
      * @return
      */
     public Boisson commanderBoisson(Boisson boisson, Humain humain) {
-        if ((humain instanceof Serveur
-                || humain instanceof Barman)&& boisson instanceof Boisson) {
-            Serveur serveur = (Serveur) humain;
+        if ((humain instanceof Servir
+                || humain instanceof Servir) && boisson instanceof Boisson) {
+
             Integer prix = boisson.getPrix();
             try {
-                this.payer(serveur, prix);
+                this.payer(humain, prix);
             } catch (AbstractClientException ex) {
                 //  Logger.getLogger(AbstractClient.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
@@ -86,6 +98,7 @@ public abstract class AbstractClient extends Humain {
             //this.boire(boisson);
             return boisson;
         }
+
         return null;
     }
 

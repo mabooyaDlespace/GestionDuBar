@@ -11,6 +11,7 @@ import gestiondubar.decore.bars.BoissonEtQuantite;
 import gestiondubar.decore.bars.Stock;
 import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.Humain;
+import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.GererStock;
 import gestiondubar.humains.clients.interfaces.Servir;
 import gestiondubar.humains.clients.interfaces.encapsulations.GererLeStockDuBar;
@@ -19,7 +20,7 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
 /**
  * Le barman a obligatoirement une patronne sinon il est chomeur: peut etre
  * luimeme
- *
+ * @see gestiondubar.humains.clients.AbstractClient
  * @author ISEN
  */
 public class Barman extends AbstractClient implements Servir, GererStock {
@@ -30,7 +31,7 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     private Servir servirDesClients = new ServirClient();
     private GererStock gererLeStockDuBar; 
 
-    public Barman(String prenom, Patronne patronne) {
+    public Barman(String prenom, Patronne patronne) throws AbstractClientException {
         super(prenom);
         this.patronne = patronne;
         caisseDuBar=patronne.getBar().getCaisseDuBar(this);// on controle l'existance du barman avec this
@@ -57,26 +58,47 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     }
     @Override
     public String toString() {
-        return super.toString()+" MON:"+this.getMonnaieDuBar(); //To change body of generated methods, choose Tools | Templates.
+        return super.toString()+" MON:"+this.getMonnaieDuBar(); 
     }
     // INTERFACE Servir=========================================================
-     @Override
+     /**
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#getMonnaieDuBar()  ServirClient.getMonnaieDuBar
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
+     * @see Servir
+     * 
+     * @param 
+     */ 
+    @Override
     public Integer getMonnaieDuBar() {
         return this.servirDesClients.getMonnaieDuBar();
     }
+     /**
+     * 
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#setMonnaieDuBar(java.lang.Integer) ServirClient.setMonnaieDuBar(int)
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
+     * @see Servir
+     * 
+     * @param monnaieDuBar
+     */
     @Override
     public void setMonnaieDuBar(Integer monnaieDubar) {
         this.servirDesClients.setMonnaieDuBar(monnaieDubar);
     }
     
-    
+    /**
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) ServirClient.donnerLaMonnaieAuxResponsables(Humain) 
+     *  @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
+     * @see Servir
+     * 
+     * @param humain 
+     */
     @Override
     public void donnerLaMonnaieAuxResponsables(Humain humain) {
         this.servirDesClients.donnerLaMonnaieAuxResponsables(humain);
 
     }
-    // INTERFACE GererStock
-
+    // INTERFACE GererStock=====================================================
+    
     @Override
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche) {
        return this.gererLeStockDuBar.estPresentDansLeStock(ceQueJeCherche);

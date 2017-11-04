@@ -50,13 +50,17 @@ public class AbstractClientIT {
      */
     @Test
     public void testGetDegreAlccolemie() {
-        System.out.println("getDegreAlccolemie");
-        AbstractClient instance = new AbstractClientImp("Al");
-        Integer expResult = 0;
-        Integer result = instance.getDegreAlccolemie();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        try {
+            System.out.println("getDegreAlccolemie");
+            AbstractClient instance = new AbstractClientImp("Al");
+            Integer expResult = 0;
+            Integer result = instance.getDegreAlccolemie();
+            assertEquals(expResult, result);
+            // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -64,16 +68,20 @@ public class AbstractClientIT {
      */
     @Test
     public void testGetDegreAlccolemie_01() {
-        System.out.println("getDegreAlccolemie");
-        AbstractClient instance = new AbstractClientImp("Al");
-        Integer expResult = 0;
-        Integer result = instance.getDegreAlccolemie();
-        Integer inte = 2;
-        result = inte;
-
-        assertNotSame(instance.getDegreAlccolemie(), inte);
-        // TODO review the generated test code and remove the default call to fail.
+        try {
+            System.out.println("getDegreAlccolemie");
+            AbstractClient instance = new AbstractClientImp("Al");
+            Integer expResult = 0;
+            Integer result = instance.getDegreAlccolemie();
+            Integer inte = 2;
+            result = inte;
+            
+            assertNotSame(instance.getDegreAlccolemie(), inte);
+            // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -135,16 +143,23 @@ public class AbstractClientIT {
      */
     @Test
     public void testBoire() {
-        System.out.println("boire");
-        Boisson boisson = null;
-        AbstractClient instance = new AbstractClientImp("Al");
-
         try {
-            instance.boire(boisson);
-            fail("The test case is a prototype.");
-        } catch (AbstractClientException e) {
-            assertThat(e.getMessage(), is("Le parametre boisson doit être une instance de Boisson"));
-            //fail();
+            System.out.println("boire");
+            Boisson boisson = null;
+            AbstractClient instance = new AbstractClientImp("Al");
+            
+            try {
+                instance.boire(boisson);
+                fail("The test case is a prototype.");
+            } catch (AbstractClientException e) {
+                assertThat(e.getMessage(), is("Le parametre boisson doit être une instance de Boisson"));
+                //fail();
+            }
+            //assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
+            // TODO review the generated test code and remove the default call to fail.
+            //fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
         //assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
         // TODO review the generated test code and remove the default call to fail.
@@ -156,21 +171,25 @@ public class AbstractClientIT {
      */
     @Test
     public void testBoire_01() {
-        System.out.println("boire");
-        Boisson boisson = Boisson.RICARD;
-        AbstractClient instance = new AbstractClientImp("Al");
-
         try {
-            instance.boire(boisson);
+            System.out.println("boire");
+            Boisson boisson = Boisson.RICARD;
+            AbstractClient instance = new AbstractClientImp("Al");
+            
+            try {
+                instance.boire(boisson);
 //                 fail("The test case is a prototype.");
-        } catch (AbstractClientException e) {
-            assertThat(e.getMessage(), is("Le parametre boisson doit être une instance de Boisson"));
-            fail();
+            } catch (AbstractClientException e) {
+                assertThat(e.getMessage(), is("Le parametre boisson doit être une instance de Boisson"));
+                fail();
+            }
+            assertTrue(instance.getDegreAlccolemie().compareTo(Boisson.RICARD.getPointsAlcool()) == 0);
+            //assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
+            // TODO review the generated test code and remove the default call to fail.
+            //fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        assertTrue(instance.getDegreAlccolemie().compareTo(Boisson.RICARD.getPointsAlcool()) == 0);
-        //assertTrue(instance.getDegreAlccolemie().compareTo(degreAlccolemie)==0);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -178,21 +197,25 @@ public class AbstractClientIT {
      */
     @Test
     public void testPayer() {
-        System.out.println("payer");
-        Humain humain = null;
-        Integer prix = null;
-        AbstractClient instance = new AbstractClientImp("Al");
-        Integer expResult = 0;
         try {
-            instance.payer(humain, prix);
-            fail();
+            System.out.println("payer");
+            Humain humain = null;
+            Integer prix = null;
+            AbstractClient instance = new AbstractClientImp("Al");
+            Integer expResult = 0;
+            try {
+                instance.payer(humain, prix);
+                fail();
+            } catch (AbstractClientException ex) {
+                assertThat(ex.getMessage(), is("Le parametre humain doit etre un barman ou un serveur"));
+                Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            assertTrue(expResult.equals(instance.getPorteMonnaie()));
+            // TODO review the generated test code and remove the default call to fail.
+            //fail("The test case is a prototype.");
         } catch (AbstractClientException ex) {
-            assertThat(ex.getMessage(), is("Le parametre humain doit etre un barman ou un serveur"));
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        assertTrue(expResult.equals(instance.getPorteMonnaie()));
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -201,21 +224,25 @@ public class AbstractClientIT {
      */
     @Test
     public void testPayer_01() {
-        System.out.println("payer");
-        AbstractClient payeur = new AbstractClientImp("Al");
-        Integer prix = null;
-        AbstractClient instance = new AbstractClientImp("Al");
-        Integer expResult = 0;
         try {
-            payeur.payer(instance, prix);
-            fail();
+            System.out.println("payer");
+            AbstractClient payeur = new AbstractClientImp("Al");
+            Integer prix = null;
+            AbstractClient instance = new AbstractClientImp("Al");
+            Integer expResult = 0;
+            try {
+                payeur.payer(instance, prix);
+                fail();
+            } catch (AbstractClientException ex) {
+                assertThat(ex.getMessage(), is("Le parametre humain doit etre un barman ou un serveur"));
+                Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            assertTrue(expResult.equals(payeur.getPorteMonnaie()));
+            // TODO review the generated test code and remove the default call to fail.
+            //fail("The test case is a prototype.");
         } catch (AbstractClientException ex) {
-            assertThat(ex.getMessage(), is("Le parametre humain doit etre un barman ou un serveur"));
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        assertTrue(expResult.equals(payeur.getPorteMonnaie()));
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -224,21 +251,25 @@ public class AbstractClientIT {
      */
     @Test
     public void testPayer_02() {
-        System.out.println("payer");
-        AbstractClient payeur = new AbstractClientImp("Al");
-        Integer prix = null;
-        Serveur serveur = new Serveur("Al", new Patronne("Davida"));
-        Integer expResult = 0;
         try {
-            payeur.payer(serveur, prix);
-            fail();
+            System.out.println("payer");
+            AbstractClient payeur = new AbstractClientImp("Al");
+            Integer prix = null;
+            Serveur serveur = new Serveur("Al", new Patronne("Davida"));
+            Integer expResult = 0;
+            try {
+                payeur.payer(serveur, prix);
+                fail();
+            } catch (AbstractClientException ex) {
+                assertThat(ex.getMessage(), is("Le prix doit être non null"));
+                Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            assertTrue(expResult.equals(payeur.getPorteMonnaie()));
+            // TODO review the generated test code and remove the default call to fail.
+            //fail("The test case is a prototype.");
         } catch (AbstractClientException ex) {
-            assertThat(ex.getMessage(), is("Le prix doit être non null"));
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        assertTrue(expResult.equals(payeur.getPorteMonnaie()));
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -247,24 +278,29 @@ public class AbstractClientIT {
      */
     @Test
     public void testPayer_03() {
-        System.out.println("payer");
-        AbstractClient payeur = new AbstractClientImp("Al");
-        Integer prix = 2;
-        Patronne patronne=new Patronne("Davida");
-        Serveur serveur;
-        serveur = new Serveur("AlAin", patronne);
-        Integer expResult = -prix;
         try {
-            payeur.payer(serveur, prix);
+            System.out.println("payer");
+            AbstractClient payeur = new AbstractClientImp("Al");
+            Integer prix = 2;
+            Patronne patronne=new Patronne("Davida");
+            Serveur serveur;
+            serveur = new Serveur("AlAin", patronne);
+            Integer expResult = -prix;
+            try {
+                payeur.payer(serveur, prix);
+            } catch (AbstractClientException ex) {
+                fail();
+            }
+            //regarder si l'argent du payer a diminué
+            assertTrue(expResult.equals(payeur.getPorteMonnaie()));
+            expResult=0;//regarder si l'argent du serveur a changé
+            assertTrue(expResult.equals(serveur.getPorteMonnaie()));
+            expResult=prix;//regarder si la monnaie du bar a augmente
+            assertTrue(expResult.equals(serveur.getMonnaieDuBar()));
+            
         } catch (AbstractClientException ex) {
-            fail();
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //regarder si l'argent du payer a diminué
-        assertTrue(expResult.equals(payeur.getPorteMonnaie()));
-        expResult=0;//regarder si l'argent du serveur a changé
-        assertTrue(expResult.equals(serveur.getPorteMonnaie()));
-        expResult=prix;//regarder si la monnaie du bar a augmente
-        assertTrue(expResult.equals(serveur.getMonnaieDuBar()));
         
     }
 
@@ -274,11 +310,25 @@ public class AbstractClientIT {
     @Test
     public void testCommanderBoisson() {
         System.out.println("commanderBoisson");
-        AbstractClient payeur = new AbstractClientImp("Al");
+        AbstractClient payeur = null;
+        try {
+            payeur = new AbstractClientImp("Al");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Integer prix = 2;
-        Patronne patronne=new Patronne("Davida");
-        Serveur serveur;
-        serveur = new Serveur("AlAin", patronne);
+        Patronne patronne = null;
+        try {
+            patronne = new Patronne("Davida");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Serveur serveur = null;
+        try {
+            serveur = new Serveur("AlAin", patronne);
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
         Integer expResult = -prix;
         Boisson result = payeur.commanderBoisson(Boisson.RICARD, serveur);
         assertEquals(expResult, result);
@@ -292,7 +342,12 @@ public class AbstractClientIT {
     @Test
     public void testToString() {
         System.out.println("toString");
-        AbstractClient instance = new AbstractClientImp("Al");
+        AbstractClient instance = null;
+        try {
+            instance = new AbstractClientImp("Al");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String expResult = "";
         String result = instance.toString();
         assertEquals(expResult, result);
@@ -307,7 +362,12 @@ public class AbstractClientIT {
     public void testSePresenterA() {
         System.out.println("sePresenterA");
         Humain humain = null;
-        AbstractClient instance = new AbstractClientImp("Al");
+        AbstractClient instance = null;
+        try {
+            instance = new AbstractClientImp("Al");
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String expResult = "";
         String result = instance.sePresenterA(humain);
         assertEquals(expResult, result);
@@ -331,7 +391,7 @@ public class AbstractClientIT {
 
     public class AbstractClientImp extends AbstractClient {
 
-        public AbstractClientImp(String prenom) {
+        public AbstractClientImp(String prenom) throws AbstractClientException {
             super(prenom);
         }
 

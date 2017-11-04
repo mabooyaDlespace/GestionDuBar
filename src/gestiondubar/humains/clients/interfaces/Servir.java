@@ -6,9 +6,9 @@
 package gestiondubar.humains.clients.interfaces;
 
 import gestiondubar.humains.Humain;
-
+import gestiondubar.humains.clients.*;
 /**
- *
+ *@see Barman
  * @author ISEN
  */
 public interface Servir {
