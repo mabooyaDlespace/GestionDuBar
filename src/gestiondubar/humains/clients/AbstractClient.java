@@ -73,7 +73,8 @@ public abstract class AbstractClient extends Humain {
      * @return
      */
     public Boisson commanderBoisson(Boisson boisson, Humain humain) {
-        if (humain.getClass().getSimpleName().equals("Serveur")) {
+        if ((humain instanceof Serveur
+                || humain instanceof Barman)&& boisson instanceof Boisson) {
             Serveur serveur = (Serveur) humain;
             Integer prix = boisson.getPrix();
             try {
@@ -90,7 +91,7 @@ public abstract class AbstractClient extends Humain {
 
     @Override
     public String toString() {
-        return super.toString() + " " + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + " BOI" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -274,11 +274,13 @@ public class AbstractClientIT {
     @Test
     public void testCommanderBoisson() {
         System.out.println("commanderBoisson");
-        Boisson boisson = null;
-        Humain humain = null;
-        AbstractClient instance = new AbstractClientImp("Al");
-        Boisson expResult = null;
-        Boisson result = instance.commanderBoisson(boisson, humain);
+        AbstractClient payeur = new AbstractClientImp("Al");
+        Integer prix = 2;
+        Patronne patronne=new Patronne("Davida");
+        Serveur serveur;
+        serveur = new Serveur("AlAin", patronne);
+        Integer expResult = -prix;
+        Boisson result = payeur.commanderBoisson(Boisson.RICARD, serveur);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
