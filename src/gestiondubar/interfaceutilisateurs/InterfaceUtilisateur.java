@@ -32,6 +32,7 @@ public class InterfaceUtilisateur {
 
         do {//tant que reponse n'est pas 1 ou 2
             mode = ' ';
+            System.out.println("Veuillez choisir un mode de configuration : ");
             System.out.println("1 pour configuration assitée, 2 pour configuration automatique ");
             mode = sc.nextLine().charAt(0);
 
@@ -58,9 +59,12 @@ public class InterfaceUtilisateur {
         } else if (mode == '2') {
             System.out.println("vous avez choisi la configuration automatique");
             String ChoixPatronne[] = {"Ingrid","Ursule","Roger","Eli","Jeanne","Bob"};
+            String AdjectifPatronne[]={"La Soularde", "La Brute","Le Truand","La Cartouche","L'illustre","La Canaille"};
             int j = (int) (Math.random()*(6-0));
+            int k = (int) (Math.random()*(6-0));
             String Nom = ChoixPatronne[j];
-            System.out.println("La patronne s'appelle" + Nom );
+            String Adjectif = AdjectifPatronne[k];
+            System.out.println("La patronne s'appelle " + Nom +" "+ Adjectif);
             
             
 
