@@ -24,12 +24,12 @@ public class GestionDuBar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        InterfaceUtilisateur.monTest1();
+        //InterfaceUtilisateur.monTest1();
         
         try {
             // TODO code application logic here
             AbstractClient luc = new Client("Luc");
-            Patronne patronne = new Patronne("Davida");
+            Patronne patronne = new Patronne(InterfaceUtilisateur.monTest1());
             Serveur serv = new Serveur("serv", patronne);
             patronne.setBarman(new Barman("Babar", patronne));
             Barman babar = patronne.getBarman();

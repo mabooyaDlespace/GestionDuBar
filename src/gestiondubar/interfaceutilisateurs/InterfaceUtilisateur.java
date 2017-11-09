@@ -22,13 +22,14 @@ import java.util.Random;
  */
 public class InterfaceUtilisateur {
 
-    public static void monTest1() {
+    public static String monTest1() {
         //try {
         Scanner sc = new Scanner(System.in);
 
         //initialisation des variables
         
         char reponse = ' ', mode = ' ';
+        String NomFinal =" ";
 
         do {//tant que reponse n'est pas 1 ou 2
             mode = ' ';
@@ -38,25 +39,20 @@ public class InterfaceUtilisateur {
 
             if (mode != '1' && mode != '2') {
                 System.out.println("Mode inconnu, veuillez réitérer votre choix.");
-            }
+                                            }
 
-        } while (mode != '1' && mode != '2');
+            } while (mode != '1' && mode != '2');
 
-        /*saisie de la température à convertir
-         System.out.println("Température à convertir :");
-         aConvertir = sc.nextDouble();
-         //Pensez à vider la ligne lue
-         sc.nextLine(); */
-        //Selon le mode, on affiche le résultat
+      
         if (mode == '1') {
             System.out.println("vous avez choisi la configuration assitée");
             System.out.println("Choisissez un nom pour la Daronne");
             String NomPatronne = sc.nextLine();
-            System.out.println("La patronne s'appelle " + NomPatronne);
-            
-            
-            
-        } else if (mode == '2') {
+            System.out.println("La patronne s'appelle " + NomPatronne);       
+            NomFinal = NomPatronne;
+                        }
+        
+        else if (mode == '2') {
             System.out.println("vous avez choisi la configuration automatique");
             String ChoixPatronne[] = {"Ingrid","Ursule","Roger","Eli","Jeanne","Bob"};
             String AdjectifPatronne[]={"La Soularde", "La Brute","Le Truand","La Cartouche","L'illustre","La Canaille"};
@@ -65,17 +61,17 @@ public class InterfaceUtilisateur {
             String Nom = ChoixPatronne[j];
             String Adjectif = AdjectifPatronne[k];
             System.out.println("La patronne s'appelle " + Nom +" "+ Adjectif);
-            
-            
-
-        } //String maString = new String();
+            NomFinal = Nom + Adjectif;
+                            }
+        return (NomFinal);
+        
+        //String maString = new String();
         //            AbstractClient luc = new Client("Luc");
         //            Patronne patronne = new Patronne("Davida");
-        //            Serveur serv = new Serveur("serv", patronne);
+         //          Serveur serv = new Serveur("serv", patronne);
         //            patronne.setBarman(new Barman("Babar", patronne));
-        else {
-        }
-        // } catch (AbstractClientException ex) {
+        
+         //} catch (AbstractClientException ex) {
         //Logger.getLogger(InterfaceUtilisateur.class.getName()).log(Level.SEVERE, null, ex);
     }
 
