@@ -61,7 +61,7 @@ public class InterfaceUtilisateur {
             String Nom = ChoixPatronne[j];
             String Adjectif = AdjectifPatronne[k];
             System.out.println("La patronne s'appelle " + Nom +" "+ Adjectif);
-            NomFinal = Nom + Adjectif;
+            NomFinal = Nom +" "+ Adjectif;
                             }
         return (NomFinal);
         
