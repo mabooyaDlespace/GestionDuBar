@@ -8,8 +8,11 @@ package gestiondubar;
 import gestiondubar.decore.*;
 import gestiondubar.humains.clients.*;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.interfaceutilisateurs.InterfaceUtilisateur;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
+
 
 /**
  *
@@ -21,6 +24,8 @@ public class GestionDuBar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        InterfaceUtilisateur.monTest1();
+        
         try {
             // TODO code application logic here
             AbstractClient luc = new Client("Luc");

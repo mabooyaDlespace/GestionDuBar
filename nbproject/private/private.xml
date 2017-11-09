@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/GestionDuBar/test/gestiondubar/humains/clients/AbstractClientIT.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/decore/bars/exceptions/StockException.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/test/gestiondubar/humains/clients/AbstractClientIT.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/GestionDuBar.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/test/gestiondubar/humains/clients/BarmanIT.java</file>
         </group>
     </open-files>
 </project-private>
