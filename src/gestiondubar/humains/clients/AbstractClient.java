@@ -11,7 +11,24 @@ import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.Servir;
 
 /**
+ * Classe dont herite Barman, Client , Patronne ,Serveur et qui possèdes les
+ * fonction suivantes.
  *
+ * @see AbstractClient#boire(gestiondubar.decore.Boisson) boire
+ * @see AbstractClient#commanderBoisson(gestiondubar.decore.Boisson,
+ * gestiondubar.humains.Humain) commander
+ * @see AbstractClient#offrirUnVerre(gestiondubar.humains.Humain,
+ * gestiondubar.humains.Humain) offrirUnVerre
+ * @see AbstractClient#getDegreAlccolemie() getDegreAlccolemie
+ * @see AbstractClient#payer(gestiondubar.humains.Humain, java.lang.Integer)
+ * payer
+ * @see AbstractClient#sePresenterA(gestiondubar.humains.Humain) sePresenterA
+ * @see AbstractClient#setDegreAlccolemie(java.lang.Integer) setDegreAlccolemie
+ * @see AbstractClient#toString() toString
+ * @see Barman Classe-Barman
+ * @see Client Classe-Client
+ * @see Patronne Classe-Patronne
+ * @see Serveur Classe-Serveur
  * @author ISEN
  */
 public abstract class AbstractClient extends Humain {
@@ -20,14 +37,33 @@ public abstract class AbstractClient extends Humain {
 
     Integer degreAlccolemie = 0;
 
+    /**
+     * Ce constructeur est commun à toutes les classes clients
+     *
+     * @param prenom
+     * @throws AbstractClientException
+     */
     public AbstractClient(String prenom) throws AbstractClientException {
         super(prenom);
     }
 
+    /**
+     * Renvoit le degre d'alcolemie en Integer
+     *
+     * @see AbstractClient
+     * @return
+     */
     public Integer getDegreAlccolemie() {
         return degreAlccolemie;
     }
 
+    /**
+     * Permet de modifier le degré d'alcolemie
+     *
+     * @see AbstractClient
+     * @param degreAlccolemie
+     * @throws AbstractClientException
+     */
     public void setDegreAlccolemie(Integer degreAlccolemie) throws AbstractClientException {
         if (degreAlccolemie instanceof Integer && degreAlccolemie.compareTo(0) > -1) {
             this.degreAlccolemie = degreAlccolemie;
@@ -36,6 +72,16 @@ public abstract class AbstractClient extends Humain {
         }
     }
 
+    /**
+     * Modifie le degre d'alcool en fonction de la boisson
+     *
+     * @see Boisson
+     * @see AbstractClient#getDegreAlccolemie() getDegreAlccolemie
+     * @see AbstractClient#setDegreAlccolemie(java.lang.Integer)
+     * setDegreAlccolemie
+     * @param boisson 
+     * @throws AbstractClientException
+     */
     @Override
     public void boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
@@ -44,7 +90,17 @@ public abstract class AbstractClient extends Humain {
             throw new AbstractClientException("Le parametre boisson doit être une instance de Boisson");
         }
     }
-    
+
+    /**
+     * Retire le montant du prix , du portemonnaie l'instance et le place dans 
+     * "monnaieDuBar" du personnel.
+     * 
+     * @param humain le personel qu'on va payer (serveur barman)
+     * @param prix le montant que l'on va donner
+     * @throws AbstractClientException
+     * @see Barman
+     * @see Serveur
+     */
     @Override
     public void payer(Humain humain, Integer prix) throws AbstractClientException {
 
@@ -80,8 +136,8 @@ public abstract class AbstractClient extends Humain {
      * L'instance commande une boisson à un membre du personnel et la paye avec
      * son argent.
      *
-     * @param boisson
-     * @param humain
+     * @param boisson ce quon veut commander
+     * @param humain le personnel à qui on le commande
      * @return
      */
     public Boisson commanderBoisson(Boisson boisson, Humain humain) {
@@ -102,11 +158,21 @@ public abstract class AbstractClient extends Humain {
         return null;
     }
 
+    /**
+     *
+     * @return une description du client
+     */
     @Override
     public String toString() {
         return super.toString() + " BOI" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * 
+     * @param humain la personne à qui on vut se présenter
+     * @param 
+     * @return
+     */
     @Override
     public String sePresenterA(Humain humain) {
 
@@ -121,6 +187,12 @@ public abstract class AbstractClient extends Humain {
         }
     }
 
+    /**
+     *
+     * @param humainChanceux
+     * @param personnelServant
+     * @throws AbstractClientException
+     */
     @Override
     public void offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
         AbstractClient chanceux = (AbstractClient) humainChanceux;

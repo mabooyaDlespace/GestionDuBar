@@ -162,8 +162,8 @@ public class BarmanIT {
             serv.donnerLaMonnaieAuxResponsables(babar);// ils donnes la monnaie
             babar.donnerLaMonnaieAuxResponsables(babar);
             assertTrue(patronne.getBarman().getCaisseDuBar().getArgentDuBar().toString(),patronne.getBarman().getCaisseDuBar().getArgentDuBar().equals(4));
-            assertTrue( serv.getMonnaieDuBar().equals(2));// ils ont chacun 0 euros
-            assertTrue( babar.getMonnaieDuBar().equals(2));
+            assertTrue( serv.getMonnaieDuBar().equals(0));// ils ont chacun 0 euros
+            assertTrue( babar.getMonnaieDuBar().equals(0));
 
         } catch (AbstractClientException ex) {
             fail();

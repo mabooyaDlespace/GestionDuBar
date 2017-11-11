@@ -246,6 +246,7 @@ public class AbstractClientIT {
     }
 
     /**
+     * 
      * Test of payer method, of class AbstractClient. 
      * test prix null
      */
