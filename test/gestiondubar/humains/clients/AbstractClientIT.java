@@ -5,20 +5,21 @@
  */
 package gestiondubar.humains.clients;
 
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
 
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import static org.hamcrest.core.Is.is;
+
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -397,4 +398,8 @@ public class AbstractClientIT {
         }
 
     }
+
+   
+
+    
 }
