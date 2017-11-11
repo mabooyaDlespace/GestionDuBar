@@ -73,7 +73,8 @@ public abstract class AbstractClient extends Humain {
     }
 
     /**
-     * Modifie le degre d'alcool en fonction de la boisson
+     * <b>Modifie le degre d'alcool en fonction de la boisson.
+     *</b> <br> Génnère une exception si boisson n'est pas une instance.
      *
      * @see Boisson
      * @see AbstractClient#getDegreAlccolemie() getDegreAlccolemie
@@ -133,9 +134,9 @@ public abstract class AbstractClient extends Humain {
     }
 
     /**
-     * L'instance commande une boisson à un membre du personnel et la paye avec
+     *<b> L'instance commande une boisson à un membre du personnel et la paye avec
      * son argent.
-     *
+     *</b> <br> génère une exception si humain n'est pas une instance
      * @param boisson ce quon veut commander
      * @param humain le personnel à qui on le commande
      * @return
@@ -189,8 +190,10 @@ public abstract class AbstractClient extends Humain {
 
     /**
      *
-     * @param humainChanceux
-     * @param personnelServant
+     * <b> Permet d'offire un verre à un a un chanceu </>.
+     * Génère une exception si n'est pas une instance.
+     * @param humainChanceux instance issue d'abstractclient
+     * @param personnelServant Une instane barman serveur
      * @throws AbstractClientException
      */
     @Override

@@ -17,6 +17,6 @@ public interface GererStock {
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche);
      public boolean existeDansLeStock(Boisson ceQueJeCherche);
      public BoissonEtQuantite getBoissonEtQuantite(Boisson ceQueJeCherche);
-     public void setQuantite(Boisson ceQueJeMets, Integer quantite) throws StockException ;
-     public Integer getQuantiteDe(Boisson boisson);
+     public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException ;
+     public Integer getQuantiteDeLaBoisson(Boisson boisson);
 }

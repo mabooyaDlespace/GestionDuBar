@@ -247,7 +247,7 @@ public class BarmanIT {
     }
 
     /**
-     * Test of setQuantite method, of class Barman.
+     * Test of setQuantiteDeLaBoisson method, of class Barman.
      */
     @Test
     public void testSetQuantite() throws Exception {
@@ -255,13 +255,13 @@ public class BarmanIT {
         Boisson ceQueJeMets = null;
         Integer quantite = null;
         Barman instance = null;
-        instance.setQuantite(ceQueJeMets, quantite);
+        instance.setQuantiteDeLaBoisson(ceQueJeMets, quantite);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getQuantiteDe method, of class Barman.
+     * Test of getQuantiteDeLaBoisson method, of class Barman.
      */
     @Test
     public void testGetQuantiteDe() {
@@ -269,7 +269,7 @@ public class BarmanIT {
         Boisson boisson = null;
         Barman instance = null;
         Integer expResult = null;
-        Integer result = instance.getQuantiteDe(boisson);
+        Integer result = instance.getQuantiteDeLaBoisson(boisson);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

@@ -73,7 +73,7 @@ public class GererLeStockDuBar implements GererStock {
         return null;
     }
 
-    public void setQuantite(Boisson ceQueJeMets, Integer quantite) throws StockException {
+    public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
         if (quantite.compareTo(0) > -1) {
             if (this.existeDansLeStock(ceQueJeMets)) {
                 BoissonEtQuantite temp = this.getBoissonEtQuantite(ceQueJeMets);
@@ -91,7 +91,7 @@ public class GererLeStockDuBar implements GererStock {
         }
     }
 
-    public Integer getQuantiteDe(Boisson boisson) {
+    public Integer getQuantiteDeLaBoisson(Boisson boisson) {
         if (existeDansLeStock(boisson)) {
             BoissonEtQuantite temp = getBoissonEtQuantite(boisson);
             return temp.getQuantite();

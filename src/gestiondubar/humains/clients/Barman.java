@@ -12,6 +12,7 @@ import gestiondubar.decore.bars.Stock;
 import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.humains.clients.exceptions.BarmanException;
 import gestiondubar.humains.clients.interfaces.GererStock;
 import gestiondubar.humains.clients.interfaces.Servir;
 import gestiondubar.humains.clients.interfaces.encapsulations.GererLeStockDuBar;
@@ -21,21 +22,24 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
  * <strong>Le barman a obligatoirement une patronne sinon il est chomeur (peut
  * etre lui-même)</strong>.
  * <br> Il implément l'interface Servir et GererStock (voir See Also)
- *@see Servir
- *@see GererStock
- *@see gestiondubar.humains.clients.AbstractClient
- *@see Barman#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) donnerLaMonnaieAuxResponsables
- *@see Barman#estPresentDansLeStock(gestiondubar.decore.Boisson) estPresentDansLeStock
- *@see Barman#existeDansLeStock(gestiondubar.decore.Boisson) existeDansLeStock
+ *
+ * @see Servir
+ * @see GererStock
+ * @see gestiondubar.humains.clients.AbstractClient
+ * @see Barman#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain)
+ * donnerLaMonnaieAuxResponsables
+ * @see Barman#estPresentDansLeStock(gestiondubar.decore.Boisson)
+ * estPresentDansLeStock
+ * @see Barman#existeDansLeStock(gestiondubar.decore.Boisson) existeDansLeStock
  * @see #getBoissonEtQuantite(gestiondubar.decore.Boisson) getBoissonEtQuantite
  * @see #getCaisseDuBar() getCaisseDuBar
  * @see #getMonnaieDuBar() getMonnaieDuBar
  * @see #getPatronne() getPatronne
- * @see #getQuantiteDe(gestiondubar.decore.Boisson) getQuantiteDe
+ * @see #getQuantiteDeLaBoisson(gestiondubar.decore.Boisson)getQuantiteDeLaBoisson
  * @see #setCaisseDuBar(gestiondubar.decore.Caisse) setCaisseDuBar
  * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar
  * @see #setPatronne(gestiondubar.humains.clients.Patronne) setPatronne
- * @see #setQuantite(gestiondubar.decore.Boisson, java.lang.Integer) setQuantite
+ * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer)setQuantiteDeLaBoisson
  * @author ISEN
  */
 public class Barman extends AbstractClient implements Servir, GererStock {
@@ -46,6 +50,12 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     private Servir servirDesClients = new ServirClient();
     private GererStock gererLeStockDuBar;
 
+    /**
+     *
+     * @param prenom
+     * @param patronne
+     * @throws AbstractClientException
+     */
     public Barman(String prenom, Patronne patronne) throws AbstractClientException {
         super(prenom);
         this.patronne = patronne;
@@ -54,20 +64,49 @@ public class Barman extends AbstractClient implements Servir, GererStock {
         gererLeStockDuBar = new GererLeStockDuBar(this, stock);
     }
 
+    /**
+     * Retourn la référance de la patronne.
+     *
+     * @see Barman
+     * @return
+     */
     public Patronne getPatronne() {
         return patronne;
     }
 
+    /**
+     * Retourn la référence de l'instance de la caisse
+     *
+     * @return
+     */
     public Caisse getCaisseDuBar() {
         return caisseDuBar;
     }
 
-    public void setPatronne(Patronne patronne) {
-        this.patronne = patronne;
+    /**
+     * Permet de modifier la référence de ma patronne
+     *
+     * @param patronne
+     */
+    public void setPatronne(Patronne patronne) throws BarmanException {
+        if (patronne instanceof Patronne) {
+            this.patronne = patronne;
+        } else {
+            throw new BarmanException("La patronne ne peut pas Set to null");
+        }
     }
 
-    public void setCaisseDuBar(Caisse caisseDuBar) {
-        this.caisseDuBar = caisseDuBar;
+    /**
+     * Permet de modifier la référence de la Caisse
+     *
+     * @param caisseDuBar
+     */
+    public void setCaisseDuBar(Caisse caisseDuBar) throws BarmanException {
+        if (caisseDuBar instanceof Caisse) {
+            this.caisseDuBar = caisseDuBar;
+        } else {
+            throw new BarmanException("La Caisse ne peut pas Set to null");
+        }
     }
 
     @Override
@@ -76,15 +115,15 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     }
 
     // INTERFACE Servir=========================================================
-
     /**
+     * Voir celle de ServirClient pour descrption
+     *
+     * @return
      * @see
      * gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#getMonnaieDuBar()
      * ServirClient.getMonnaieDuBar
      * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
      * @see Servir
-     *
-     * @param
      */
     @Override
     public Integer getMonnaieDuBar() {
@@ -92,14 +131,14 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     }
 
     /**
+     * Voir celle de ServirClient pour descrption
      *
+     * @param monnaieDubar
      * @see
      * gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#setMonnaieDuBar(java.lang.Integer)
      * ServirClient.setMonnaieDuBar(int)
      * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
      * @see Servir
-     *
-     * @param monnaieDuBar
      */
     @Override
     public void setMonnaieDuBar(Integer monnaieDubar) {
@@ -107,14 +146,13 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     }
 
     /**
-     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient 
-     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) donnerLaMonnaieAuxResponsables
-     * 
-     * 
-     
-     * @see Servir
+     * Voir celle de ServirClient pour descrption.
      *
-     * @param humain 
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
+     * @see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain)
+     * donnerLaMonnaieAuxResponsables
+     * @see Servir
+     * @param humain
      */
     @Override
     public void donnerLaMonnaieAuxResponsables(Humain humain) {
@@ -123,29 +161,68 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     }
     // INTERFACE GererStock=====================================================
 
+    /**
+     * Voir celle de GererLeStockDuBar pour description.
+     * 
+     * @see GererLeStockDuBar#estPresentDansLeStock(gestiondubar.decore.Boisson) GererLeStockDuBar.estPresentDansLeStock
+     * @see GererLeStockDuBar
+     * @param ceQueJeCherche
+     * @return
+     */
     @Override
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche) {
         return this.gererLeStockDuBar.estPresentDansLeStock(ceQueJeCherche);
     }
 
+    /**
+     *  Voir celle de GererLeStockDuBar pour description.
+     * @see GererLeStockDuBar#existeDansLeStock(gestiondubar.decore.Boisson) 
+     * @see GererLeStockDuBar
+     * @param ceQueJeCherche
+     * @return
+     */
     @Override
     public boolean existeDansLeStock(Boisson ceQueJeCherche) {
         return this.gererLeStockDuBar.existeDansLeStock(ceQueJeCherche);
     }
 
+    /**
+     *  Voir celle de GererLeStockDuBar pour description.
+     * @see GererLeStockDuBar#getQuantiteDeLaBoisson(gestiondubar.decore.Boisson) 
+     * @see GererLeStockDuBar
+     * @param ceQueJeCherche
+     * @return
+     */
     @Override
     public BoissonEtQuantite getBoissonEtQuantite(Boisson ceQueJeCherche) {
         return this.gererLeStockDuBar.getBoissonEtQuantite(ceQueJeCherche);
     }
 
+    /**
+     * Voir celle de GererLeStockDuBar pour description.
+     * 
+     * @see GererLeStockDuBar#setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer) 
+     * @see GererLeStockDuBar
+     * @param ceQueJeMets
+     * @param quantite
+     * @throws StockException
+     */
     @Override
-    public void setQuantite(Boisson ceQueJeMets, Integer quantite) throws StockException {
-        this.gererLeStockDuBar.setQuantite(ceQueJeMets, quantite);
+    public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
+        this.gererLeStockDuBar.setQuantiteDeLaBoisson(ceQueJeMets, quantite);
     }
 
+    /**
+     *  Voir celle de GererLeStockDuBar pour description.
+     * 
+     * @see GererLeStockDuBar#getQuantiteDeLaBoisson(gestiondubar.decore.Boisson) 
+     * @see GererLeStockDuBar
+     * @param boisson
+     * @return
+     */
     @Override
-    public Integer getQuantiteDe(Boisson boisson) {
-        return this.gererLeStockDuBar.getQuantiteDe(boisson);
+    public Integer getQuantiteDeLaBoisson(Boisson boisson) {
+        return this.gererLeStockDuBar.getQuantiteDeLaBoisson(boisson);
     }
 
 }
