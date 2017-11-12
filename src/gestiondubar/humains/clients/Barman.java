@@ -25,21 +25,21 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
  *
  * @see Servir
  * @see GererStock
- * @see gestiondubar.humains.clients.AbstractClient
+ * @see gestiondubar.humains.clients.AbstractClient 
  * @see Barman#donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain)
- * donnerLaMonnaieAuxResponsables
+ * <br> donnerLaMonnaieAuxResponsables
  * @see Barman#estPresentDansLeStock(gestiondubar.decore.Boisson)
  * estPresentDansLeStock
  * @see Barman#existeDansLeStock(gestiondubar.decore.Boisson) existeDansLeStock
- * @see #getBoissonEtQuantite(gestiondubar.decore.Boisson) getBoissonEtQuantite
+ * @see #getBoissonEtQuantite(gestiondubar.decore.Boisson) <br>GETTER :getBoissonEtQuantite
  * @see #getCaisseDuBar() getCaisseDuBar
  * @see #getMonnaieDuBar() getMonnaieDuBar
  * @see #getPatronne() getPatronne
- * @see #getQuantiteDeLaBoisson(gestiondubar.decore.Boisson)getQuantiteDeLaBoisson
- * @see #setCaisseDuBar(gestiondubar.decore.Caisse) setCaisseDuBar
+ * @see #getQuantiteDeLaBoisson(gestiondubar.decore.Boisson) getQuantiteDeLaBoisson
+ * @see #setCaisseDuBar(gestiondubar.decore.Caisse) <br>SETTER: setCaisseDuBar
  * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar
  * @see #setPatronne(gestiondubar.humains.clients.Patronne) setPatronne
- * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer)setQuantiteDeLaBoisson
+ * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer) setQuantiteDeLaBoisson
  * @author ISEN
  */
 public class Barman extends AbstractClient implements Servir, GererStock {

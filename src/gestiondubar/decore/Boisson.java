@@ -54,6 +54,10 @@ public enum Boisson {
         this.prix = prix;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     /**
      * renvoie le prix de la boisson 
      * @return
@@ -94,5 +98,10 @@ public enum Boisson {
      */
     public boolean isAvecAlcool() {
         return this.pointsAlcool > 0;
+    }
+
+    
+    public boolean equals(Boisson boisson){
+        return this.getNom().equals(boisson.getNom());
     }
 }

@@ -10,7 +10,7 @@ import gestiondubar.decore.bars.BoissonEtQuantite;
 import gestiondubar.decore.bars.exceptions.StockException;
 
 /**
- *
+ * @see gestiondubar.humains.clients.interfaces.encapsulations.GererLeStockDuBar
  * @author ISEN
  */
 public interface GererStock {
