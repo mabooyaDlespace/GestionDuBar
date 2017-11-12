@@ -39,7 +39,7 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
  * @see #setCaisseDuBar(gestiondubar.decore.Caisse) setCaisseDuBar
  * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar
  * @see #setPatronne(gestiondubar.humains.clients.Patronne) setPatronne
- * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer)setQuantiteDeLaBoisson
+ * @see #setQuantite(gestiondubar.decore.Boisson, java.lang.Integer) setQuantite
  * @author ISEN
  */
 public class Barman extends AbstractClient implements Servir, GererStock {
@@ -201,15 +201,15 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     /**
      * Voir celle de GererLeStockDuBar pour description.
      * 
-     * @see GererLeStockDuBar#setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer) 
+     * @see GererLeStockDuBar#setQuantite(gestiondubar.decore.Boisson, java.lang.Integer) 
      * @see GererLeStockDuBar
      * @param ceQueJeMets
      * @param quantite
      * @throws StockException
      */
     @Override
-    public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
-        this.gererLeStockDuBar.setQuantiteDeLaBoisson(ceQueJeMets, quantite);
+    public void setQuantite(Boisson ceQueJeMets, Integer quantite) throws StockException {
+        this.gererLeStockDuBar.setQuantite(ceQueJeMets, quantite);
     }
 
     /**

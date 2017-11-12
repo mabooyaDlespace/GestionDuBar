@@ -14,6 +14,11 @@
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/Humain.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/Servir.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/interfaceutilisateurs/InterfaceUtilisateur.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/BarmanException.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/AbstractClientException.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/GererStock.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/encapsulations/GererLeStockDuBar.java</file>
         </group>
     </open-files>
 </project-private>
