@@ -24,32 +24,32 @@ public class GestionDuBar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //InterfaceUtilisateur.monTest1();
+        InterfaceUtilisateur.monTest1();
         
-        try {
-            // TODO code application logic here
-            AbstractClient luc = new Client("Luc");
-            Patronne patronne = new Patronne(InterfaceUtilisateur.monTest1());
-            Serveur serv = new Serveur("serv", patronne);
-            patronne.setBarman(new Barman("Babar", patronne));
-            Barman babar = patronne.getBarman();
-            
-            Boisson b = luc.commanderBoisson(Boisson.SHOOTER, serv);
-            try {
-                luc.boire(b);
-            } catch (AbstractClientException ex) {
-                Logger.getLogger(GestionDuBar.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println(luc.toString());
-            
-            System.out.println(serv.toString());
-            
-            serv.donnerLaMonnaieAuxResponsables(babar);
-            System.out.println(patronne.getBar().toString());
-            System.out.println(babar.toString());
-        } catch (AbstractClientException ex) {
-            Logger.getLogger(GestionDuBar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//        try {
+//            // TODO code application logic here
+//            AbstractClient luc = new Client("Luc");
+//            Patronne patronne = new Patronne(InterfaceUtilisateur.monTest1());
+//            Serveur serv = new Serveur("serv", patronne);
+//            patronne.setBarman(new Barman("Babar", patronne));
+//            Barman babar = patronne.getBarman();
+//            
+//            Boisson b = luc.commanderBoisson(Boisson.SHOOTER, serv);
+//            try {
+//                luc.boire(b);
+//            } catch (AbstractClientException ex) {
+//                Logger.getLogger(GestionDuBar.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            System.out.println(luc.toString());
+//            
+//            System.out.println(serv.toString());
+//            
+//            serv.donnerLaMonnaieAuxResponsables(babar);
+//            System.out.println(patronne.getBar().toString());
+//            System.out.println(babar.toString());
+//        } catch (AbstractClientException ex) {
+//            Logger.getLogger(GestionDuBar.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+  }
 
 }

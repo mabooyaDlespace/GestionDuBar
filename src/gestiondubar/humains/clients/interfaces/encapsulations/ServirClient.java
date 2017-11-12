@@ -34,7 +34,7 @@ public class ServirClient implements Servir {
 
     /**
      * Permet de modifier la monnaie du bar que le personnel à sur lui
-     * @param monnaieDuBar montant qu'on veut attribuer
+     * @param monnaieDuBar montant qu'on veut attribuer : peut être négatif
      */
     @Override
     public void setMonnaieDuBar(Integer monnaieDuBar) {
