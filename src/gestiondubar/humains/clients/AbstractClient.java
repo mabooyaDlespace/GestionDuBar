@@ -11,7 +11,24 @@ import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.Servir;
 
 /**
+ * Classe dont herite Barman, Client , Patronne ,Serveur et qui possèdes les
+ * fonction suivantes.
  *
+ * @see AbstractClient#boire(gestiondubar.decore.Boisson) boire
+ * @see AbstractClient#commanderBoisson(gestiondubar.decore.Boisson,
+ * gestiondubar.humains.Humain) commander
+ * @see AbstractClient#offrirUnVerre(gestiondubar.humains.Humain,
+ * gestiondubar.humains.Humain) offrirUnVerre
+ * @see AbstractClient#getDegreAlccolemie() getDegreAlccolemie
+ * @see AbstractClient#payer(gestiondubar.humains.Humain, java.lang.Integer)
+ * payer
+ * @see AbstractClient#sePresenterA(gestiondubar.humains.Humain) sePresenterA
+ * @see AbstractClient#setDegreAlccolemie(java.lang.Integer) setDegreAlccolemie
+ * @see AbstractClient#toString() toString
+ * @see Barman <br>Classe-Barman
+ * @see Client Classe-Client
+ * @see Patronne Classe-Patronne
+ * @see Serveur Classe-Serveur
  * @author ISEN
  */
 public abstract class AbstractClient extends Humain {
@@ -20,14 +37,33 @@ public abstract class AbstractClient extends Humain {
 
     Integer degreAlccolemie = 0;
 
+    /**
+     * Ce constructeur est commun à toutes les classes clients
+     *
+     * @param prenom
+     * @throws AbstractClientException
+     */
     public AbstractClient(String prenom) throws AbstractClientException {
         super(prenom);
     }
 
+    /**
+     * Renvoit le degre d'alcolemie en Integer
+     *
+     * @see AbstractClient
+     * @return
+     */
     public Integer getDegreAlccolemie() {
         return degreAlccolemie;
     }
 
+    /**
+     * Permet de modifier le degré d'alcolemie
+     *
+     * @see AbstractClient
+     * @param degreAlccolemie
+     * @throws AbstractClientException
+     */
     public void setDegreAlccolemie(Integer degreAlccolemie) throws AbstractClientException {
         if (degreAlccolemie instanceof Integer && degreAlccolemie.compareTo(0) > -1) {
             this.degreAlccolemie = degreAlccolemie;
@@ -36,6 +72,17 @@ public abstract class AbstractClient extends Humain {
         }
     }
 
+    /**
+     * <b>Modifie le degre d'alcool en fonction de la boisson.
+     * </b> <br> Génnère une exception si boisson n'est pas une instance.
+     *
+     * @see Boisson
+     * @see AbstractClient#getDegreAlccolemie() getDegreAlccolemie
+     * @see AbstractClient#setDegreAlccolemie(java.lang.Integer)
+     * setDegreAlccolemie
+     * @param boisson
+     * @throws AbstractClientException
+     */
     @Override
     public void boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
@@ -44,7 +91,17 @@ public abstract class AbstractClient extends Humain {
             throw new AbstractClientException("Le parametre boisson doit être une instance de Boisson");
         }
     }
-    
+
+    /**
+     * Retire le montant du prix , du portemonnaie l'instance et le place dans
+     * "monnaieDuBar" du personnel.
+     *
+     * @param humain le personel qu'on va payer (serveur barman)
+     * @param prix le montant que l'on va donner
+     * @throws AbstractClientException
+     * @see Barman
+     * @see Serveur
+     */
     @Override
     public void payer(Humain humain, Integer prix) throws AbstractClientException {
 
@@ -77,36 +134,132 @@ public abstract class AbstractClient extends Humain {
     }
 
     /**
-     * L'instance commande une boisson à un membre du personnel et la paye avec
-     * son argent.
+     * <b> L'instance commande une boisson à un membre du personnel et la paye
+     * avec son argent.
+     * </b> <br> génère une exception si humain n'est pas une instance
      *
-     * @param boisson
-     * @param humain
-     * @return
+     * @param boisson ce quon veut commander
+     * @param humain le personnel à qui on le commande
+     * @return null sil n'y en a plus dans le stock
      */
-    public Boisson commanderBoisson(Boisson boisson, Humain humain) {
+    public Boisson commanderBoisson(Boisson boisson, Humain humain) throws AbstractClientException {
+
         if ((humain instanceof Servir
-                || humain instanceof Servir) && boisson instanceof Boisson) {
+                || humain instanceof Servir)
+                && boisson instanceof Boisson
+                && this.demanderSiPresentDansLesStocks(humain, boisson, 1)) {
 
             Integer prix = boisson.getPrix();
-            try {
-                this.payer(humain, prix);
-            } catch (AbstractClientException ex) {
-                //  Logger.getLogger(AbstractClient.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
-            }
+            this.payer(humain, prix);//source exception
             //this.boire(boisson);
             return boisson;
+        } else {
+            if (boisson instanceof Boisson) {
+                throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
+            } else {
+                throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
+            }
         }
 
-        return null;
     }
 
+    /**
+     * On regarde s'il yen a au moins une On regarde sil y en a suffisament pour
+     * le client
+     *
+     * @overload
+     * @param humain
+     * @param serveur Doit être une instance
+     * @param boisson Doit etre une instance
+     * @param quantite >=1
+     * @return
+     * @throws gestiondubar.humains.clients.exceptions.AbstractClientException
+     */
+    public boolean demanderSiPresentDansLesStocks(Humain humain, Boisson boisson, Integer quantite) throws AbstractClientException {
+        if (humain instanceof Serveur) {
+            Serveur serveur = (Serveur) humain;
+            return this.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+        } else if ((humain instanceof Barman)) {
+            Barman barman = (Barman) humain;
+            return this.demanderSiPresentDansLesStocks(barman, boisson, quantite);
+        } else {
+            throw new AbstractClientException(" n'est pas un membre du personnel ");
+        }
+
+    }
+
+    /**
+     * On regarde s'il yen a au moins une On regarde sil y en a suffisament pour
+     * le client
+     *
+     * @param serveur Doit être une instance
+     * @param boisson Doit etre une instance
+     * @param quantite >=1
+     * @return
+     */
+    public boolean demanderSiPresentDansLesStocks(Serveur serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
+        if (serveur instanceof Serveur
+                && boisson instanceof Boisson
+                && quantite.compareTo(0) > 0 // si supérieur à zero
+                && serveur.patronne.getBarman().estPresentDansLeStock(boisson) // on regarde s'il yen a au moins une
+                && serveur.patronne.getBarman().getQuantiteDeLaBoisson(boisson).compareTo(quantite) > -1) // on regarde sil y en a suffisament pour le client
+        {
+            return true;
+        } else {
+            if (!(serveur instanceof Serveur)) {
+                throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
+            } else if (!(boisson instanceof Boisson)) {
+                throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
+            } else {
+                throw new AbstractClientException("N'est pas une instance de boisson ou quant inf à 1");
+            }
+
+        }
+    }
+
+    /**
+     * On regarde s'il yen a au moins une On regarde sil y en a suffisament pour
+     * le client
+     *
+     * @param serveur Doit être une instance
+     * @param boisson Doit etre une instance
+     * @param quantite >=1
+     * @return
+     */
+    public boolean demanderSiPresentDansLesStocks(Barman serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
+        if (serveur instanceof Barman
+                && boisson instanceof Boisson
+                && quantite.compareTo(0) > 0 // si supérieur à zero
+                && serveur.estPresentDansLeStock(boisson) // on regarde s'il yen a au moins une
+                && serveur.getQuantiteDeLaBoisson(boisson).compareTo(quantite) > -1) // on regarde sil y en a suffisament pour le client
+        {
+            return true;
+        } else {
+           if (!(serveur instanceof Barman)) {
+                throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
+            } else if (!(boisson instanceof Boisson)) {
+                throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
+            } else {
+                throw new AbstractClientException("N'est pas une instance de boisson ou quant inf à 1");
+            }
+        }
+    }
+
+    /**
+     *
+     * @return une description du client
+     */
     @Override
     public String toString() {
         return super.toString() + " BOI" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     *
+     * @param humain la personne à qui on vut se présenter
+     * @param
+     * @return
+     */
     @Override
     public String sePresenterA(Humain humain) {
 
@@ -121,6 +274,15 @@ public abstract class AbstractClient extends Humain {
         }
     }
 
+    /**
+     *
+     * <b> Permet d'offire un verre à un a un chanceu </>. Génère une exception
+     * si n'est pas une instance.
+     *
+     * @param humainChanceux instance issue d'abstractclient
+     * @param personnelServant Une instane barman serveur
+     * @throws AbstractClientException
+     */
     @Override
     public void offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
         AbstractClient chanceux = (AbstractClient) humainChanceux;

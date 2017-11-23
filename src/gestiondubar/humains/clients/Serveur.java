@@ -15,7 +15,7 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
  * @author ISEN
  */
 public class Serveur extends AbstractClient implements Servir{
-    Patronne patronne=null;
+    Patronne patronne;
     private Servir servirDesClients= new ServirClient();
 
   

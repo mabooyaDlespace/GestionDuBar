@@ -8,7 +8,7 @@ package gestiondubar.humains.clients.interfaces;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.*;
 /**
- *@see Barman
+ *@see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
  * @author ISEN
  */
 public interface Servir {

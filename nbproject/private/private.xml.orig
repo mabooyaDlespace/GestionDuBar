@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/test/gestiondubar/humains/clients/AbstractClientIT.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/test/gestiondubar/humains/clients/BarmanIT.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/decore/Boisson.java</file>
@@ -14,12 +15,14 @@
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/Humain.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/Servir.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/interfaceutilisateurs/InterfaceUtilisateur.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/BarmanException.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/AbstractClientException.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/GererStock.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/encapsulations/GererLeStockDuBar.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/GestionDuBar.java</file>
+=======
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/interfaceutilisateurs/InterfaceUtilisateur.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/humains/clients/Patronne.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/decore/bars/exceptions/StockException.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/src/gestiondubar/GestionDuBar.java</file>
+            <file>file:/D:/Documents/NetBeansProjects/GestionDuBar/test/gestiondubar/humains/clients/AbstractClientIT.java</file>
+>>>>>>> 6e16571d130588722252c5073d5116da5a55c4f6
         </group>
     </open-files>
 </project-private>

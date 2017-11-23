@@ -10,6 +10,7 @@ import gestiondubar.decore.Caisse;
 import gestiondubar.decore.bars.BoissonEtQuantite;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.humains.clients.exceptions.BarmanException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.After;
@@ -105,12 +106,16 @@ public class BarmanIT {
      */
     @Test
     public void testSetPatronne() {
-        System.out.println("setPatronne");
-        Patronne patronne = null;
-        Barman instance = null;
-        instance.setPatronne(patronne);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            System.out.println("setPatronne");
+            Patronne patronne = null;
+            Barman instance = null;
+            instance.setPatronne(patronne);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (BarmanException ex) {
+            Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,12 +123,16 @@ public class BarmanIT {
      */
     @Test
     public void testSetCaisseDuBar() {
-        System.out.println("setCaisseDuBar");
-        Caisse caisseDuBar = null;
-        Barman instance = null;
-        instance.setCaisseDuBar(caisseDuBar);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            System.out.println("setCaisseDuBar");
+            Caisse caisseDuBar = null;
+            Barman instance = null;
+            instance.setCaisseDuBar(caisseDuBar);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (BarmanException ex) {
+            Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -162,8 +171,8 @@ public class BarmanIT {
             serv.donnerLaMonnaieAuxResponsables(babar);// ils donnes la monnaie
             babar.donnerLaMonnaieAuxResponsables(babar);
             assertTrue(patronne.getBarman().getCaisseDuBar().getArgentDuBar().toString(),patronne.getBarman().getCaisseDuBar().getArgentDuBar().equals(4));
-            assertTrue( serv.getMonnaieDuBar().equals(2));// ils ont chacun 0 euros
-            assertTrue( babar.getMonnaieDuBar().equals(2));
+            assertTrue( serv.getMonnaieDuBar().equals(0));// ils ont chacun 0 euros
+            assertTrue( babar.getMonnaieDuBar().equals(0));
 
         } catch (AbstractClientException ex) {
             fail();
@@ -255,13 +264,13 @@ public class BarmanIT {
         Boisson ceQueJeMets = null;
         Integer quantite = null;
         Barman instance = null;
-        instance.setQuantite(ceQueJeMets, quantite);
+        instance.setQuantiteDeLaBoisson(ceQueJeMets, quantite);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getQuantiteDe method, of class Barman.
+     * Test of getQuantiteDeLaBoisson method, of class Barman.
      */
     @Test
     public void testGetQuantiteDe() {
@@ -269,7 +278,7 @@ public class BarmanIT {
         Boisson boisson = null;
         Barman instance = null;
         Integer expResult = null;
-        Integer result = instance.getQuantiteDe(boisson);
+        Integer result = instance.getQuantiteDeLaBoisson(boisson);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

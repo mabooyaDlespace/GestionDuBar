@@ -15,8 +15,8 @@ import gestiondubar.humains.clients.interfaces.Servir;
 /**
  * Est une classe qui permet de gere la monnaie du bar que les individus possèdent
  * @see #getMonnaieDuBar() getMonnaieDuBar() 
- * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar(Integer)
- * @see #donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) donnerLaMonnaieAuxResponsables(Humain)
+ * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar()
+ * @see #donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) donnerLaMonnaieAuxResponsables()
  * @author ISEN
  */
 public class ServirClient implements Servir {
@@ -34,7 +34,7 @@ public class ServirClient implements Servir {
 
     /**
      * Permet de modifier la monnaie du bar que le personnel à sur lui
-     * @param monnaieDuBar 
+     * @param monnaieDuBar montant qu'on veut attribuer : peut être négatif
      */
     @Override
     public void setMonnaieDuBar(Integer monnaieDuBar) {
@@ -42,7 +42,8 @@ public class ServirClient implements Servir {
     }
     /**
      * Permet de donner la monnaie du bar à un responsable qui l'ajoute à la casse du bar
-     * @param humain 
+     * et met la monnaie du bar des instance à zéro.
+     * @param humain est un responsable
      * 
      * 
      */
@@ -51,6 +52,7 @@ public class ServirClient implements Servir {
         if (humain instanceof Barman) {
             Barman barman = (Barman) humain;
             barman.getCaisseDuBar().setArgentDuBar(barman.getCaisseDuBar().getArgentDuBar() + this.monnaieDuBar);
+            this.setMonnaieDuBar(0);
         }
     }
 
