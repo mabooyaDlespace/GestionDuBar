@@ -22,6 +22,7 @@ public class Bar {
     private  Caisse caisseDuBar;
     private Stock stock ;
     
+    
     /**
      * Initie la Caisse à Zéro
      * @param nomDeLaPatronne 
