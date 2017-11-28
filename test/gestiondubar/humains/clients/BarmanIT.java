@@ -291,7 +291,7 @@ public class BarmanIT {
      * Test of existeDansLeStock method, of class Barman.
      */
     @Test
-    public void testExisteDansLeStock() {
+    public void testExisteDansLeStock_00() {
         System.out.println("existeDansLeStock");
         Boisson ceQueJeCherche = null;
         Barman instance = babar;
