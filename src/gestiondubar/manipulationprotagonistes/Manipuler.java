@@ -24,14 +24,17 @@ private
     creerlisteDesProtagonistes /maj
     trouverUnProtagoniste
     afficherLesPortagoniste
-    changerPatronne
-    changerBarman
+    changerPatronne  faiblesse sur les attributs propres
+    changerBarman    faiblesse sur les attributs propres
     ajouterUnServeur /maj 
     retirerUnServeur /maj 
     ajouterunClient /maj
     retierUnclient  /maj 
     faireUnHumainparler
     faireUnHumainJouer
+    
+    
+    
     
     */
 }
