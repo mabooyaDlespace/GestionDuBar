@@ -248,21 +248,45 @@ public class BarmanIT {
     }
 
 //INTERFACE GERERSTOCK=====================================================================
+//INTERFACE GERERSTOCK=====================================================================
+//INTERFACE GERERSTOCK=====================================================================
     /**
      * Test of estPresentDansLeStock method, of class Barman.
      */
     @Test
-    public void testEstPresentDansLeStock() {
+    public void testEstPresentDansLeStock_00() {
         System.out.println("estPresentDansLeStock");
         Boisson ceQueJeCherche = null;
-        Barman instance = null;
+        Barman instance = babar;
         boolean expResult = false;
         boolean result = instance.estPresentDansLeStock(ceQueJeCherche);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    }
+    /**
+     * Test of estPresentDansLeStock method, of class Barman.
+     */
+    @Test
+    public void testEstPresentDansLeStock_01() {
+        System.out.println("estPresentDansLeStock");
+        Boisson ceQueJeCherche = null;//Boisson.EAU;
+        Barman instance = babar;
+        boolean expResult = false;
+        boolean result = instance.estPresentDansLeStock(ceQueJeCherche);
+        assertEquals(expResult, result);
+
+        ceQueJeCherche=Boisson.RICARD;
+        expResult=true;
+        result = instance.estPresentDansLeStock(ceQueJeCherche);
+
+        ceQueJeCherche=Boisson.SHOOTER;
+        expResult=true;
+        result = instance.estPresentDansLeStock(ceQueJeCherche);
+        
     }
 
+    
+    
     /**
      * Test of existeDansLeStock method, of class Barman.
      */
@@ -270,12 +294,11 @@ public class BarmanIT {
     public void testExisteDansLeStock() {
         System.out.println("existeDansLeStock");
         Boisson ceQueJeCherche = null;
-        Barman instance = null;
+        Barman instance = babar;
         boolean expResult = false;
         boolean result = instance.existeDansLeStock(ceQueJeCherche);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -285,13 +308,13 @@ public class BarmanIT {
     public void testGetBoissonEtQuantite() {
         System.out.println("getBoissonEtQuantite");
         Boisson ceQueJeCherche = null;
-        Barman instance = null;
+        Barman instance = babar;
         BoissonEtQuantite expResult = null;
         BoissonEtQuantite result = instance.getBoissonEtQuantite(ceQueJeCherche);
         
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("USELESS pour le moment");
     }
 
     /**

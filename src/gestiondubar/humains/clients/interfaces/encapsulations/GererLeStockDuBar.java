@@ -56,7 +56,7 @@ public class GererLeStockDuBar implements GererStock {
      */
     @Override
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche) {
-        if (getStock().isEmpty()) {
+        if (getStock().isEmpty() || !(ceQueJeCherche instanceof Boisson) ){
 
             return false;
         }
