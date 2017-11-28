@@ -31,7 +31,7 @@ import java.util.LinkedList;
  * @author ISEN
  */
 public class GererLeStockDuBar implements GererStock {
-        private Stock stockDuBar;
+       
         private LinkedList<BoissonEtQuantite> stock;
         private String nomAdministrateur;
 
@@ -44,9 +44,7 @@ public class GererLeStockDuBar implements GererStock {
      * @param stock
      */
     public GererLeStockDuBar( Barman barman,Stock stock ) {
-        
-        this.stockDuBar=stock;
-        this.stock=this.stockDuBar.getStockDeBoissonEtQuantite(barman);
+        this.stock=stock.getStockDeBoissonEtQuantite(barman);
     }
 
     /**

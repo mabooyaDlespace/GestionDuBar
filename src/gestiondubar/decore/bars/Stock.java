@@ -23,7 +23,10 @@ public class Stock {
          this.nomAdministrateur=nomAdministrateur;
     }
      
-
+    public LinkedList<BoissonEtQuantite> getStockDeBoissonEtQuantite() {
+     return stockDeBoissonEtQuantite;
+     
+    }
     public LinkedList<BoissonEtQuantite> getStockDeBoissonEtQuantite(Barman barman) {
         if (barman instanceof Barman )return stockDeBoissonEtQuantite;
         return null;
