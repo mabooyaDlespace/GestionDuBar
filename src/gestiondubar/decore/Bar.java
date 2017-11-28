@@ -8,6 +8,8 @@ package gestiondubar.decore;
 import gestiondubar.decore.bars.Stock;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.Barman;
+import gestiondubar.humains.clients.Serveur;
+import java.util.ArrayList;
 // Jean-charles est un peu homo git
 /**
  *
@@ -21,6 +23,8 @@ public class Bar {
     private String nomDuBar;
     private  Caisse caisseDuBar;
     private Stock stock ;
+    public ArrayList<Serveur> serveurs;
+    public ArrayList<Humain> clients; 
     
     /**
      * Initie la Caisse à Zéro
@@ -30,6 +34,8 @@ public class Bar {
         nomDuBar="Chez-"+nomDeLaPatronne;
         caisseDuBar = new Caisse();
         stock=new Stock(nomDeLaPatronne);
+        serveurs=new ArrayList<>();
+        clients=new ArrayList<>();
         
     }
 /**

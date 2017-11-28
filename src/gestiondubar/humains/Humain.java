@@ -141,6 +141,6 @@ public abstract class Humain {
     }
     public abstract void boire(Boisson boisson)throws AbstractClientException ;
     public abstract void payer(Humain humain, Integer prix) throws AbstractClientException;
-    public abstract String sePresenterA(Humain humain);
+    public abstract String sePresenterA(Humain humain)throws AbstractClientException;
     public abstract void offrirUnVerre(Humain humain, Humain serv)throws AbstractClientException ;
 }

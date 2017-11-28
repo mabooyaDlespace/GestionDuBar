@@ -118,7 +118,7 @@ public class GererLeStockDuBar implements GererStock {
      * @throws StockException
      */
     public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
-        if (quantite.compareTo(0) > -1) {
+        if (quantite instanceof Integer && quantite.compareTo(0) > -1) {
             if (this.existeDansLeStock(ceQueJeMets)) {
                 BoissonEtQuantite temp = this.getBoissonEtQuantite(ceQueJeMets);
                 temp.setQuantite(quantite);

@@ -17,6 +17,7 @@ import gestiondubar.humains.clients.interfaces.GererStock;
 import gestiondubar.humains.clients.interfaces.Servir;
 import gestiondubar.humains.clients.interfaces.encapsulations.GererLeStockDuBar;
 import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 
 /**
  * <strong>Le barman a obligatoirement une patronne sinon il est chomeur (peut
@@ -95,6 +96,7 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     public void setPatronne(Patronne patronne) throws BarmanException {
         if (patronne instanceof Patronne) {
             this.patronne = patronne;
+            
         } else {
             throw new BarmanException("La patronne ne peut pas Set to null");
         }
@@ -159,7 +161,7 @@ public class Barman extends AbstractClient implements Servir, GererStock {
      * @param humain
      */
     @Override
-    public void donnerLaMonnaieAuxResponsables(Humain humain) {
+    public void donnerLaMonnaieAuxResponsables(Humain humain) throws  ServirException{
         this.servirDesClients.donnerLaMonnaieAuxResponsables(humain);
 
     }

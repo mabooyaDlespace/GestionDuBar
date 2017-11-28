@@ -154,7 +154,7 @@ public abstract class AbstractClient extends Humain {
             //this.boire(boisson);
             return boisson;
         } else {
-            if (boisson instanceof Boisson) {
+            if (!(boisson instanceof Boisson)) {
                 throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
             } else {
                 throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
@@ -235,7 +235,7 @@ public abstract class AbstractClient extends Humain {
         {
             return true;
         } else {
-           if (!(serveur instanceof Barman)) {
+            if (!(serveur instanceof Barman)) {
                 throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
             } else if (!(boisson instanceof Boisson)) {
                 throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
@@ -255,29 +255,35 @@ public abstract class AbstractClient extends Humain {
     }
 
     /**
+     * Dépend du degré d'alcolémie Renvoie prenom + phrase
      *
-     * @param humain la personne à qui on vut se présenter
+     * @param humain la personne à qui on veut se présenter
+     *
      * @param
      * @return
      */
     @Override
-    public String sePresenterA(Humain humain) {
-
-        String str = this.getPrenom() + " dit ";
-        Integer DEG = this.degreAlccolemie;
-        if (DEG.equals(0)) {
-            return str + "salut";
-        } else if (DEG > 1 && DEG < 9) {
-            return str + "salut c'est cool";
+    public String sePresenterA(Humain humain) throws AbstractClientException {
+        if (humain instanceof Humain) {
+            String str = this.getPrenom() + " dit ";
+            Integer DEG = this.degreAlccolemie;
+            if (DEG.equals(0)) {
+                return str + "salut";
+            } else if (DEG > 1 && DEG < 9) {
+                return str + "salut c'est cool";
+            } else {
+                return str + "ch'suis pas bourré dabord";
+            }
         } else {
-            return str + "ch'suis pas bourré dabord";
+            throw new AbstractClientException("humain est d'intance null ou pas humain");
         }
     }
 
     /**
      *
      * <b> Permet d'offire un verre à un a un chanceu </>. Génère une exception
-     * si n'est pas une instance.
+     * si n'est pas une instance. instance commande la boisson favorite de du
+     * chanceu et le chancieux la boit si possible
      *
      * @param humainChanceux instance issue d'abstractclient
      * @param personnelServant Une instane barman serveur
@@ -285,11 +291,25 @@ public abstract class AbstractClient extends Humain {
      */
     @Override
     public void offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
-        AbstractClient chanceux = (AbstractClient) humainChanceux;
-        Boisson b = this.commanderBoisson(chanceux.boissonFavorite, personnelServant);
-        if (b != null) {
-            chanceux.boire(b);
-        }
-    }
 
+        if (humainChanceux instanceof Humain) {
+            if (personnelServant instanceof Humain) {
+                AbstractClient chanceux = (AbstractClient) humainChanceux;
+                Boisson b = this.commanderBoisson(chanceux.boissonFavorite, personnelServant);
+                if (b != null) {
+                    chanceux.boire(b);
+
+                } else {
+                    throw new AbstractClientException("la boisson n'existe pas");
+                }
+
+            } else {
+                throw new AbstractClientException("personnel n'est pas une instance");
+            }
+
+        } else {
+            throw new AbstractClientException("humainChanceux n'est pas une instance");
+        }
+
+    }
 }
