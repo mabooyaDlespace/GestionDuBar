@@ -6,7 +6,7 @@
 package gestiondubar.humains.clients.interfaces;
 
 import gestiondubar.humains.Humain;
-import gestiondubar.humains.clients.*;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 /**
  *@see gestiondubar.humains.clients.interfaces.encapsulations.ServirClient
  * @author ISEN
@@ -15,5 +15,5 @@ public interface Servir {
    
     public Integer getMonnaieDuBar();
     public void setMonnaieDuBar(Integer monnaieDubar);  
-    public void donnerLaMonnaieAuxResponsables(Humain humain);
+    public void donnerLaMonnaieAuxResponsables(Humain humain)throws ServirException;
 }

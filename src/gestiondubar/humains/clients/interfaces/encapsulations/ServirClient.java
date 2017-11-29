@@ -48,12 +48,13 @@ public class ServirClient implements Servir {
      * 
      */
     @Override
-    public void donnerLaMonnaieAuxResponsables(Humain humain) {
+    public void donnerLaMonnaieAuxResponsables(Humain humain) throws ServirException{
         if (humain instanceof Barman) {
             Barman barman = (Barman) humain;
             barman.getCaisseDuBar().setArgentDuBar(barman.getCaisseDuBar().getArgentDuBar() + this.monnaieDuBar);
             this.setMonnaieDuBar(0);
         }
+        else throw new ServirException("doit être un Barman");
     }
 
 }

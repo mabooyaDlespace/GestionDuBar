@@ -31,7 +31,7 @@ import java.util.LinkedList;
  * @author ISEN
  */
 public class GererLeStockDuBar implements GererStock {
-        private Stock stockDuBar;
+       
         private LinkedList<BoissonEtQuantite> stock;
         private String nomAdministrateur;
 
@@ -44,9 +44,7 @@ public class GererLeStockDuBar implements GererStock {
      * @param stock
      */
     public GererLeStockDuBar( Barman barman,Stock stock ) {
-        
-        this.stockDuBar=stock;
-        this.stock=this.stockDuBar.getStockDeBoissonEtQuantite(barman);
+        this.stock=stock.getStockDeBoissonEtQuantite(barman);
     }
 
     /**
@@ -58,7 +56,7 @@ public class GererLeStockDuBar implements GererStock {
      */
     @Override
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche) {
-        if (getStock().isEmpty()) {
+        if (getStock().isEmpty() || !(ceQueJeCherche instanceof Boisson) ){
 
             return false;
         }
@@ -118,7 +116,7 @@ public class GererLeStockDuBar implements GererStock {
      * @throws StockException
      */
     public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
-        if (quantite.compareTo(0) > -1) {
+        if (quantite instanceof Integer && quantite.compareTo(0) > -1) {
             if (this.existeDansLeStock(ceQueJeMets)) {
                 BoissonEtQuantite temp = this.getBoissonEtQuantite(ceQueJeMets);
                 temp.setQuantite(quantite);
