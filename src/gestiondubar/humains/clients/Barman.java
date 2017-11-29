@@ -64,6 +64,7 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     public Barman(String prenom, Patronne patronne) throws AbstractClientException {
         super(prenom);
         this.patronne = patronne;
+        this.patronne.setBarman(this);
         caisseDuBar = patronne.getBar().getCaisseDuBar(this);// on controle l'existance du barman avec this
         stock = patronne.getBar().getStock(this);
         gererLeStockDuBar = new GererLeStockDuBar(this, stock);

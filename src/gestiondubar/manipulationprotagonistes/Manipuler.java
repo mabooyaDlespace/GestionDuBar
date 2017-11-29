@@ -10,6 +10,7 @@ import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.Patronne;
 import gestiondubar.humains.clients.Serveur;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,7 +24,7 @@ public class Manipuler {
     public Patronne patronne;
     public ArrayList<Humain> liste;
 
-    public Manipuler(Patronne patronne)throws AbstractClientException {
+    public Manipuler(Patronne patronne) throws AbstractClientException {
         this.patronne = patronne;
         this.liste = this.updateListeDesProtagonistes(patronne);
     }
@@ -53,7 +54,7 @@ public class Manipuler {
     }
 
     public void ajouterUnClient(Humain client) throws AbstractClientException {
-        if (client instanceof Humain && !(client instanceof Barman) &&!(client instanceof  Serveur ) && !(client instanceof Patronne) ) {
+        if (client instanceof Humain && !(client instanceof Barman) && !(client instanceof Serveur) && !(client instanceof Patronne)) {
             patronne.getBar().clients.add(client);
             this.updateListeDesProtagonistes(patronne);
         } else {
@@ -61,37 +62,33 @@ public class Manipuler {
         }
 
     }
-    
+
     public void ajouterUnServeur(Serveur serveur) throws AbstractClientException {
-        if (serveur instanceof Humain && (serveur instanceof  Serveur ) ) {
+        if (serveur instanceof Humain && (serveur instanceof Serveur)) {
             patronne.getBar().serveurs.add(serveur);
             this.updateListeDesProtagonistes(patronne);
         } else {
             throw new AbstractClientException("Client can't be null or an instance of personnel");
         }
-        
+
     }
-    
-    public void ChangerDeBarmanSansLesParametresExistant(Barman barman) throws AbstractClientException {
-        if (barman instanceof Humain && (barman instanceof  Barman ) ) {
+
+    public void RemplacerLeBarmanConserverCaisseEtStock(String nomBarman) throws AbstractClientException, ServirException {
+        if (nomBarman instanceof String) {
+            patronne.getBarman().donnerLaMonnaieAuxResponsables(patronne.getBarman());
+            Barman barman = new Barman(nomBarman, patronne);
             patronne.setBarman(barman);
             this.updateListeDesProtagonistes(patronne);
         } else {
-            throw new AbstractClientException("Client can't be null or an instance of personnel");
+            throw new AbstractClientException("Il la string ne doit pas être vide");
         }
-        
+
     }
-    public void RemplacerLeBarman(Barman barman) throws AbstractClientException {
-        if (barman instanceof Humain && (barman instanceof  Barman ) ) {
-            patronne.getBarman();
-            patronne.setBarman(barman);
-            this.updateListeDesProtagonistes(patronne);
-        } else {
-            throw new AbstractClientException("Client can't be null or an instance of personnel");
-        }
-        
+
+    public void RemplacerLaPatronne() {
+
     }
-   
+
     /*
      private 
      AutoClear
