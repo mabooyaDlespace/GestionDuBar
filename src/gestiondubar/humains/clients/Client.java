@@ -13,11 +13,13 @@ import gestiondubar.humains.clients.exceptions.AbstractClientException;
  * @author ISEN
  */
 public class Client extends AbstractClient {
-
+    
+    public String prenom;
     private Boisson boissonSecours = Boisson.EAU;
-
+    
     public Client(String prenom) throws AbstractClientException {
         super(prenom);
+        this.prenom = prenom;
     }
 
     @Override

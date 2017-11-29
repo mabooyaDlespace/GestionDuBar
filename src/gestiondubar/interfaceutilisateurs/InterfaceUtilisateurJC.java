@@ -1,13 +1,17 @@
 package gestiondubar.interfaceutilisateurs;
 
+import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.Patronne;
 import gestiondubar.humains.clients.Client;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import gestiondubar.manipulationprotagonistes.Manipuler;
+
 
 /**
  *
@@ -67,7 +71,7 @@ public class InterfaceUtilisateurJC {
                 inter.SNM. NomFinalPatronne = NomPatronne + SurnomPatronne;               
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(NomPatronne + SurnomPatronne);
-                inter.barman=this.patronne.getBarman();
+                //inter.barman=this.patronne.getBarman();
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour la patronne");
@@ -83,9 +87,12 @@ public class InterfaceUtilisateurJC {
                 inter.patronne = new Patronne(Nom);
                 inter.patronne.setSurnom(Adjectif);
                 //inter.patronne.getBarman();
-//                inter.barman=this.patronne.getBarman();
+//                inter.barman=this.patronne.getBarman();                      
                
             }
+            
+            Manipuler Bar = new Manipuler(inter.patronne);              
+            
             //Initialisation Barman
               
              inter.SNM = firstScanner(inter.SNM);
@@ -100,10 +107,11 @@ public class InterfaceUtilisateurJC {
                 String SurnomBarman = inter.scanStringUntilNotEmpty(SNM.scan, 6);
 
                 System.out.println("Le Barman s'appelle " + NomBarman + " " + SurnomBarman);
-
-                inter.SNM. NomFinalBarman = NomBarman + SurnomBarman;
+                
+                inter.SNM.NomFinalBarman = NomBarman + SurnomBarman;
                 //et maintenant on crée une instance============================
-                inter.barman = new Barman(NomBarman + SurnomBarman, patronne);
+                inter.barman = new Barman(NomBarman + SurnomBarman, inter.patronne);
+                Bar.RemplacerLeBarmanConserverCaisseEtStock(inter.SNM.NomFinalBarman);
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour le barman");
@@ -114,11 +122,18 @@ public class InterfaceUtilisateurJC {
                 String NomBarman = ChoixBarman[j];
                 String SurnomBarman = AdjectifBarman[k];
                 System.out.println("Le Barman s'appelle " + NomBarman + " " + SurnomBarman);
-                inter.SNM. NomFinalBarman = NomBarman + " " + SurnomBarman;
+                inter.SNM.NomFinalBarman = NomBarman + " " + SurnomBarman;
+                
                 //et maintenant on crée une instance============================
                 inter.patronne.getBarman().setSurnom(SurnomBarman);
-                 //implement set nom;
+                 //implement set nom;                  
+             
+                Bar.RemplacerLeBarmanConserverCaisseEtStock(inter.SNM.NomFinalBarman);
+               
+            
             }
+              
+             
             
              // Initialisation Client
              inter.SNM = firstScanner(inter.SNM);
@@ -134,10 +149,14 @@ public class InterfaceUtilisateurJC {
 
                 System.out.println("Le client s'appelle " + NomClient + " " + SurnomClient);
 
-                inter.SNM. NomFinalClient = NomClient + SurnomClient;
+                inter.SNM.NomFinalClient = NomClient + SurnomClient;
+                String NomCompletClient = NomClient + " " + SurnomClient;
                 
                   //et maintenant on crée une instance============================
                 inter.client = new Client(NomClient + SurnomClient );
+                
+                Client client1 = new Client(NomCompletClient);
+                Bar.ajouterUnClient(client1);
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour un client");
@@ -149,12 +168,20 @@ public class InterfaceUtilisateurJC {
                 String SurnomClient = AdjectifClient[k];
                 System.out.println("Le Client s'appelle " + NomClient + " " + SurnomClient);
                 inter.SNM. NomFinalClient = NomClient + " " + SurnomClient;
+                String NomCompletClient = NomClient + " " + SurnomClient;
+                
+               
                 //et maintenant on crée une instance============================
                 //inter.patronne.getBarman().setSurnom(SurnomClient);
                 
-                 Client client1 = new Client(NomFinalClient);
+                 //Client client1 = new Client(NomCompletClient);
+                 Client client1 = new Client(NomCompletClient);
+                 Bar.ajouterUnClient(client1);
+
                  //implement set nom;
             }
+             
+             
              //----------------------------------------------------------------
             
             return (inter.SNM);
@@ -162,6 +189,8 @@ public class InterfaceUtilisateurJC {
             
             
         }catch (AbstractClientException ex) {
+            Logger.getLogger(InterfaceUtilisateurJC.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServirException ex) {
             Logger.getLogger(InterfaceUtilisateurJC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
