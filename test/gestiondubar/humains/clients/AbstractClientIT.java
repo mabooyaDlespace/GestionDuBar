@@ -30,10 +30,12 @@ import org.junit.Test;
  * @author ISEN
  */
 public class AbstractClientIT {
-public static AbstractClient luc;
+
+    public static AbstractClient luc;
     public static Patronne patronne;
     public static Serveur serv;
-    public static Barman babar ;
+    public static Barman babar;
+
     public AbstractClientIT() {
     }
 
@@ -47,16 +49,18 @@ public static AbstractClient luc;
 
     @Before
     public void setUp() {
-         try {
+        try {
             luc = new Client("Luc1");
             patronne = new Patronne("Davida");
             serv = new Serveur("serv", patronne);
             patronne.setBarman(new Barman("Babar", patronne));
             babar = patronne.getBarman();
+            patronne.getBar().serveurs.add(serv);
+            patronne.getBar().clients.add(luc);
             babar.setQuantiteDeLaBoisson(Boisson.EAU, 10);
             babar.setQuantiteDeLaBoisson(Boisson.RICARD, 10);
             babar.setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
-           
+
         } catch (AbstractClientException | StockException ex) {
             Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +74,7 @@ public static AbstractClient luc;
      * Test of getDegreAlccolemie method, of class AbstractClient.
      */
     @Test
-    public void testGetDegreAlccolemie() {
+    public void testGetDegreAlccolemie_00() {
         try {
             System.out.println("getDegreAlccolemie");
             AbstractClient instance = new AbstractClientImp("Al");
@@ -110,7 +114,7 @@ public static AbstractClient luc;
      * to null
      */
     @Test
-    public void testSetDegreAlccolemie() throws AbstractClientException {
+    public void testSetDegreAlccolemie_00() throws AbstractClientException {
         System.out.println("setDegreAlccolemie");
         Integer degreAlccolemie = null;
         AbstractClient instance = new AbstractClientImp("Al");
@@ -163,7 +167,7 @@ public static AbstractClient luc;
      * Test of boire method, of class AbstractClient. cant be null
      */
     @Test
-    public void testBoire() {
+    public void testBoire_00() {
         try {
             System.out.println("boire");
             Boisson boisson = null;
@@ -217,7 +221,7 @@ public static AbstractClient luc;
      * Test of payer method, of class AbstractClient. test avec null
      */
     @Test
-    public void testPayer() {
+    public void testPayer_00() {
         try {
             System.out.println("payer");
             Humain humain = null;
@@ -329,19 +333,18 @@ public static AbstractClient luc;
      * Test of commanderBoisson method, of class AbstractClient.
      */
     @Test
-    public void testCommanderBoisson() {
-    try {
-        assertEquals(Boisson.EAU,luc.commanderBoisson(Boisson.EAU, serv)) ;
-        assertEquals(Boisson.EAU,luc.commanderBoisson(Boisson.EAU, babar));
-        assertEquals(Boisson.RICARD,luc.commanderBoisson(Boisson.RICARD, babar));
-        assertEquals(Boisson.RICARD,luc.commanderBoisson(Boisson.RICARD, babar));
-        assertEquals(Boisson.SHOOTER,luc.commanderBoisson(Boisson.SHOOTER, babar));
-        assertEquals(Boisson.SHOOTER,luc.commanderBoisson(Boisson.SHOOTER, babar));
-    } catch (AbstractClientException ex) {
-        Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
-    }
-        
-        
+    public void testCommanderBoisson_00() {
+        try {
+            assertEquals(Boisson.EAU, luc.commanderBoisson(Boisson.EAU, serv));
+            assertEquals(Boisson.EAU, luc.commanderBoisson(Boisson.EAU, babar));
+            assertEquals(Boisson.RICARD, luc.commanderBoisson(Boisson.RICARD, babar));
+            assertEquals(Boisson.RICARD, luc.commanderBoisson(Boisson.RICARD, babar));
+            assertEquals(Boisson.SHOOTER, luc.commanderBoisson(Boisson.SHOOTER, babar));
+            assertEquals(Boisson.SHOOTER, luc.commanderBoisson(Boisson.SHOOTER, babar));
+        } catch (AbstractClientException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -367,35 +370,140 @@ public static AbstractClient luc;
      * Test of sePresenterA method, of class AbstractClient.
      */
     @Test
-    public void testSePresenterA() {
+    public void testSePresenterA_00() {
         System.out.println("sePresenterA");
         Humain humain = null;
         AbstractClient instance = null;
         try {
             instance = new AbstractClientImp("Al");
+
+            String expResult = "";
+            String result = instance.sePresenterA(humain);
+            fail("The test case is a prototype.");
+            // TODO review the generated test code and remove the default call to fail.
         } catch (AbstractClientException ex) {
+            assertThat(ex.getMessage(), is("humain est d'intance null ou pas humain"));
+
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String expResult = "";
-        String result = instance.sePresenterA(humain);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
+     * Test of sePresenterA method, of class AbstractClient.
+     */
+    @Test
+    public void testSePresenterA_01() {
+        System.out.println("sePresenterA");
+        ;
+        AbstractClient instance = null;
+        try {
+            instance = new AbstractClientImp("Al");
+
+            String expResult = "Al dit salut";
+            String result = instance.sePresenterA(luc);
+            assertTrue(result,expResult.equals(result));
+        //luc est d'intance null ou pas luc
+            // TODO review the generated test code and remove the default call to fail.
+        } catch (AbstractClientException ex) {
+            fail("The test case is a prototype.");
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    /**
+     * Alcolémie 3
+     * Test of sePresenterA method, of class AbstractClient.
+     */
+    @Test
+    public void testSePresenterA_02() {
+        System.out.println("sePresenterA");
+        ;
+        AbstractClient instance = null;
+        try {
+            instance = new AbstractClientImp("Al");
+
+            String expResult = "Al dit salut c'est cool";
+            instance.degreAlccolemie=5;
+            String result = instance.sePresenterA(luc);
+            assertTrue(result,expResult.equals(result));
+        //luc est d'intance null ou pas luc
+            // TODO review the generated test code and remove the default call to fail.
+        } catch (AbstractClientException ex) {
+            fail("The test case is a prototype.");
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    /**
+     * Alcolémie 3
+     * Test of sePresenterA method, of class AbstractClient.
+     */
+    @Test
+    public void testSePresenterA_03() {
+        System.out.println("sePresenterA");
+        ;
+        AbstractClient instance = null;
+        try {
+            instance = new AbstractClientImp("Al");
+
+            String expResult = "Al dit ch'suis pas bourré dabord";
+            instance.degreAlccolemie=10;
+            String result = instance.sePresenterA(luc);
+            assertTrue(result,expResult.equals(result));
+        //luc est d'intance null ou pas luc
+            // TODO review the generated test code and remove the default call to fail.
+        } catch (AbstractClientException ex) {
+            fail("The test case is a prototype.");
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    /**
+     * 
      * Test of offrirUnVerre method, of class AbstractClient.
      */
     @Test
-    public void testOffrirUnVerre() throws AbstractClientException {
-        System.out.println("offrirUnVerre");
-        Humain humainChanceux = null;
-        Humain personnelServant = null;
-        AbstractClient instance = new AbstractClientImp("Al");
-        instance.offrirUnVerre(humainChanceux, personnelServant);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testOffrirUnVerre_00() {
+        try {
+            System.out.println("offrirUnVerre");
+            Humain humainChanceux = null;
+            Humain personnelServant = null;
+            AbstractClient instance = new AbstractClientImp("Al");
+            instance.offrirUnVerre(humainChanceux, personnelServant);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
+            assertTrue(ex.getMessage(), ex.getMessage().equals("humainChanceux n'est pas une instance"));
+            //assertThat(ex.getMessage(), is("génial"));
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+     /**
+     * 
+     * Test of offrirUnVerre method, of class AbstractClient.
+     */
+    @Test
+    public void testOffrirUnVerre_01() {
+        try {
+            System.out.println("offrirUnVerre");
+            luc.boissonFavorite=Boisson.RICARD;
+            Humain humainChanceux = luc;
+            Humain personnelServant = serv;
+            AbstractClient instance = new AbstractClientImp("Al");
+            instance.offrirUnVerre(humainChanceux, personnelServant);
+            // TODO review the generated test code and remove the default call to fail.
+            assertTrue(luc.degreAlccolemie.toString(), luc.degreAlccolemie==2 );
+        } catch (AbstractClientException ex) {
+            fail(" error");
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
 
     public class AbstractClientImp extends AbstractClient {
 
@@ -410,20 +518,20 @@ public static AbstractClient luc;
      */
     @Test
     public void testDemanderSiPrésentDansLesStocks_3args_1() {
-    try {
-        System.out.println("demanderSiPr\u00e9sentDansLesStcoks");
-        Humain humain = null;
-        Boisson boisson = null;
-        Integer quantite = null;
-        
-        boolean expResult = false;
-        boolean result =luc.demanderSiPresentDansLesStocks(humain, boisson, quantite);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    } catch (AbstractClientException ex) {
+        try {
+            System.out.println("demanderSiPr\u00e9sentDansLesStcoks");
+            Humain humain = null;
+            Boisson boisson = null;
+            Integer quantite = null;
+
+            boolean expResult = false;
+            boolean result = luc.demanderSiPresentDansLesStocks(humain, boisson, quantite);
+            assertEquals(expResult, result);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
             assertThat(ex.getMessage(), is(" n'est pas un membre du personnel "));
-    }
+        }
     }
 
     /**
@@ -431,20 +539,20 @@ public static AbstractClient luc;
      */
     @Test
     public void testDemanderSiPresentDansLesStocks_3args_2() {
-    try {
-        System.out.println("demanderSiPrésentDansLesStcoks");
-        Serveur serveur = null;
-        Boisson boisson = null;
-        Integer quantite = null;
-        boolean expResult = false;
-        boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    } catch (AbstractClientException ex) {
+        try {
+            System.out.println("demanderSiPrésentDansLesStcoks");
+            Serveur serveur = null;
+            Boisson boisson = null;
+            Integer quantite = null;
+            boolean expResult = false;
+            boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+            assertEquals(expResult, result);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
             assertThat(ex.getMessage(), is("Le parametre humain n'est pas une instance de Personnel"));
 
-    }
+        }
     }
 
     /**
@@ -452,20 +560,20 @@ public static AbstractClient luc;
      */
     @Test
     public void testDemanderSiPrésentDansLesStocks_3args_3() {
-    try {
-        System.out.println("demanderSiPr\u00e9sentDansLesStcoks");
-        Barman serveur = null;
-        Boisson boisson = null;
-        Integer quantite = null;
-        AbstractClient instance = null;
-        boolean expResult = false;
-        boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    } catch (AbstractClientException ex) {
+        try {
+            System.out.println("demanderSiPr\u00e9sentDansLesStcoks");
+            Barman serveur = null;
+            Boisson boisson = null;
+            Integer quantite = null;
+            AbstractClient instance = null;
+            boolean expResult = false;
+            boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+            assertEquals(expResult, result);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (AbstractClientException ex) {
             assertThat(ex.getMessage(), is("Le parametre humain n'est pas une instance de Personnel"));
-    }
+        }
     }
 
     public class AbstractClientImpl extends AbstractClient {

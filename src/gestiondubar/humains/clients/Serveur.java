@@ -6,10 +6,10 @@
 
 package gestiondubar.humains.clients;
 import gestiondubar.humains.Humain;
-import gestiondubar.humains.clients.*;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.Servir;
 import gestiondubar.humains.clients.interfaces.encapsulations.ServirClient;
+import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 /**
  *
  * @author ISEN
@@ -64,7 +64,7 @@ public class Serveur extends AbstractClient implements Servir{
      * @param unserveuroubarman 
      */
     @Override
-    public void donnerLaMonnaieAuxResponsables(Humain humain) {
+    public void donnerLaMonnaieAuxResponsables(Humain humain)throws ServirException{
         this.servirDesClients.donnerLaMonnaieAuxResponsables(humain);
 
     }
