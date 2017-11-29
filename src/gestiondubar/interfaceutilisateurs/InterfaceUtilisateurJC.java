@@ -2,6 +2,7 @@ package gestiondubar.interfaceutilisateurs;
 
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.Patronne;
+import gestiondubar.humains.clients.Client;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -57,7 +58,7 @@ public class InterfaceUtilisateurJC {
 
                 System.out.println("La patronne s'appelle " + NomPatronne + " " + SurnomPatronne);
 
-                inter.SNM. NomFinalPatronne = NomPatronne + SurnomPatronne;
+                inter.SNM. NomFinalPatronne = NomPatronne + SurnomPatronne;               
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(NomPatronne + SurnomPatronne);
                 inter.barman=this.patronne.getBarman();
@@ -75,7 +76,7 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(Nom);
                 inter.patronne.setSurnom(Adjectif);
-                inter.patronne.getBarman();
+                //inter.patronne.getBarman();
 //                inter.barman=this.patronne.getBarman();
                
             }
@@ -113,17 +114,47 @@ public class InterfaceUtilisateurJC {
                  //implement set nom;
             }
             
+             // Initialisation Client
+             inter.SNM = firstScanner(inter.SNM);
              
-             
+             if (inter.SNM.mode == '1') {
+                System.out.println("vous avez choisi la configuration assitée pour un client");
+                System.out.println("Choisissez un nom pour un client"); // choix du nom pour un client
+                //==============================================================
+                String NomClient = inter.scanNomUntilNotEmpty(SNM, 5). NomFinalClient;
+                System.out.println("Choisissez un surnom pour un client");   // choix du surnom d'un client
+
+                String SurnomClient = inter.scanStringUntilNotEmpty(SNM.scan, 6);
+
+                System.out.println("Le client s'appelle " + NomClient + " " + SurnomClient);
+
+                inter.SNM. NomFinalClient = NomClient + SurnomClient;
+                
+                  //et maintenant on crée une instance============================
+                inter.client = new Client(NomClient + SurnomClient );
+
+            } else if (inter.SNM.mode == '2') {
+                System.out.println("vous avez choisi la configuration automatique pour un client");
+                String ChoixClient[] = {"Bart", "George", "Wyatt", "Franck", "Jesses", "Butch"};
+                String AdjectifClient[] = {"the Kid", "the Butcher", "JammesDoc", "the Thug", "The Schlague", "The Spring"};
+                int j = (int) (Math.random() * (6 - 0));
+                int k = (int) (Math.random() * (6 - 0));
+                String NomClient = ChoixClient[j];
+                String SurnomClient = AdjectifClient[k];
+                System.out.println("Le Client s'appelle " + NomClient + " " + SurnomClient);
+                inter.SNM. NomFinalClient = NomClient + " " + SurnomClient;
+                //et maintenant on crée une instance============================
+                //inter.patronne.getBarman().setSurnom(SurnomClient);
+                
+                Client client1 = new Client(NomFinalClient);
+                 //implement set nom;
+            }
              //----------------------------------------------------------------
             
-            
-            return (inter.SNM);
+                        return (inter.SNM);
            
             
             
-            
-
         } catch (AbstractClientException ex) {
             Logger.getLogger(InterfaceUtilisateurJC.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -146,6 +177,8 @@ public class InterfaceUtilisateurJC {
         public String Surnom = " "; // surnom de la daronne
         public String NomFinalBarman = " ";
         public String SurnomBarman =" ";
+        public String NomFinalClient = " ";
+        public String SurnomClient = " ";
 
     }
 
