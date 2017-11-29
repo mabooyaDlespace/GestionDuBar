@@ -8,10 +8,6 @@ package gestiondubar.manipulationprotagonistes;
 import gestiondubar.decore.Boisson;
 import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.clients.AbstractClient;
-import static gestiondubar.humains.clients.AbstractClientIT.babar;
-import static gestiondubar.humains.clients.AbstractClientIT.luc;
-import static gestiondubar.humains.clients.AbstractClientIT.patronne;
-import static gestiondubar.humains.clients.AbstractClientIT.serv;
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.BarmanIT;
 import gestiondubar.humains.clients.Client;
@@ -28,7 +24,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * @see gestiondubar.manipulationprotagonistes.Manipuler manipuler
+ * 
  * @author ISEN
  */
 public class ManipulerIT {
@@ -97,7 +94,8 @@ public class ManipulerIT {
     public void testCreerListeDesProtagonistes_01() {
         try {
             System.out.println("creerListeDesProtagonistes");
-            Manipuler instance = new Manipuler(patronne);
+            Manipuler instance;
+            instance = new Manipuler(patronne);
             //instance.updateListeDesProtagonistes(patronne);
             System.out.println(instance.afficherLesProtagonnistes());
             // TODO review the generated test code and remove the default call to fail.
