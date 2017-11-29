@@ -21,6 +21,8 @@ public class InterfaceUtilisateurJC {
     
     public Barman barman;
     
+    public Client client;
+    
     ArrayList array;
     public ScanNomMode SNM = new ScanNomMode();
 
@@ -35,6 +37,10 @@ public class InterfaceUtilisateurJC {
     }
     private InterfaceUtilisateurJC(Barman barman) {
         this.barman = barman;
+    }
+    
+    private InterfaceUtilisateurJC(Client client){
+        this.client = client;
     }
     
 
@@ -146,16 +152,16 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================
                 //inter.patronne.getBarman().setSurnom(SurnomClient);
                 
-                Client client1 = new Client(NomFinalClient);
+                 Client client1 = new Client(NomFinalClient);
                  //implement set nom;
             }
              //----------------------------------------------------------------
             
-                        return (inter.SNM);
+            return (inter.SNM);
            
             
             
-        } catch (AbstractClientException ex) {
+        }catch (AbstractClientException ex) {
             Logger.getLogger(InterfaceUtilisateurJC.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
@@ -233,7 +239,7 @@ public class InterfaceUtilisateurJC {
      */
     public String scanStringUntilNotEmpty(Scanner scan, Integer tailleMinimum) {
         System.out.println("La taille du mot doit être d'au moins " + tailleMinimum + " char");
-        String mystring = "";
+        String mystring = " ";
         do {//tant que taille inf do
             mystring = scan.nextLine();
             if (mystring.length() < tailleMinimum) {
