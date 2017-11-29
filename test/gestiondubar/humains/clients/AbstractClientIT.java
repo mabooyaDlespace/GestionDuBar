@@ -55,6 +55,8 @@ public class AbstractClientIT {
             serv = new Serveur("serv", patronne);
             patronne.setBarman(new Barman("Babar", patronne));
             babar = patronne.getBarman();
+            patronne.getBar().serveurs.add(serv);
+            patronne.getBar().clients.add(luc);
             babar.setQuantiteDeLaBoisson(Boisson.EAU, 10);
             babar.setQuantiteDeLaBoisson(Boisson.RICARD, 10);
             babar.setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
