@@ -171,10 +171,10 @@ public class InterfaceUtilisateurJC {
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour un client");
-                String ChoixClient[] = {"Bart", "George", "Wyatt", "Franck", "Jesses", "Butch"};
-                String AdjectifClient[] = {"the Kid", "the Butcher", "JammesDoc", "the Thug", "The Schlague", "The Spring"};
-                int j = (int) (Math.random() * (6 - 0));
-                int k = (int) (Math.random() * (6 - 0));
+                String ChoixClient[] = {"Clint", "Chriss", "Clock", "Cliff", "Crause", "Chaune", "Claude", "Carl"};
+                String AdjectifClient[] = {"The Cid", "The Claustro", "La Canaille", "The Crane", "La Claque", "The Clique", "Le Crapaud", "Le Cretin", "Le Condé","Le Clifenger","The Clochard","Le Crotain","Le Choco"};
+                int j = (int) (Math.random() * (8 - 0));
+                int k = (int) (Math.random() * (12 - 0));
                 String NomClient = ChoixClient[j];
                 String SurnomClient = AdjectifClient[k];
                 System.out.println("Le Client numero " + NombreClient +" s'appelle " + NomClient + " " + SurnomClient);
@@ -223,7 +223,7 @@ public class InterfaceUtilisateurJC {
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour un serveur");
                 String ChoixServeur[] = {"Scott", "Spleen", "Steeve", "Stonne", "Slack", "Skin"};
-                String AdjectifServeur[] = {"the Slope", "the Skype", "the Steak", "the Schlake", "The Snake", "The Snooze"};
+                String AdjectifServeur[] = {"The Slope", "The Skype", "The Steak", "The Schlake", "The Snake", "The Snooze"};
                 int j = (int) (Math.random() * (6 - 0));
                 int k = (int) (Math.random() * (6 - 0));
                 String NomServeur = ChoixServeur[j];
