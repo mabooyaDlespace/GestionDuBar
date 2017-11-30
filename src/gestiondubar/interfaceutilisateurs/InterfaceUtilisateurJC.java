@@ -4,6 +4,7 @@ import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.Patronne;
 import gestiondubar.humains.clients.Client;
+import gestiondubar.humains.clients.Serveur;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ public class InterfaceUtilisateurJC {
 
     public  ScanNomMode monTest1QuiEstMaMethodeMain() {
         try {
+            
             //Initialisation de la patronne
             InterfaceUtilisateurJC inter = new InterfaceUtilisateurJC(new Patronne("initValue"));
             
@@ -57,6 +59,7 @@ public class InterfaceUtilisateurJC {
             inter.SNM = firstScanner(inter.SNM);
             // On met tout dans une fonction
             //  InterfaceUtilisateurJC.firstScanner();
+            Manipuler Bar = null; 
             if (inter.SNM.mode == '1') {
                 System.out.println("vous avez choisi la configuration assitée pour la patronne");
                 System.out.println("Choisissez un nom pour la Daronne"); // choix du nom pour la daronne
@@ -71,6 +74,7 @@ public class InterfaceUtilisateurJC {
                 inter.SNM. NomFinalPatronne = NomPatronne + SurnomPatronne;               
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(NomPatronne + SurnomPatronne);
+                Bar =  new Manipuler(inter.patronne);  
                 //inter.barman=this.patronne.getBarman();
 
             } else if (inter.SNM.mode == '2') {
@@ -86,12 +90,13 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(Nom);
                 inter.patronne.setSurnom(Adjectif);
-                //inter.patronne.getBarman();
-//                inter.barman=this.patronne.getBarman();                      
+                Bar =  new Manipuler(inter.patronne);                  
+                 //inter.patronne.getBarman();
+                 // inter.barman=this.patronne.getBarman();                      
                
             }
             
-            Manipuler Bar = new Manipuler(inter.patronne);              
+                        
             
             //Initialisation Barman
               
@@ -125,8 +130,7 @@ public class InterfaceUtilisateurJC {
                 inter.SNM.NomFinalBarman = NomBarman + " " + SurnomBarman;
                 
                 //et maintenant on crée une instance============================
-                inter.patronne.getBarman().setSurnom(SurnomBarman);
-                 //implement set nom;                  
+                inter.patronne.getBarman().setSurnom(SurnomBarman);                 
              
                 Bar.RemplacerLeBarmanConserverCaisseEtStock(inter.SNM.NomFinalBarman);
                
@@ -138,6 +142,13 @@ public class InterfaceUtilisateurJC {
              // Initialisation Client
              inter.SNM = firstScanner(inter.SNM);
              
+             Scanner demande = new Scanner(System.in);
+             System.out.println("Combien de client voulez vous creer ? ");
+             Integer reponse = demande.nextInt();
+             int NombreClient =0;
+             while ( NombreClient != reponse ) {
+                  
+             
              if (inter.SNM.mode == '1') {
                 System.out.println("vous avez choisi la configuration assitée pour un client");
                 System.out.println("Choisissez un nom pour un client"); // choix du nom pour un client
@@ -147,7 +158,7 @@ public class InterfaceUtilisateurJC {
 
                 String SurnomClient = inter.scanStringUntilNotEmpty(SNM.scan, 6);
 
-                System.out.println("Le client s'appelle " + NomClient + " " + SurnomClient);
+                System.out.println("Le serveur numero" + NombreClient + "s'appelle " + NomClient + " " + SurnomClient);
 
                 inter.SNM.NomFinalClient = NomClient + SurnomClient;
                 String NomCompletClient = NomClient + " " + SurnomClient;
@@ -166,24 +177,76 @@ public class InterfaceUtilisateurJC {
                 int k = (int) (Math.random() * (6 - 0));
                 String NomClient = ChoixClient[j];
                 String SurnomClient = AdjectifClient[k];
-                System.out.println("Le Client s'appelle " + NomClient + " " + SurnomClient);
+                System.out.println("Le Client numero " + NombreClient +" s'appelle " + NomClient + " " + SurnomClient);
                 inter.SNM. NomFinalClient = NomClient + " " + SurnomClient;
                 String NomCompletClient = NomClient + " " + SurnomClient;
+                
+               
+                //et maintenant on crée une instance============================              
+                 
+                 Client client1 = new Client(NomCompletClient);
+                 Bar.ajouterUnClient(client1);
+                                 
+                }
+                NombreClient ++;
+             }
+             
+             //Initialisation serveur
+             
+             inter.SNM = firstScanner(inter.SNM);
+             Scanner demande2 = new Scanner(System.in);
+             System.out.println("Combien de serveur voulez vous creer ? ");
+             Integer reponse2 = demande2.nextInt();
+             int NombreServeur =0;
+             while ( NombreServeur != reponse2 ) {
+             
+             if (inter.SNM.mode == '1') {
+                System.out.println("vous avez choisi la configuration assitée pour un serveur");
+                System.out.println("Choisissez un nom pour un serveur"); // choix du nom pour un serveur
+                //==============================================================
+                String NomServeur = inter.scanNomUntilNotEmpty(SNM, 5). NomFinalServeur;
+                System.out.println("Choisissez un surnom pour un serveur");   // choix du surnom d'un serveur
+
+                String SurnomServeur = inter.scanStringUntilNotEmpty(SNM.scan, 6);
+
+                System.out.println("Le serveur numéro " + NombreServeur + " s'appelle " + NomServeur + " " + SurnomServeur);
+
+                inter.SNM.NomFinalServeur = NomServeur + SurnomServeur;
+                String NomCompletServeur = NomServeur + " " + SurnomServeur;
+                
+                  //et maintenant on crée une instance============================
+                inter.client = new Client(NomServeur + SurnomServeur );
+                
+                Serveur serveur1 = new Serveur(NomCompletServeur, inter.patronne);
+                Bar.ajouterUnServeur(serveur1);
+
+            } else if (inter.SNM.mode == '2') {
+                System.out.println("vous avez choisi la configuration automatique pour un serveur");
+                String ChoixServeur[] = {"Scott", "Spleen", "Steeve", "Stonne", "Slack", "Skin"};
+                String AdjectifServeur[] = {"the Slope", "the Skype", "the Steak", "the Schlake", "The Snake", "The Snooze"};
+                int j = (int) (Math.random() * (6 - 0));
+                int k = (int) (Math.random() * (6 - 0));
+                String NomServeur = ChoixServeur[j];
+                String SurnomServeur = AdjectifServeur[k];
+                System.out.println("Le serveur numero " + NombreServeur + " s'appelle " + NomServeur + " " + SurnomServeur);
+                inter.SNM. NomFinalServeur = NomServeur + " " + SurnomServeur;
+                String NomCompletServeur = NomServeur + " " + SurnomServeur;
                 
                
                 //et maintenant on crée une instance============================
                 //inter.patronne.getBarman().setSurnom(SurnomClient);
                 
                  //Client client1 = new Client(NomCompletClient);
-                 Client client1 = new Client(NomCompletClient);
-                 Bar.ajouterUnClient(client1);
-
-                 //implement set nom;
-            }
+                 Serveur serveur1 = new Serveur(NomCompletServeur, inter.patronne);
+                 Bar.ajouterUnServeur(serveur1);
              
+                }
+             NombreServeur ++;
+             }
              
              //----------------------------------------------------------------
             
+             System.out.println( Bar.afficherLesProtagonnistes());
             return (inter.SNM);
            
             
@@ -193,15 +256,12 @@ public class InterfaceUtilisateurJC {
         } catch (ServirException ex) {
             Logger.getLogger(InterfaceUtilisateurJC.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         return null;
     }
 
-    //===================================================
-    /**
-     * exemple de sous class créer car on utilise bcp le nom la reponse et
-     * etc... <br>
-     * tu peux te simplifier la vie avec les ArrayList
-     */
+    //==================================================
     public class ScanNomMode {
 
         //initialisation des variables
@@ -214,8 +274,15 @@ public class InterfaceUtilisateurJC {
         public String SurnomBarman =" ";
         public String NomFinalClient = " ";
         public String SurnomClient = " ";
+        public String NomServeur = "";
+        public String SurnomServeur = "";
+        public String NomFinalServeur = "";
 
     }
+    
+    //public String EncoreUn (String reponse){
+        
+   // }
 
     /**
      * Remplace le code du début du scan
@@ -278,5 +345,5 @@ public class InterfaceUtilisateurJC {
         } while (mystring.length() < tailleMinimum);
         return mystring;
     }
-
+    
 }
