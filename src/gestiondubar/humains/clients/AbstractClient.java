@@ -43,6 +43,8 @@ public abstract class AbstractClient extends Humain {
         listeDesMethodesDesMenu.addAll(Humain.listeDesMethodesDesMenu);
         listeDesMethodesDesMenu.add("commanderBoisson");
         listeDesMethodesDesMenu.add("sePresenterA");
+        listeDesMethodesDesMenu.add("offrirUnVerre");
+        
         
     }
 
@@ -150,6 +152,7 @@ public abstract class AbstractClient extends Humain {
      * @param boisson ce quon veut commander
      * @param humain le personnel à qui on le commande
      * @return null sil n'y en a plus dans le stock
+     * @throws gestiondubar.humains.clients.exceptions.AbstractClientException
      */
     public Boisson commanderBoisson(Boisson boisson, Humain humain) throws AbstractClientException {
 

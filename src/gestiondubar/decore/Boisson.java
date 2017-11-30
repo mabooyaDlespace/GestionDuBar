@@ -43,7 +43,7 @@ public enum Boisson {
      * prix =2 <br>
      */
     RICARD("Ricard", 2, 2);
-    
+
     private final String nom;
     private Integer pointsAlcool;
     private Integer prix;
@@ -59,7 +59,8 @@ public enum Boisson {
     }
 
     /**
-     * renvoie le prix de la boisson 
+     * renvoie le prix de la boisson
+     *
      * @return
      */
     public Integer getPrix() {
@@ -68,6 +69,7 @@ public enum Boisson {
 
     /**
      * permet de modifier le pris de la boisson
+     *
      * @param prix
      */
     public void setPrix(Integer prix) {
@@ -94,14 +96,35 @@ public enum Boisson {
 
     /**
      * permet de savoir si la boisson est alcolisée
+     *
      * @return
      */
     public boolean isAvecAlcool() {
         return this.pointsAlcool > 0;
     }
 
-    
-    public boolean equals(Boisson boisson){
+    public boolean equals(Boisson boisson) {
         return this.getNom().equals(boisson.getNom());
+    }
+
+    @Override
+    public String toString() {
+        return "NAM:" + this.nom + " PRI:" + this.prix + " DEG:" + this.pointsAlcool ; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static String afficherLesBoissons() {
+        Integer i = 0;
+        String str = "";
+        for (Boisson boisson : Boisson.values()) {
+            str += "\n"+"N°" + i + " " + boisson.toString();
+            i++;
+        }
+        return str;
+    }
+    public static Boisson ChoisirUneBoisson(Integer i){
+        if(i<Boisson.values().length){
+            return Boisson.values()[i];
+        }
+        return null;
     }
 }
