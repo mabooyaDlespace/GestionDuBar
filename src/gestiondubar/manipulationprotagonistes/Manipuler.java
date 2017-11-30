@@ -193,10 +193,11 @@ public class Manipuler {
         if (!(methodechoisie.getReturnType().getSimpleName().equals("void"))) {
             System.out.println("RESULAT:" + lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
         }
+        lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName());
 //        } catch (Exception ex) {
 //            System.out.println(ex.getMessage());
 //        }
-        System.out.println("Methode correctment executée");
+        //System.out.println("Methode correctment executée");
 
     }
 
@@ -260,13 +261,19 @@ public class Manipuler {
 //            Method m = o.getClass().getDeclaredMethod(nomMethode, paramTypes);
             return methode.invoke(o, args);
         } catch (NoSuchMethodException x) {
-            x.printStackTrace();
+            //x.printStackTrace();
+            Throwable cause = x.getCause();
+            System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            Throwable cause = ex.getCause();
+            System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
+            Throwable cause = ex.getCause();
+            System.out.println("Cause : " + cause.getMessage());
         } catch (InvocationTargetException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             Throwable cause = ex.getCause();
             System.out.println("Cause : " + cause.getMessage());
         }
