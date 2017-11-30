@@ -56,7 +56,8 @@ public class InterfaceUtilisateurJC {
             InterfaceUtilisateurJC inter = new InterfaceUtilisateurJC(new Patronne("initValue"));
 
             // remplacé par la fonction
-            inter.SNM = firstScanner(inter.SNM);
+            String patronne = " la patronne";
+            inter.SNM = firstScanner(inter.SNM, patronne);
             // On met tout dans une fonction
             //  InterfaceUtilisateurJC.firstScanner();
             Manipuler Bar = null;
@@ -94,7 +95,8 @@ public class InterfaceUtilisateurJC {
             }
 
             //Initialisation Barman
-            inter.SNM = firstScanner(inter.SNM);
+            String barman = "le barman";
+            inter.SNM = firstScanner(inter.SNM, barman);
 
             if (inter.SNM.mode == '1') {
                 AffichageChoixConfigManu("le barman");
@@ -122,7 +124,8 @@ public class InterfaceUtilisateurJC {
             }
 
             // Initialisation Client
-            inter.SNM = firstScanner(inter.SNM);
+            String client = "le client"; 
+            inter.SNM = firstScanner(inter.SNM, client);
 
             Scanner demande = new Scanner(System.in);
             System.out.println("Combien de client voulez vous creer ? ");
@@ -160,7 +163,8 @@ public class InterfaceUtilisateurJC {
             }
 
             //Initialisation serveur
-            inter.SNM = firstScanner(inter.SNM);
+            String serveur = "le serveur";
+            inter.SNM = firstScanner(inter.SNM, serveur);
             Scanner demande2 = new Scanner(System.in);
             System.out.println("Combien de serveur voulez vous creer ? ");
             Integer reponse2 = demande2.nextInt();
@@ -298,10 +302,10 @@ public class InterfaceUtilisateurJC {
      * @param SNM
      * @return
      */
-    public ScanNomMode firstScanner(ScanNomMode SNM) {
+    public ScanNomMode firstScanner(ScanNomMode SNM, String Entite) {
         do {//tant que reponse n'est pas 1 ou 2
             SNM.mode = ' ';
-            System.out.println("Veuillez choisir un mode de configuration : ");
+            System.out.println("Veuillez choisir un mode de configuration pour " + Entite);
             System.out.println("1 pour configuration assitée, 2 pour configuration automatique ");
             SNM.mode = SNM.scan.nextLine().charAt(0);
 
