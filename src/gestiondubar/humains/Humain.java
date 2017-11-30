@@ -7,6 +7,7 @@ package gestiondubar.humains;
 
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +21,12 @@ public abstract class Humain {
     protected String coteDePopularite = "0";
     protected String crisignificatif = "";
     protected String sexe = "";
+     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+
+    static {
+        listeDesMethodesDesMenu.add("setPorteMonnaie");
+        listeDesMethodesDesMenu.add("getPorteMonnaie");
+    }
 
     /**
      * initie avec un prenom

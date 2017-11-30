@@ -22,6 +22,6 @@ public class Client extends AbstractClient {
 
     @Override
     public String toString() {
-        return super.toString() + " " + this.boissonFavorite + " " + this.boissonSecours + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() +"\n\t"+ "BOI2:" + this.boissonSecours ;//+ " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 }

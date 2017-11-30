@@ -6,7 +6,9 @@
 package gestiondubar.humains.clients;
 
 import gestiondubar.decore.Bar;
+import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import java.util.ArrayList;
 
 /**
  * La patronne n'a pas forcément de barman(peut etre un clone de lui) mais le
@@ -20,6 +22,15 @@ public class Patronne extends AbstractClient {
     private Bar bar;
     private Barman barman;
 
+     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+
+    static {
+        listeDesMethodesDesMenu.addAll(AbstractClient.listeDesMethodesDesMenu);
+        listeDesMethodesDesMenu.add("getBarman");
+        listeDesMethodesDesMenu.add("getBar");
+    }
+    
+    
     /**
      * Constructeur: Initie le nom, le bar , et le barman.
      *

@@ -9,6 +9,7 @@ import gestiondubar.humains.Humain;
 import gestiondubar.decore.Boisson;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.Servir;
+import java.util.ArrayList;
 
 /**
  * Classe dont herite Barman, Client , Patronne ,Serveur et qui possèdes les
@@ -36,6 +37,14 @@ public abstract class AbstractClient extends Humain {
     Boisson boissonFavorite = Boisson.EAU;
 
     Integer degreAlccolemie = 0;
+    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+
+    static {
+        listeDesMethodesDesMenu.addAll(Humain.listeDesMethodesDesMenu);
+        listeDesMethodesDesMenu.add("commanderBoisson");
+        listeDesMethodesDesMenu.add("sePresenterA");
+        
+    }
 
     /**
      * Ce constructeur est commun à toutes les classes clients
@@ -251,7 +260,7 @@ public abstract class AbstractClient extends Humain {
      */
     @Override
     public String toString() {
-        return super.toString() + " BOI" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + "\n\t BOI1:" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 
     /**

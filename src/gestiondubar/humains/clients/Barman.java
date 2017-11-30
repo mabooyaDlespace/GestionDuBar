@@ -118,7 +118,7 @@ public class Barman extends AbstractClient implements Servir, GererStock {
 
     @Override
     public String toString() {
-        return super.toString() + " MON:" + this.getMonnaieDuBar();
+        return super.toString() +"\n\t"+ " MON:" + this.getMonnaieDuBar();
     }
 
     // INTERFACE Servir=========================================================
