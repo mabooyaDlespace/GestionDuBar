@@ -80,7 +80,7 @@ public class Manipuler {
             //patronne.setBarman(barman);
             this.updateListeDesProtagonistes(patronne);
         } else {
-            throw new AbstractClientException("Il la string ne doit pas être vide");
+            throw new AbstractClientException("la string ne doit pas être vide");
         }
 
     }

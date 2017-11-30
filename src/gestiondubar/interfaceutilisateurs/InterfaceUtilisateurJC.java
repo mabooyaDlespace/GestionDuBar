@@ -76,6 +76,10 @@ public class InterfaceUtilisateurJC {
                 inter.patronne = new Patronne(NomPatronne + SurnomPatronne);
                 Bar =  new Manipuler(inter.patronne);  
                 //inter.barman=this.patronne.getBarman();
+                long argentPatronne = Math.round( Math.random() * ( 200 - 1 ));
+                inter.patronne.setPorteMonnaie((int)argentPatronne);
+                inter.patronne.setSexe("Femme");
+                
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour la patronne");
@@ -92,7 +96,11 @@ public class InterfaceUtilisateurJC {
                 inter.patronne.setSurnom(Adjectif);
                 Bar =  new Manipuler(inter.patronne);                  
                  //inter.patronne.getBarman();
-                 // inter.barman=this.patronne.getBarman();                      
+                 // inter.barman=this.patronne.getBarman();
+                 
+                 long argentPatronne = Math.round( Math.random() * ( 200 - 1 ));
+                inter.patronne.setPorteMonnaie((int)argentPatronne);
+                inter.patronne.setSexe("Femme");
                
             }
             
@@ -117,6 +125,8 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================
                 inter.barman = new Barman(NomBarman + SurnomBarman, inter.patronne);
                 Bar.RemplacerLeBarmanConserverCaisseEtStock(inter.SNM.NomFinalBarman);
+                long argentBarman = Math.round( Math.random() * ( 500 - 0 ));
+                inter.patronne.getBarman().setPorteMonnaie((int)argentBarman);
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour le barman");
@@ -133,6 +143,8 @@ public class InterfaceUtilisateurJC {
                 inter.patronne.getBarman().setSurnom(SurnomBarman);                 
              
                 Bar.RemplacerLeBarmanConserverCaisseEtStock(inter.SNM.NomFinalBarman);
+                long argentBarman = Math.round( Math.random() * ( 500 - 1 ));
+                inter.patronne.getBarman().setPorteMonnaie((int)argentBarman);
                
             
             }
@@ -163,12 +175,14 @@ public class InterfaceUtilisateurJC {
                 inter.SNM.NomFinalClient = NomClient + SurnomClient;
                 String NomCompletClient = NomClient + " " + SurnomClient;
                 
-                  //et maintenant on crée une instance============================
+                //et maintenant on crée une instance============================
                 inter.client = new Client(NomClient + SurnomClient );
                 
                 Client client1 = new Client(NomCompletClient);
                 Bar.ajouterUnClient(client1);
-
+                long argentClient = Math.round( Math.random() * ( 500 - 1 ));
+                client1.setPorteMonnaie((int)argentClient);
+                
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour un client");
                 String ChoixClient[] = {"Clint", "Chriss", "Clock", "Cliff", "Crause", "Chaune", "Claude", "Carl"};
@@ -185,7 +199,9 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================              
                  
                  Client client1 = new Client(NomCompletClient);
-                 Bar.ajouterUnClient(client1);
+                Bar.ajouterUnClient(client1);
+                long argentClient = Math.round( Math.random() * ( 500 - 1 ));
+                client1.setPorteMonnaie((int)argentClient);
                                  
                 }
                 NombreClient ++;
@@ -219,6 +235,7 @@ public class InterfaceUtilisateurJC {
                 
                 Serveur serveur1 = new Serveur(NomCompletServeur, inter.patronne);
                 Bar.ajouterUnServeur(serveur1);
+                serveur1.setPorteMonnaie(20);
 
             } else if (inter.SNM.mode == '2') {
                 System.out.println("vous avez choisi la configuration automatique pour un serveur");
@@ -226,7 +243,7 @@ public class InterfaceUtilisateurJC {
                 String AdjectifServeur[] = {"The Slope", "The Skype", "The Steak", "The Schlake", "The Snake", "The Snooze"};
                 int j = (int) (Math.random() * (6 - 0));
                 int k = (int) (Math.random() * (6 - 0));
-                String NomServeur = ChoixServeur[j];
+                String NomServeur = ChoixServeur[j];//choose random serveur name();
                 String SurnomServeur = AdjectifServeur[k];
                 System.out.println("Le serveur numero " + NombreServeur + " s'appelle " + NomServeur + " " + SurnomServeur);
                 inter.SNM. NomFinalServeur = NomServeur + " " + SurnomServeur;
@@ -239,6 +256,8 @@ public class InterfaceUtilisateurJC {
                  //Client client1 = new Client(NomCompletClient);
                  Serveur serveur1 = new Serveur(NomCompletServeur, inter.patronne);
                  Bar.ajouterUnServeur(serveur1);
+                 double argentServeur = Math.round( Math.random() * ( 200 - 1 ));
+                 serveur1.setPorteMonnaie((int)argentServeur);
              
                 }
              NombreServeur ++;
@@ -277,7 +296,7 @@ public class InterfaceUtilisateurJC {
         public String NomServeur = "";
         public String SurnomServeur = "";
         public String NomFinalServeur = "";
-
+        
     }
     
     //public String EncoreUn (String reponse){
