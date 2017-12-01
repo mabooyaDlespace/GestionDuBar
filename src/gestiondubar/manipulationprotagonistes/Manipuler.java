@@ -16,6 +16,7 @@ import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 import java.lang.reflect.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -67,7 +68,7 @@ public class Manipuler {
     public Manipuler(Patronne patronne) throws AbstractClientException {
         this.patronne = patronne;
         this.liste = this.updateListeDesProtagonistes(patronne);
-    }
+    }                 
 
     private ArrayList<Humain> updateListeDesProtagonistes(Patronne patronne) throws AbstractClientException {
         if (patronne instanceof Patronne) {
@@ -181,6 +182,7 @@ public class Manipuler {
         Method[] m = this.explorerMethodes(o);
         // on filtre les methodes autoriser
         m = this.filtrerLesMethodesAvecAutorisationDeLobjet(m, o);
+//        trierMethode
         //on les affiches dans la console
         System.out.println(consulterMethodes(m));
         //on initie un scanner pour choisir
@@ -192,9 +194,9 @@ public class Manipuler {
 //            Object[] args=this.scanParameters(methodechoisie.getParameterTypes());
         if (!(methodechoisie.getReturnType().getSimpleName().equals("void"))) {
             System.out.println("RESULAT:" + lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
-        }
+        }else{
         lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName());
-//        } catch (Exception ex) {
+        }//        } catch (Exception ex) {
 //            System.out.println(ex.getMessage());
 //        }
         //System.out.println("Methode correctment executée");
@@ -234,6 +236,11 @@ public class Manipuler {
                     System.out.println("\nLa methode utilise une Boisson-> Choisissez son n° :");
                     i = scan.nextInt();
                     o = Boisson.ChoisirUneBoisson(i);
+                    break;
+                case "class java.lang.String":
+                    System.out.println("\nLa methode utilise une Chaine de charactère-> Entrez une String:");
+                    o = scan.nextLine();
+                    o = (String) o;   
                     break;
             }
 
@@ -331,7 +338,7 @@ public class Manipuler {
         for (Integer i = 0; i < m.length; ++i) {
 //         System.out.print(Modifier.toString(m[i].getModifiers()));
 //         System.out.print(" ");
-            mystr += "\nMethode n°" + i.toString() + " ->" + m[i].getReturnType().getSimpleName() + " " + m[i].getName() + "(";
+            mystr += "\nMethode n°" + i.toString() + " ->" + " " + m[i].getName() + "(";
             params = m[i].getParameterTypes();
             for (int j = 0; j < params.length; ++j) {
 
@@ -341,6 +348,7 @@ public class Manipuler {
                 }
             }
             mystr += ")";
+             mystr+=" Renvoie:"+ m[i].getReturnType().getSimpleName();
         }
         return mystr;
     }
@@ -389,6 +397,7 @@ public class Manipuler {
     private Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) {
         Method[] myMet;
         int j = 0;
+        // Collections.sort(methodes,methodes.);
         for (int i = 0; i < methodes.length; ++i) {
             if (Manipuler.stringExiste(methodes[i].getName(), listedesmethodes)) {
                 j++;
@@ -445,5 +454,18 @@ public class Manipuler {
     
     
     
-     */
+//     */
+//    private class  ComparerMethodes  extends ClassValue<Methode> implements Comparable<Object>{
+//        
+//      
+//        @Override
+//        public int compareTo(Class t) {
+//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        }
+//
+//        @Override
+//        protected Methode computeValue(Class<?> type) {
+//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        }
+//    }
 }

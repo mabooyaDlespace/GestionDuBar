@@ -302,7 +302,7 @@ public abstract class AbstractClient extends Humain {
      * @throws AbstractClientException
      */
     @Override
-    public void offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
+    public String offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
 
         if (humainChanceux instanceof Humain) {
             if (personnelServant instanceof Humain) {
@@ -310,6 +310,7 @@ public abstract class AbstractClient extends Humain {
                 Boisson b = this.commanderBoisson(chanceux.boissonFavorite, personnelServant);
                 if (b != null) {
                     chanceux.boire(b);
+                    return  "\n"+humainChanceux.getPrenom()+ "a bu " +b.getNom()+" offert par "+ this.getPrenom() ;
 
                 } else {
                     throw new AbstractClientException("la boisson n'existe pas");
@@ -322,6 +323,6 @@ public abstract class AbstractClient extends Humain {
         } else {
             throw new AbstractClientException("humainChanceux n'est pas une instance");
         }
-
+        //return null;
     }
 }

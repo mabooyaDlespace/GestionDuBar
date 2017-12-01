@@ -184,6 +184,8 @@ public class BarmanIT {
         } catch (AbstractClientException ex) {
             fail();
             Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServirException ex) {
+            Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

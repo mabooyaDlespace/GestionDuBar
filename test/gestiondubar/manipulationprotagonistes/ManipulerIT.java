@@ -278,7 +278,7 @@ public class ManipulerIT {
         Object[] args = {Boisson.EAU,h} ;
         
         instance.patronne.commanderBoisson(Boisson.EAU, h);
-        Object result = instance.lancerMethode(o, args, nomMethode);
+         instance.lancerMethode(o,null, args, nomMethode);
         } catch (NoSuchMethodException x) {
             x.printStackTrace();
         } catch (IllegalArgumentException ex) {
