@@ -175,7 +175,7 @@ public class BarmanIT {
             assertTrue(luc.getDegreAlccolemie().toString(), luc.getDegreAlccolemie().equals(4)); //4 degres d'alcool
             assertTrue(luc.getPorteMonnaie().equals(-4));//-4 euros
             assertTrue(patronne.getBarman().getCaisseDuBar().getArgentDuBar().toString(), patronne.getBarman().getCaisseDuBar().getArgentDuBar().equals(0));
-            serv.donnerLaMonnaieAuxResponsables(babar);// ils donnes la monnaie
+            serv.donnerLaMonnaieAuxResponsables(babar);// ils donnent la monnaie
             babar.donnerLaMonnaieAuxResponsables(babar);
             assertTrue(patronne.getBarman().getCaisseDuBar().getArgentDuBar().toString(), patronne.getBarman().getCaisseDuBar().getArgentDuBar().equals(4));
             assertTrue(serv.getMonnaieDuBar().equals(0));// ils ont chacun 0 euros

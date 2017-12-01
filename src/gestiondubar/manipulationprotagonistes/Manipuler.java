@@ -119,10 +119,10 @@ public class Manipuler {
         if (nomBarman instanceof String) {
             patronne.getBarman().donnerLaMonnaieAuxResponsables(patronne.getBarman());
             Barman barman = new Barman(nomBarman, patronne);
-            patronne.setBarman(barman);
+            //patronne.setBarman(barman);
             this.updateListeDesProtagonistes(patronne);
         } else {
-            throw new AbstractClientException("Il la string ne doit pas être vide");
+            throw new AbstractClientException("la string ne doit pas être vide");
         }
 
     }

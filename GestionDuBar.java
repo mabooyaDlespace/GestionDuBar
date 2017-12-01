@@ -11,7 +11,6 @@ import gestiondubar.interfaceutilisateurs.InterfaceUtilisateur;
 import gestiondubar.interfaceutilisateurs.InterfaceUtilisateurJC;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import gestiondubar.manipulationprotagonistes.Manipuler;
 
 
 /**
@@ -27,7 +26,6 @@ public class GestionDuBar {
          InterfaceUtilisateurJC inter;
             inter = new InterfaceUtilisateurJC();// permet d'alouer de la memoire, pas plus
             inter.monTest1QuiEstMaMethodeMain();
-            
                 
 //        InterfaceUtilisateur.monTest1QuiEstMaMethodeMain();
         

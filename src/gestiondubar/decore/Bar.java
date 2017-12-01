@@ -26,6 +26,7 @@ public class Bar {
     public ArrayList<Serveur> serveurs;
     public ArrayList<Humain> clients; 
     
+    
     /**
      * Initie la Caisse à Zéro
      * @param nomDeLaPatronne 
