@@ -177,7 +177,7 @@ public class ManipulerIT {
     }
 
     /**
-     * Test of trouverEnFonctionDuNombre method, of class Manipuler.
+     * Test of ChoisirHumainPuisActionEnFonctionDuNombre method, of class Manipuler.
      */
     @Test
     public void testTrouverEnFonctionDuNombre() throws Exception {
@@ -185,7 +185,7 @@ public class ManipulerIT {
         Integer i = null;
         Manipuler instance = null;
         Humain expResult = null;
-        Humain result = instance.trouverEnFonctionDuNombre(i);
+        Humain result = instance.ChoisirHumainPuisActionEnFonctionDuNombre(i);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

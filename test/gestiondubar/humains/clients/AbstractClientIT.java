@@ -16,6 +16,7 @@ import static gestiondubar.humains.clients.BarmanIT.luc;
 import static gestiondubar.humains.clients.BarmanIT.patronne;
 import static gestiondubar.humains.clients.BarmanIT.serv;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
+import gestiondubar.manipulationprotagonistes.Manipuler;
 import static org.hamcrest.core.Is.is;
 
 import org.junit.After;
@@ -62,7 +63,7 @@ public class AbstractClientIT {
             babar.setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
 
         } catch (AbstractClientException | StockException ex) {
-            Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -35,7 +35,7 @@ import java.util.ArrayList;
 public abstract class AbstractClient extends Humain {
 
     Boisson boissonFavorite = Boisson.EAU;
-
+    Object AttributSpecial=null;
     Integer degreAlccolemie = 0;
     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
 
@@ -94,7 +94,6 @@ public abstract class AbstractClient extends Humain {
      * @param boisson
      * @throws AbstractClientException
      */
-    @Override
     public void boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
             this.setDegreAlccolemie(this.getDegreAlccolemie() + boisson.getPointsAlcool());
@@ -113,7 +112,6 @@ public abstract class AbstractClient extends Humain {
      * @see Barman
      * @see Serveur
      */
-    @Override
     public void payer(Humain humain, Integer prix) throws AbstractClientException {
 
         if (humain instanceof Serveur) {
@@ -263,7 +261,7 @@ public abstract class AbstractClient extends Humain {
      */
     @Override
     public String toString() {
-        return super.toString() + "\n\t BOI1:" + this.boissonFavorite + " DEG:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
+        return super.toString() + "\n\t BOISSFAV:" + this.boissonFavorite.getNom() + " ALCOMEMIE:" + this.degreAlccolemie; //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -279,9 +277,9 @@ public abstract class AbstractClient extends Humain {
         if (humain instanceof Humain) {
             String str = this.getPrenom() + " dit ";
             Integer DEG = this.degreAlccolemie;
-            if (DEG.equals(0)) {
+            if (DEG<Humain.JOYEUX) {
                 return str + "salut";
-            } else if (DEG > 1 && DEG < 9) {
+            } else if (DEG >= Humain.JOYEUX && DEG < Humain.BOURRE) {
                 return str + "salut c'est cool";
             } else {
                 return str + "ch'suis pas bourré dabord";
@@ -301,7 +299,6 @@ public abstract class AbstractClient extends Humain {
      * @param personnelServant Une instane barman serveur
      * @throws AbstractClientException
      */
-    @Override
     public String offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
 
         if (humainChanceux instanceof Humain) {
@@ -325,4 +322,10 @@ public abstract class AbstractClient extends Humain {
         }
         //return null;
     }
+   
+   
+    
+    
+   
+    
 }
