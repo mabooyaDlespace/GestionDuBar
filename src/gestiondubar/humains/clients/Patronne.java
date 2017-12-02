@@ -39,6 +39,7 @@ public class Patronne extends AbstractClient {
      */
     public Patronne(String nomDeLaPatronne) throws AbstractClientException {
         super(nomDeLaPatronne);
+        super.setSexe(Sexe.MDM);
         bar = new Bar(nomDeLaPatronne);
 //    this.nomDeLaPatronne=nomDeLaPatronne;
         this.barman = new Barman(nomDeLaPatronne, this);

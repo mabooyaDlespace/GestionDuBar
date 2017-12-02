@@ -3,23 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/test/gestiondubar/humains/clients/AbstractClientIT.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/test/gestiondubar/humains/clients/BarmanIT.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/decore/Boisson.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/Barman.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/GererCaisse.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/encapsulations/package-info.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/encapsulations/ServirClient.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/Sexe.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/ClientParent.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/decore/Caisse.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/Patronne.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/Client.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
             <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/Humain.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/Servir.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/interfaceutilisateurs/InterfaceUtilisateur.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/BarmanException.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/exceptions/AbstractClientException.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/GererStock.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/interfaces/encapsulations/GererLeStockDuBar.java</file>
-            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/GestionDuBar.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/decore/Bar.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/manipulationprotagonistes/Manipuler.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/Enfant.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/decore/Boisson.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/AbstractClient.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/humains/clients/AttributSpecial.java</file>
+            <file>file:/C:/Users/ISEN/Documents/NetBeansProjects/Gittest/GestionDuBar/src/gestiondubar/interfaceutilisateurs/InterfaceUtilisateurJC.java</file>
         </group>
     </open-files>
 </project-private>

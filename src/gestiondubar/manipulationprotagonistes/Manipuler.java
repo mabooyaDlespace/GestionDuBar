@@ -8,7 +8,11 @@ package gestiondubar.manipulationprotagonistes;
 import gestiondubar.decore.Boisson;
 import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.Humain;
+import gestiondubar.humains.clients.AttributSpecial;
 import gestiondubar.humains.clients.Barman;
+import gestiondubar.humains.clients.Client;
+import gestiondubar.humains.clients.ClientParent;
+import gestiondubar.humains.clients.Enfant;
 import gestiondubar.humains.clients.Patronne;
 import gestiondubar.humains.clients.Serveur;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
@@ -17,10 +21,14 @@ import java.lang.reflect.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import static java.util.Collections.list;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.Parent;
 
 /**
  *
@@ -30,11 +38,15 @@ public class Manipuler {
 
     // ArrayListe<Humain> Protagoniste
     public Patronne patronne;
+    private Humain personneEnquestion;
     public ArrayList<Humain> liste;
     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.add("trouverEnFonctionDuNombre");
+        listeDesMethodesDesMenu.add("ChoisirHumainPuisActionEnFonctionDuNombre");
+//        listeDesMethodesDesMenu.add("ajouterUnClientAvecSonNom");
+//        listeDesMethodesDesMenu.add("ajouterUnServeurAvecSonNom");
+//        listeDesMethodesDesMenu.add("RemplacerLeBarmanConserverCaisseEtStock");
     }
 
     public static void main(String[] args) {
@@ -42,23 +54,30 @@ public class Manipuler {
         try {
             Manipuler manip = new Manipuler(new Patronne("Haaha"));
             String continuer = "o";
+            manip.ajouterUnClientAvecSonNom("Client1");
+            manip.ajouterUnParentEtSonEnfantAvecLeurNom("Papa1", "Enfant1");
+
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.EAU, 10);
+            manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.RICARD, 10);
+            manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
             Scanner scan = new Scanner(System.in);
             while (continuer.equals("o")) {
                 try {
                     manip.choisirLesMethodesDeManipulationEtLesExecuter(manip);
 
                 } catch (Exception ex) {
-                    System.out.println("**La methode n'a pas été executer : paramètre non comforme.**\n"
-                            + "Retry? type 'n' to stop");
-                    if (scan.next().equals("n")) {
+                    Throwable cause = ex.getCause();
+                    System.out.println(ex.getMessage()+"\n\n**La methode n'a pas été executer : paramètre non comforme.**\n"
+                            + "Retry? type 'n' to stop Or anything to continue"  );
+                    if (scan.nextLine().equals("n")) {
+
                         continuer = "n";
                     }
 
                 }
 
             }
-        } catch (AbstractClientException|StockException ex) {
+        } catch (AbstractClientException | StockException ex) {
             Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
         }
 //*/
@@ -68,7 +87,7 @@ public class Manipuler {
     public Manipuler(Patronne patronne) throws AbstractClientException {
         this.patronne = patronne;
         this.liste = this.updateListeDesProtagonistes(patronne);
-    }                 
+    }
 
     private ArrayList<Humain> updateListeDesProtagonistes(Patronne patronne) throws AbstractClientException {
         if (patronne instanceof Patronne) {
@@ -95,6 +114,11 @@ public class Manipuler {
         return description.toString();
     }
 
+    public void ajouterUnClientAvecSonNom(String nom) throws AbstractClientException {
+        ajouterUnClient(new Client(nom));
+
+    }
+
     public void ajouterUnClient(Humain client) throws AbstractClientException {
         if (client instanceof Humain && !(client instanceof Barman) && !(client instanceof Serveur) && !(client instanceof Patronne)) {
             patronne.getBar().clients.add(client);
@@ -105,9 +129,32 @@ public class Manipuler {
 
     }
 
+    public void ajouterUnServeurAvecSonNom(String nom) throws AbstractClientException {
+        ajouterUnServeur(new Serveur(nom, this.patronne));
+
+    }
+
     public void ajouterUnServeur(Serveur serveur) throws AbstractClientException {
         if (serveur instanceof Humain && (serveur instanceof Serveur)) {
             patronne.getBar().serveurs.add(serveur);
+            this.updateListeDesProtagonistes(patronne);
+        } else {
+            throw new AbstractClientException("Client can't be null or an instance of personnel");
+        }
+
+    }
+
+    public void ajouterUnParentEtSonEnfantAvecLeurNom(String nom, String nomEnfant) throws AbstractClientException {
+        ClientParent p = new ClientParent(nom, this.patronne);
+        Enfant e = new Enfant(nomEnfant, p);
+        ajouterUnParentEtSonEnfant(p, e);
+
+    }
+
+    public void ajouterUnParentEtSonEnfant(ClientParent parent, Enfant enfant) throws AbstractClientException {
+        if (parent instanceof ClientParent && (enfant instanceof Enfant)) {
+            patronne.getBar().clients.add(parent);
+            patronne.getBar().clients.add(enfant);
             this.updateListeDesProtagonistes(patronne);
         } else {
             throw new AbstractClientException("Client can't be null or an instance of personnel");
@@ -127,9 +174,10 @@ public class Manipuler {
 
     }
 
-    public Humain trouverEnFonctionDuNombre(Integer i) throws ManipulationException {
-        if (i < liste.size()) {
+    public Humain ChoisirHumainPuisActionEnFonctionDuNombre(Integer i) throws ManipulationException {
+        if (i > -1 && i < liste.size()) {
             System.out.println(liste.get(i).toString());
+            this.personneEnquestion = liste.get(i);
             return liste.get(i);
         } else {
             throw new ManipulationException("index ou of range");
@@ -153,20 +201,24 @@ public class Manipuler {
     public void choisirLesMethodesDeManipulationEtLesExecuter(Object o) throws Exception {
         Method[] m = this.explorerMethodes(o);
         m = this.filtrerLesMethodesAvecAutorisation(m, Manipuler.listeDesMethodesDesMenu);
-
-        System.out.println(consulterMethodes(m));
+        System.out.println("\n**systeme pause**");
+        new java.util.Scanner(System.in).nextLine();
+        System.out.println("\n\n\n\nDescription: Dans un premier temps choisir le n°du protagoniste");
+        //+ "\n Les autres sont la pour ajouter un client ou renomer le barman");
+        //   System.out.println(consulterMethodes(m));
         int choix = 0;
-        Scanner scan = null;
-        scan = new Scanner(System.in);
-        System.out.println("?Choisir n°?");
-        choix = scan.nextInt();
+        //Scanner scan = null;
+        //scan = new Scanner(System.in);
+        // System.out.println("Taper 0 pour executer la methode");
+        //choix = scan.nextInt();
 //        System.out.println("Scan int");
 //        choix = scan.nextInt();
         Method methodechoisie = m[choix];
+        //     System.out.println(afficherMethode(methodechoisie, choix));
         //Object[] my = methodechoisie.getParameterTypes();
-        System.out.print(this.afficherLesProtagonnistes());
+        System.out.println(this.afficherLesProtagonnistes());
 
-        this.analyserLesMethodesDelObjetEtLesLancerHumain(lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
+        this.analyserLesMethodesDelObjetEtLesLancerHumain(lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
 
     }
 
@@ -177,7 +229,7 @@ public class Manipuler {
      * @throws Exception
      */
     public void analyserLesMethodesDelObjetEtLesLancerHumain(Object o) throws Exception {
-
+        System.out.println("\n\n\n===Description: Dans un second temps choisir le n° de la methode===");
         //on recuper toute les methodes de la classe
         Method[] m = this.explorerMethodes(o);
         // on filtre les methodes autoriser
@@ -192,10 +244,11 @@ public class Manipuler {
 //        Object[] my = methodechoisie.getParameterTypes();
 //            Object type=my[0].getClass().getTypeName();
 //            Object[] args=this.scanParameters(methodechoisie.getParameterTypes());
+
         if (!(methodechoisie.getReturnType().getSimpleName().equals("void"))) {
-            System.out.println("RESULAT:" + lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
-        }else{
-        lancerMethode(o,methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName());
+            System.out.println("RESULAT:" + lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
+        } else {
+            lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName());
         }//        } catch (Exception ex) {
 //            System.out.println(ex.getMessage());
 //        }
@@ -204,7 +257,9 @@ public class Manipuler {
     }
 
     public Object[] scanParameters(Object[] args) {
+
         Object[] myargs = new Object[args.length];
+        // if(args.length!=0)System.out.println("\n\n===Description: Dans un troisieme temps choisir Les parametre==");
         for (Integer i = 0; i < args.length; ++i) {
             myargs[i] = scanStringParamtre(args[i].toString()/*.getClass().getSimpleName()*/);
         }
@@ -229,7 +284,7 @@ public class Manipuler {
                     System.out.print(this.afficherLesProtagonnistes());
                     System.out.println("\nLa methode utilise un Humain -> Choisissez son n° :");
                     i = scan.nextInt();
-                    o = this.trouverEnFonctionDuNombre(i);
+                    o = this.ChoisirHumainPuisActionEnFonctionDuNombre(i);
                     break;
                 case "class gestiondubar.decore.Boisson":
                     System.out.print(Boisson.afficherLesBoissons());
@@ -237,22 +292,41 @@ public class Manipuler {
                     i = scan.nextInt();
                     o = Boisson.ChoisirUneBoisson(i);
                     break;
+                case "class gestiondubar.humains.clients.AttributSpecial": {
+                    try {
+                        System.out.print(AttributSpecial.afficherLesAttributDeLobjet(this.personneEnquestion));
+
+                        System.out.println("\nLa methode utilise un AttributSpecial-> Choisissez son n° :");
+                        i = scan.nextInt();
+                        o = AttributSpecial.choisirUnAttribut(personneEnquestion, i);
+                    } catch (Exception ex) {
+                        Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                break;
                 case "class java.lang.String":
                     System.out.println("\nLa methode utilise une Chaine de charactère-> Entrez une String:");
                     o = scan.nextLine();
-                    o = (String) o;   
+                    o = (String) o;
                     break;
+                case "class gestiondubar.manipulationprotagoniste.Manipuler":
+                    o = (Manipuler) this;
+                    break;
+                default:
+                    throw new ManipulationException("Le choix n'est pas encore implémenté");
+
             }
 
         } catch (ManipulationException ex) {
-            Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
+            Throwable cause = ex.getCause();
+            System.out.println("Message="+ex.getMessage()+"\nCause : " + cause.getMessage());
         }
         return o;
     }
 
-    public Object lancerMethode(Object o,Method methode, Object[] args, String nomMethode) throws Exception {
+    public Object lancerMethode(Object o, Method methode, Object[] args, String nomMethode) throws Exception {
         try {
-            Humain h=null;
+            Humain h = null;
             Class[] paramTypes = null;
             if (args != null) {
                 paramTypes = new Class[args.length];
@@ -260,11 +334,11 @@ public class Manipuler {
 //                    if (args[i].getClass().equals("Barman")) {
 //                        paramTypes[i] = h.getClass();
 //                    } else {
-                        paramTypes[i] = args[i].getClass();
+                    paramTypes[i] = args[i].getClass();
 //                    }
                 }
             }
-             methode = o.getClass().getMethod(nomMethode,methode.getParameterTypes());
+            methode = o.getClass().getMethod(nomMethode, methode.getParameterTypes());
 //            Method m = o.getClass().getDeclaredMethod(nomMethode, paramTypes);
             return methode.invoke(o, args);
         } catch (NoSuchMethodException x) {
@@ -327,7 +401,7 @@ public class Manipuler {
         c = o.getClass();
         m = c.getMethods();
         //ArrayList<String> listeM = new ArrayList<>();
-        // listeDesMethodesDesMenu.add("trouverEnFonctionDuNombre");
+        // listeDesMethodesDesMenu.add("ChoisirHumainPuisActionEnFonctionDuNombre");
 
         return m;
     }
@@ -348,7 +422,7 @@ public class Manipuler {
                 }
             }
             mystr += ")";
-             mystr+=" Renvoie:"+ m[i].getReturnType().getSimpleName();
+            mystr += " Renvoie:" + m[i].getReturnType().getSimpleName();
         }
         return mystr;
     }
@@ -380,37 +454,52 @@ public class Manipuler {
                 myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Patronne.listeDesMethodesDesMenu);
                 break;
             case "Client":
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Client.listeDesMethodesDesMenu);
                 break;
             case "Barman":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Humain.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Barman.listeDesMethodesDesMenu);
                 break;
             case "Serveur":
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Serveur.listeDesMethodesDesMenu);
                 break;
+            case "Enfant":
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Enfant.listeDesMethodesDesMenu);
+                break;
+            case "ClientParent":
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, ClientParent.listeDesMethodesDesMenu);
+                break;
+
             default:
-                // throw new Exception("La classe n'éxiste pas");
-                break;
+                throw new Exception("La classe n'éxiste pas ou n'est pas implémenté");
         }
 
         return myMet;
     }
 
-    private Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) {
+    private Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) throws Exception {
         Method[] myMet;
         int j = 0;
-        // Collections.sort(methodes,methodes.);
+         
+         Set set = new HashSet() ;
+        set.addAll(listedesmethodes) ;
+        listedesmethodes = new ArrayList(set) ;
+        Collections.sort(listedesmethodes);
         for (int i = 0; i < methodes.length; ++i) {
+            
             if (Manipuler.stringExiste(methodes[i].getName(), listedesmethodes)) {
                 j++;
             }
         }
         myMet = new Method[j];
         int k = 0;
-        for (int i = 0; i < methodes.length; ++i) {
-            if (Manipuler.stringExiste(methodes[i].getName(), listedesmethodes)) {
-                myMet[k] = methodes[i];
+        int whereIsTheMethode;
+        for (int i = 0; i < j; ++i) {
+//            if (
+                  whereIsTheMethode = Manipuler.methodeExistsInArrayList(methodes,listedesmethodes.get(i));//) {
+                myMet[k] = methodes[whereIsTheMethode];
                 k++;
             }
-        }
+        //}
         return myMet;
     }
 
@@ -422,6 +511,14 @@ public class Manipuler {
 
         }
         return false;
+    }
+    public static Integer methodeExistsInArrayList(Method[] m, String mName) throws Exception {
+        for (int i = 0; i < m.length; i++) {
+            if (m[i].getName().equals(mName)) {
+                return i;
+            }
+        }
+        throw new Exception("La methode "+mName+ " n'existe pas",new Throwable(mName));
     }
 
     /*
@@ -454,7 +551,7 @@ public class Manipuler {
     
     
     
-//     */
+     //     */
 //    private class  ComparerMethodes  extends ClassValue<Methode> implements Comparable<Object>{
 //        
 //      
