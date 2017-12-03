@@ -186,6 +186,8 @@ public class BarmanIT {
             Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ServirException ex) {
             Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StockException ex) {
+            Logger.getLogger(BarmanIT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

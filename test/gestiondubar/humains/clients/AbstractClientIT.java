@@ -505,6 +505,8 @@ public class AbstractClientIT {
         } catch (AbstractClientException ex) {
             fail(" error");
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StockException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

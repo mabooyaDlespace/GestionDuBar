@@ -191,19 +191,7 @@ public class ManipulerIT {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of makeHumainDo method, of class Manipuler.
-     */
-    @Test
-    public void testMakeHumainDo() {
-        System.out.println("makeHumainDo");
-        Humain humain = null;
-        Integer choix = null;
-        Manipuler instance = null;
-        instance.makeHumainDo(humain, choix);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 
     /**
      * Test of choisirUnProtagonisteEtUtiliserSesMethodes method, of class
@@ -214,7 +202,7 @@ public class ManipulerIT {
         System.out.println("choisirLesMethodesDeManipulationEtLesExecuter");
         Object o = null;
         Manipuler instance = null;
-        instance.choisirUnProtagonisteEtUtiliserSesMethodes(o);
+        instance.choisirUnProtagonisteEtUtiliserSesMethodes((Manipuler) o);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -233,34 +221,25 @@ public class ManipulerIT {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of scanParameters method, of class Manipuler.
-     */
-    @Test
-    public void testScanParameters() {
-        System.out.println("scanParameters");
-        Object[] args = null;
-        Manipuler instance = null;
-        Object[] expResult = null;
-        Object[] result = instance.scanParameters(args);
-        assertArrayEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+
 
     /**
      * Test of scanStringParamtre method, of class Manipuler.
      */
     @Test
     public void testScanStringParamtre() {
-        System.out.println("scanStringParamtre");
-        String param = "";
-        Manipuler instance = null;
-        Object expResult = null;
-        Object result = instance.scanStringParamtre(param);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        try {
+            System.out.println("scanStringParamtre");
+            String param = "";
+            Manipuler instance = null;
+            Object expResult = null;
+            Object result = instance.scanStringParamtre(param);
+            assertEquals(expResult, result);
+            // TODO review the generated test code and remove the default call to fail.
+            fail("The test case is a prototype.");
+        } catch (Exception ex) {
+            Logger.getLogger(ManipulerIT.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
