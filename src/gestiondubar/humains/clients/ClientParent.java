@@ -18,10 +18,10 @@ public class ClientParent extends Client {
 
     public Patronne patronne;
     ArrayList<Enfant> enfants;
-    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(Client.listeDesMethodesDesMenu);
+        listeDesMethodesDesMenus.addAll(Client.listeDesMethodesDesMenus);
     }
 
     public ClientParent(String prenom, Patronne patronne) throws AbstractClientException {

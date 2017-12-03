@@ -11,52 +11,73 @@ import gestiondubar.decore.bars.Stock;
 import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.interfaces.GererStock;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- *  <b> Est une intance qui implmente la classe GererStock et permet de gerer un Instance de la classe Stock . </b><br> 
- * Elle permet de Stocker le corps des fonctions, elle n'est utilisé que par barman. <br>
- * 
+ * <b> Est une intance qui implmente la classe GererStock et permet de gerer un
+ * Instance de la classe Stock . </b><br>
+ * Elle permet de Stocker le corps des fonctions, elle n'est utilisé que par
+ * barman. <br>
+ *
  * @see Barman
  * @see Stock
- * @see #estPresentDansLeStock(gestiondubar.decore.Boisson) <br>estPresentDansLeStock
- * @see #existeDansLeStock(gestiondubar.decore.Boisson) existeDansLeStock 
- * @see #getBoissonEtQuantite(gestiondubar.decore.Boisson) <br>getBoissonEtQuantite
+ * @see #estPresentDansLeStock(gestiondubar.decore.Boisson)
+ * <br>estPresentDansLeStock
+ * @see #existeDansLeStock(gestiondubar.decore.Boisson) existeDansLeStock
+ * @see #getBoissonEtQuantite(gestiondubar.decore.Boisson)
+ * <br>getBoissonEtQuantite
  * @see #getNomAdministrateur() getNomAdministrateur
- * @see #getQuantiteDeLaBoisson(gestiondubar.decore.Boisson) getQuantiteDeLaBoisson
+ * @see #getQuantiteDeLaBoisson(gestiondubar.decore.Boisson)
+ * getQuantiteDeLaBoisson
  * @see #getStock() getStock
  * @see #setNomAdministrateur(java.lang.String) <br>setNomAdministrateur
- * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer) setQuantiteDeLaBoisson
+ * @see #setQuantiteDeLaBoisson(gestiondubar.decore.Boisson, java.lang.Integer)
+ * setQuantiteDeLaBoisson
  * @see #setStock(java.util.LinkedList) setStock
  * @author ISEN
  */
 public class GererLeStockDuBar implements GererStock {
-       
-        private LinkedList<BoissonEtQuantite> stock;
-        private String nomAdministrateur;
 
-    /**
-     * <b> Constructeur pour cette classe </b> .
-     * <br> Est généralement implémenté lors de la création du Barman, 
-     * <br> on par du principe qu'un barman qui n'a pas de stock ou de caisse est un client comme un autre
-     * 
-     * @param barman
-     * @param stock
-     */
-    public GererLeStockDuBar( Barman barman,Stock stock ) {
-        this.stock=stock.getStockDeBoissonEtQuantite(barman);
+    private LinkedList<BoissonEtQuantite> stock;
+    private String nomAdministrateur;
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
+
+    static {
+        listeDesMethodesDesMenus.add("estPresentDansLeStock");
+        listeDesMethodesDesMenus.add("setQuantiteDeLaBoisson");
+        listeDesMethodesDesMenus.add("getQuantiteDeLaBoisson");
+        listeDesMethodesDesMenus.add("afficherLeContenuDuStock");
     }
 
     /**
-     * 
+     * <b> Constructeur pour cette classe </b> .
+     * <br> Est généralement implémenté lors de la création du Barman,
+     * <br> on par du principe qu'un barman qui n'a pas de stock ou de caisse
+     * est un client comme un autre
+     * <br> Le stock contient la liste des boissons
+     * <br> Le stock est une entité non autonome. Elle nécéssite un barman pour
+     * etre exploité
+     *
+     * @param barman
+     * @param stock
+     */
+    public GererLeStockDuBar(Barman barman, Stock stock) {
+        this.stock = stock.getStockDeBoissonEtQuantite(barman);
+    }
+
+    /**
+     *
      * Permet de verifier si une boisson est présente dans le stock.
-     * <br> Même chose que existe sauf qu'on rajoute la qt en paramètre
+     * <br> Même chose que existe sauf que en plus de vérifier si elle est sur
+     * la carte,on regarde si la qt n'est pas nulle.
+     *
      * @param ceQueJeCherche
      * @return true if stock !=empty && et qt >0
      */
     @Override
     public boolean estPresentDansLeStock(Boisson ceQueJeCherche) {
-        if (getStock().isEmpty() || !(ceQueJeCherche instanceof Boisson) ){
+        if (getStock().isEmpty() || !(ceQueJeCherche instanceof Boisson)) {
 
             return false;
         }
@@ -71,7 +92,9 @@ public class GererLeStockDuBar implements GererStock {
     }
 
     /**
-     * Permet de vérifier si une boisson est sur la carte (Si ya une instance BoissonEtQuantite)
+     * Permet de vérifier si une boisson est sur la carte (Si ya une instance
+     * BoissonEtQuantite)
+     *
      * @param ceQueJeCherche
      * @return
      */
@@ -91,7 +114,8 @@ public class GererLeStockDuBar implements GererStock {
     }
 
     /**
-     * Renvoie le reference du couple boisson et quantité
+     * Renvoie la reference du couple boisson et quantité
+     *
      * @param ceQueJeCherche
      * @return
      */
@@ -107,14 +131,31 @@ public class GererLeStockDuBar implements GererStock {
         }
         return null;
     }
-
+/**
+     * Revoie le contenue du stock
+     *
+     * @return
+     */
+    @Override
+    public String afficherLeContenuDuStock()  {
+        String str = "Contenu du Stock:";
+        if (this.stock instanceof LinkedList && !(this.stock.isEmpty()) ) {
+            for (BoissonEtQuantite betq : this.stock) {
+                str += "\n" + betq.getBoisson().toString() + " QUANTITE:" + betq.getQuantite();
+            }
+            return str;
+        }
+        return "Il est vide...";
+    }
     /**
-     *  Permet de modifier la quantiter de la boisson et rajoute une instance si n'existe pas dans stock
-     * 
+     * Permet de modifier la quantiter de la boisson et rajoute une instance si
+     * n'existe pas dans stock
+     *
      * @param ceQueJeMets
      * @param quantite doit etre positive
      * @throws StockException
      */
+    @Override
     public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException {
         if (quantite instanceof Integer && quantite.compareTo(0) > -1) {
             if (this.existeDansLeStock(ceQueJeMets)) {
@@ -135,9 +176,11 @@ public class GererLeStockDuBar implements GererStock {
 
     /**
      * Renvoie la quantité de la boisson
+     *
      * @param boisson
      * @return
      */
+    @Override
     public Integer getQuantiteDeLaBoisson(Boisson boisson) {
         if (existeDansLeStock(boisson)) {
             BoissonEtQuantite temp = getBoissonEtQuantite(boisson);
@@ -173,5 +216,7 @@ public class GererLeStockDuBar implements GererStock {
     public void setNomAdministrateur(String nomAdministrateur) {
         this.nomAdministrateur = nomAdministrateur;
     }
+
+    
 
 }

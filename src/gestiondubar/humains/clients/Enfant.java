@@ -18,11 +18,11 @@ import java.util.ArrayList;
 public class Enfant extends Humain {
 
     ClientParent parent;
-    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(Humain.listeDesMethodesDesMenu);
-        listeDesMethodesDesMenu.add("boire");
+        listeDesMethodesDesMenus.addAll(Humain.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.add("boire");
         
     }
 

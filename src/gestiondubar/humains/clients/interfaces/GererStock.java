@@ -19,4 +19,11 @@ public interface GererStock {
      public BoissonEtQuantite getBoissonEtQuantite(Boisson ceQueJeCherche);
      public void setQuantiteDeLaBoisson(Boisson ceQueJeMets, Integer quantite) throws StockException ;
      public Integer getQuantiteDeLaBoisson(Boisson boisson);
+     public String afficherLeContenuDuStock();
 }
+
+
+// listeDesMethodesDesMenus.add("estPresentDansLeStock");
+//        listeDesMethodesDesMenus.add("setQuantiteDeLaBoisson");
+//        listeDesMethodesDesMenus.add("getQuantiteDeLaBoisson");
+//        listeDesMethodesDesMenus.add("afficherLeContenuDuStock");

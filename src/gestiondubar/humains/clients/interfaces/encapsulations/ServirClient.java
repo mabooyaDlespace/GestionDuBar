@@ -11,16 +11,25 @@ package gestiondubar.humains.clients.interfaces.encapsulations;
 import gestiondubar.humains.Humain;
 import gestiondubar.humains.clients.Barman;
 import gestiondubar.humains.clients.interfaces.Servir;
+import java.util.ArrayList;
 
 /**
- * Est une classe qui permet de gere la monnaie du bar que les individus possèdent
+ * Est une classe qui permet de gere la monnaie du bar que les individus possèdent.<br>
+ * En effet le personnel a une monnaie qui est la propriété du bar.
  * @see #getMonnaieDuBar() getMonnaieDuBar() 
  * @see #setMonnaieDuBar(java.lang.Integer) setMonnaieDuBar()
  * @see #donnerLaMonnaieAuxResponsables(gestiondubar.humains.Humain) donnerLaMonnaieAuxResponsables()
  * @author ISEN
  */
 public class ServirClient implements Servir {
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
+    static {
+        listeDesMethodesDesMenus.add("donnerLaMonnaieAuxResponsables");
+        listeDesMethodesDesMenus.add("getMonnaieDuBar");
+        listeDesMethodesDesMenus.add("setMonnaieDuBar");
+        
+    }
     Integer monnaieDuBar = 0;
 
     /**

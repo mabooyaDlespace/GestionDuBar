@@ -22,12 +22,13 @@ public class Patronne extends AbstractClient {
     private Bar bar;
     private Barman barman;
 
-     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+     public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(AbstractClient.listeDesMethodesDesMenu);
-        listeDesMethodesDesMenu.add("getBarman");
-        listeDesMethodesDesMenu.add("getBar");
+        listeDesMethodesDesMenus.addAll(AbstractClient.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.add("getBarman");
+        listeDesMethodesDesMenus.add("getBar");
+        listeDesMethodesDesMenus.add("afficherLeContenuDuStock");
     }
     
     
@@ -45,7 +46,13 @@ public class Patronne extends AbstractClient {
         this.barman = new Barman(nomDeLaPatronne, this);
 
     }
-
+    /**
+     * Affiche les boisson et quantité du stock
+     * @return 
+     */
+    public String afficherLeContenuDuStock()  {
+        return this.getBarman().afficherLeContenuDuStock();
+    }
     public Bar getBar() {
         return bar;
     }

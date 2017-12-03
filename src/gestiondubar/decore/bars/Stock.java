@@ -15,33 +15,44 @@ import java.util.LinkedList;
  * @author ISEN
  */
 public class Stock {
+
     private LinkedList<BoissonEtQuantite> stockDeBoissonEtQuantite;
     private String nomAdministrateur;
-   
-    public Stock( String nomAdministrateur) {
+
+    public Stock(String nomAdministrateur) {
         this.stockDeBoissonEtQuantite = new LinkedList<BoissonEtQuantite>();
-         this.nomAdministrateur=nomAdministrateur;
+        this.nomAdministrateur = nomAdministrateur;
     }
-     
+
     public LinkedList<BoissonEtQuantite> getStockDeBoissonEtQuantite() {
-     return stockDeBoissonEtQuantite;
-     
+        return stockDeBoissonEtQuantite;
+
     }
+
     public LinkedList<BoissonEtQuantite> getStockDeBoissonEtQuantite(Barman barman) {
-        if (barman instanceof Barman )return stockDeBoissonEtQuantite;
+        if (barman instanceof Barman) {
+            return stockDeBoissonEtQuantite;
+        }
         return null;
     }
 
-    public void setStockDeBoissonEtQuantite(LinkedList<BoissonEtQuantite> stockDeBoissonEtQuantite,Barman barman) {
-        if (barman instanceof Barman )this.stockDeBoissonEtQuantite = stockDeBoissonEtQuantite;
+    public void setStockDeBoissonEtQuantite(LinkedList<BoissonEtQuantite> stockDeBoissonEtQuantite, Barman barman) {
+        if (barman instanceof Barman) {
+            this.stockDeBoissonEtQuantite = stockDeBoissonEtQuantite;
+        }
     }
 
-    public String getNomAdministrateur() {
-        return nomAdministrateur;
+    public String afficherLeContenuDuStock() {
+        String str = "Contenu du Stock:";
+        if (this.stockDeBoissonEtQuantite instanceof LinkedList && !(this.stockDeBoissonEtQuantite.isEmpty())) {
+            for (BoissonEtQuantite betq : this.stockDeBoissonEtQuantite) {
+                str += "\n" + betq.getBoisson().toString() + " QUANTITE:" + betq.getQuantite();
+            }
+            return str;
+        }
+        return "Il est vide...";
+
     }
 
-    public void setNomAdministrateur(String nomAdministrateur) {
-        this.nomAdministrateur = nomAdministrateur;
-    }
 
 }

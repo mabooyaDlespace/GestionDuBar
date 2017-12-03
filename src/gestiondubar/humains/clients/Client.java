@@ -26,12 +26,12 @@ public class Client extends AbstractClient {
     public void setBoissonSecours(Boisson boissonSecours) {
         this.boissonSecours = boissonSecours;
     }
-      public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+      public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(AbstractClient.listeDesMethodesDesMenu);
-        listeDesMethodesDesMenu.add("setBoissonSecours");
-        listeDesMethodesDesMenu.add("getBoissonSecours");
+        listeDesMethodesDesMenus.addAll(AbstractClient.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.add("setBoissonSecours");
+        listeDesMethodesDesMenus.add("getBoissonSecours");
     }
     public Client(String prenom) throws AbstractClientException {
         super(prenom);

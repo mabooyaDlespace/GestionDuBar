@@ -54,20 +54,17 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     private Stock stock;
     private Servir servirDesClients = new ServirClient();
     private GererStock gererLeStockDuBar;
-    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(AbstractClient.listeDesMethodesDesMenu);
-        listeDesMethodesDesMenu.add("donnerLaMonnaieAuxResponsables");
-        listeDesMethodesDesMenu.add("getCaisseDuBar");
-        listeDesMethodesDesMenu.add("getMonnaieDuBar");
-        listeDesMethodesDesMenu.add("getQuantiteDeLaBoisson");
-        listeDesMethodesDesMenu.add("setMonnaieDuBar");
-        listeDesMethodesDesMenu.add("setQuantiteDeLaBoisson");
-        
-
-
-
+        listeDesMethodesDesMenus.addAll(AbstractClient.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.addAll(ServirClient.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.addAll(GererLeStockDuBar.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.add("getCaisseDuBar");
+        listeDesMethodesDesMenus.add("getQuantiteDeLaBoisson");
+        listeDesMethodesDesMenus.add("setQuantiteDeLaBoisson");
+        listeDesMethodesDesMenus.add("afficherHistoriqueCaisseDuBar");
+        listeDesMethodesDesMenus.add("getPatronne");
     }
 
     /**
@@ -104,6 +101,14 @@ public class Barman extends AbstractClient implements Servir, GererStock {
      */
     public Caisse getCaisseDuBar() {
         return caisseDuBar;
+    }
+    /**
+     * Retourn l'historique de la caisse
+     *
+     * @return
+     */
+    public String afficherHistoriqueCaisseDuBar() {
+        return caisseDuBar.getHistoriqueDubar();
     }
 
     /**
@@ -254,6 +259,20 @@ public class Barman extends AbstractClient implements Servir, GererStock {
     @Override
     public Integer getQuantiteDeLaBoisson(Boisson boisson) {
         return this.gererLeStockDuBar.getQuantiteDeLaBoisson(boisson);
+    }
+
+    /**
+     * Voir celle de GererLeStockDuBar pour description.
+     *
+     * @see GererLeStockDuBar#afficherLeContenuDuStock()
+     * afficherLeContenuDuStocks
+     * @see GererLeStockDuBar
+     * @param boisson
+     * @return
+     */
+    @Override
+    public String afficherLeContenuDuStock() {
+        return this.gererLeStockDuBar.afficherLeContenuDuStock();
     }
 
 }

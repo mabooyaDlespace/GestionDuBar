@@ -12,8 +12,10 @@ import gestiondubar.humains.clients.interfaces.Servir;
 import java.util.ArrayList;
 
 /**
- * Classe dont herite Barman, Client , Patronne ,Serveur et qui possèdes les
- * fonction suivantes.
+ * Classe dont herite Barman, Client , Patronne ,Serveur,ClientParent et qui
+ * possède les fonction suivantes. Elle est la classe qui contient le corps de
+ * plusieurs autres fonction autre que les getter et les setter.
+ *
  *
  * @see AbstractClient#boire(gestiondubar.decore.Boisson) boire
  * @see AbstractClient#commanderBoisson(gestiondubar.decore.Boisson,
@@ -34,18 +36,18 @@ import java.util.ArrayList;
  */
 public abstract class AbstractClient extends Humain {
 
-    Boisson boissonFavorite = Boisson.EAU;
-    Object AttributSpecial=null;
-    Integer degreAlccolemie = 0;
-    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+    protected Boisson boissonFavorite = Boisson.EAU;
+    protected Object AttributSpecial = null;
+    protected Integer degreAlccolemie = 0;
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.addAll(Humain.listeDesMethodesDesMenu);
-        listeDesMethodesDesMenu.add("commanderBoisson");
-        listeDesMethodesDesMenu.add("sePresenterA");
-        listeDesMethodesDesMenu.add("offrirUnVerre");
-        
-        
+        listeDesMethodesDesMenus.addAll(Humain.listeDesMethodesDesMenus);
+        listeDesMethodesDesMenus.add("commanderBoisson");
+        listeDesMethodesDesMenus.add("sePresenterA");
+        listeDesMethodesDesMenus.add("offrirUnVerre");
+        listeDesMethodesDesMenus.add("demanderSiPresentDansLesStocks");
+
     }
 
     /**
@@ -94,6 +96,7 @@ public abstract class AbstractClient extends Humain {
      * @param boisson
      * @throws AbstractClientException
      */
+    @Override
     public void boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
             this.setDegreAlccolemie(this.getDegreAlccolemie() + boisson.getPointsAlcool());
@@ -167,7 +170,7 @@ public abstract class AbstractClient extends Humain {
             if (!(boisson instanceof Boisson)) {
                 throw new AbstractClientException("le parametre n'est pas une instance de boisson ");
             } else {
-                throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel");
+                throw new AbstractClientException("Le parametre humain n'est pas une instance de Personnel(Barman/Serveur)");
             }
         }
 
@@ -188,10 +191,10 @@ public abstract class AbstractClient extends Humain {
     public boolean demanderSiPresentDansLesStocks(Humain humain, Boisson boisson, Integer quantite) throws AbstractClientException {
         if (humain instanceof Serveur) {
             Serveur serveur = (Serveur) humain;
-            return this.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+            return this.demanderSiPresentDansLesStocksServeur(serveur, boisson, quantite);
         } else if ((humain instanceof Barman)) {
             Barman barman = (Barman) humain;
-            return this.demanderSiPresentDansLesStocks(barman, boisson, quantite);
+            return this.demanderSiPresentDansLesStocksBarman(barman, boisson, quantite);
         } else {
             throw new AbstractClientException(" n'est pas un membre du personnel ");
         }
@@ -207,7 +210,7 @@ public abstract class AbstractClient extends Humain {
      * @param quantite >=1
      * @return
      */
-    public boolean demanderSiPresentDansLesStocks(Serveur serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
+    public boolean demanderSiPresentDansLesStocksServeur(Serveur serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
         if (serveur instanceof Serveur
                 && boisson instanceof Boisson
                 && quantite.compareTo(0) > 0 // si supérieur à zero
@@ -236,7 +239,7 @@ public abstract class AbstractClient extends Humain {
      * @param quantite >=1
      * @return
      */
-    public boolean demanderSiPresentDansLesStocks(Barman serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
+    public boolean demanderSiPresentDansLesStocksBarman(Barman serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
         if (serveur instanceof Barman
                 && boisson instanceof Boisson
                 && quantite.compareTo(0) > 0 // si supérieur à zero
@@ -277,7 +280,7 @@ public abstract class AbstractClient extends Humain {
         if (humain instanceof Humain) {
             String str = this.getPrenom() + " dit ";
             Integer DEG = this.degreAlccolemie;
-            if (DEG<Humain.JOYEUX) {
+            if (DEG < Humain.JOYEUX) {
                 return str + "salut";
             } else if (DEG >= Humain.JOYEUX && DEG < Humain.BOURRE) {
                 return str + "salut c'est cool";
@@ -307,7 +310,7 @@ public abstract class AbstractClient extends Humain {
                 Boisson b = this.commanderBoisson(chanceux.boissonFavorite, personnelServant);
                 if (b != null) {
                     chanceux.boire(b);
-                    return  "\n"+humainChanceux.getPrenom()+ "a bu " +b.getNom()+" offert par "+ this.getPrenom() ;
+                    return "\n" + humainChanceux.getPrenom() + "a bu " + b.getNom() + " offert par " + this.getPrenom();
 
                 } else {
                     throw new AbstractClientException("la boisson n'existe pas");
@@ -322,10 +325,5 @@ public abstract class AbstractClient extends Humain {
         }
         //return null;
     }
-   
-   
-    
-    
-   
-    
+
 }

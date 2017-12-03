@@ -75,7 +75,7 @@ public class InterfaceUtilisateurJC {
                 inter.barman=this.patronne.getBarman();
                 long argentPatronne = Math.round(Math.random() * (200 - 1));
                 inter.patronne.setPorteMonnaie((int) argentPatronne);
-                inter.patronne.setSexe("Femme");
+                //inter.patronne.setSexe("Femme");
 
             } else if (inter.SNM.mode == '2') {
                 AffichageChoixConfigAuto("la patronne");
@@ -90,7 +90,7 @@ public class InterfaceUtilisateurJC {
                 // inter.barman=this.patronne.getBarman();
                 long argentPatronne = Math.round(Math.random() * (200 - 1));
                 inter.patronne.setPorteMonnaie((int) argentPatronne);
-                inter.patronne.setSexe("Femme");
+              //  inter.patronne.setSexe("Femme");
 
             }
 

@@ -34,9 +34,9 @@ public class BoissonEtQuantite {
         if (boisson instanceof Boisson) {
             this.boisson = boisson;
         } else {
-
+            throw new StockException(" Param boisson is not an instance of Boisson");
         }
-        throw new StockException(" Param boisson is not an instance of Boisson");
+
     }
 
     public int getQuantite() {

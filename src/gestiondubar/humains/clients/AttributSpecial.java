@@ -43,20 +43,24 @@ public enum AttributSpecial {
     public static String afficherLesAttributDeLobjet(Humain o) throws Exception {
         Integer i = 0;
         String str = "";
-        if (o instanceof Serveur) {
+        if (o.getSexe() instanceof Sexe && o instanceof Serveur) {
             if (o.getSexe().equals(Sexe.MR)) {
                 str = afficherLesAttributMasculinServeur();
             } else {
                 str = afficherLesAttributFemininServeur();
             }
-        } else if (o instanceof Object) {
+        } else if (o.getSexe() instanceof Sexe && o instanceof Object) {
             if (o.getSexe().equals(Sexe.MR)) {
                 str = afficherLesAttributMasculinNonServeur();
             } else {
                 str = afficherLesAttributFemininNonServeur();
             }
         } else {
-            throw new Exception("L'Humain = null");
+            if (!(o.getSexe() instanceof Sexe)) {
+                throw new Exception("Le sexe doit etre set dabord");
+            } else {
+                throw new Exception("L'Humain = null");
+            }
         }
 
         return str;
@@ -90,39 +94,47 @@ public enum AttributSpecial {
     }
 
     public static AttributSpecial choisirUnAttribut(Humain o, Integer i) throws Exception {
-        if (o instanceof Serveur) {
+        if (o.getSexe() instanceof Sexe && o instanceof Serveur) {
             if (o.getSexe().equals(Sexe.MR)) {
                 return choisirAttributMasculinServeur(o, i);
             } else {
                 return choisirAttributFemininServeur(o, i);
             }
-        } else if (o instanceof Object) {
+        } else if (o.getSexe() instanceof Sexe && o instanceof Object) {
             if (o.getSexe().equals(Sexe.MR)) {
                 return choisirAttributMasculinNonServeur(o, i);
             } else {
                 return choisirAttributFemininNonServeur(o, i);
             }
         } else {
-            throw new Exception("L'Humain = null");
+            if (!(o.getSexe() instanceof Sexe)) {
+                throw new Exception("Le sexe doit etre set dabord");
+            } else {
+                throw new Exception("L'Humain = null");
+            }
         }
 
     }
 
     public static AttributSpecial AutoChoisirUnAttribut(Humain o) throws Exception {
         if (o instanceof Serveur) {
-            if (o.getSexe().equals(Sexe.MR)) {
+            if (o.getSexe() instanceof Sexe && o.getSexe().equals(Sexe.MR)) {
                 return choisirAttributMasculinServeur(o, debut3);
             } else {
                 return choisirAttributFemininServeur(o, debut4);
             }
-        } else if (o instanceof Object) {
+        } else if (o.getSexe() instanceof Sexe && o instanceof Object) {
             if (o.getSexe().equals(Sexe.MR)) {
                 return choisirAttributMasculinNonServeur(o, debut1);
             } else {
                 return choisirAttributFemininNonServeur(o, debut2);
             }
         } else {
-            throw new Exception("L'Humain = null");
+            if (!(o.getSexe() instanceof Sexe)) {
+                throw new Exception("Le sexe doit etre set dabord");
+            } else {
+                throw new Exception("L'Humain = null");
+            }
         }
 
     }

@@ -20,10 +20,10 @@ import java.util.logging.Logger;
 public abstract class Humain {
 
     private final String prenom;
-    protected String surnom = "";
+    protected String surnom = null;
     protected Integer porteMonnaie = 0;
     protected Integer coteDePopularite = 0;
-    protected String crisignificatif = "";
+    protected String crisignificatif = null;
     public Sexe sexe;// = Sexe.MR;
     protected AttributSpecial attributSpecial;
     public static final Integer SOBRE = 0;
@@ -31,25 +31,25 @@ public abstract class Humain {
     public static final Integer BOURRE = 7;
     public static final Integer DOITVOMIR = 12;
 
-    public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
+    public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.add("getPrenom");
-        listeDesMethodesDesMenu.add("getSurnom");
-        listeDesMethodesDesMenu.add("getCoteDePopularite");
-        listeDesMethodesDesMenu.add("getCriSignificatif");
-        listeDesMethodesDesMenu.add("getSexe");
-        listeDesMethodesDesMenu.add("getPorteMonnaie");
-        listeDesMethodesDesMenu.add("setSurnom");
-        listeDesMethodesDesMenu.add("setCoteDePopularite");
-        listeDesMethodesDesMenu.add("setCriSignificatif");
-        listeDesMethodesDesMenu.add("setSexe");
-        listeDesMethodesDesMenu.add("setAttributSpecial");
-        listeDesMethodesDesMenu.add("toString");
-        listeDesMethodesDesMenu.add("setPorteMonnaie");
-        listeDesMethodesDesMenu.add("setPorteMonnaie");
-        listeDesMethodesDesMenu.add("setPorteMonnaie");
-        listeDesMethodesDesMenu.add("setPorteMonnaie");
+        listeDesMethodesDesMenus.add("getPrenom");
+        listeDesMethodesDesMenus.add("getSurnom");
+        listeDesMethodesDesMenus.add("getCoteDePopularite");
+        listeDesMethodesDesMenus.add("getCriSignificatif");
+        listeDesMethodesDesMenus.add("getSexe");
+        listeDesMethodesDesMenus.add("getPorteMonnaie");
+        listeDesMethodesDesMenus.add("setSurnom");
+        listeDesMethodesDesMenus.add("setCoteDePopularite");
+        listeDesMethodesDesMenus.add("setCriSignificatif");
+        listeDesMethodesDesMenus.add("setSexe");
+        listeDesMethodesDesMenus.add("setAttributSpecial");
+        listeDesMethodesDesMenus.add("toString");
+        listeDesMethodesDesMenus.add("setPorteMonnaie");
+        listeDesMethodesDesMenus.add("setPorteMonnaie");
+        listeDesMethodesDesMenus.add("setPorteMonnaie");
+        listeDesMethodesDesMenus.add("setPorteMonnaie");
         
     }
 
@@ -198,7 +198,7 @@ public abstract class Humain {
 
     @Override
     public String toString() {
-        return "CLA:" + this.getClass().getSimpleName() + " NAM:" + this.prenom + " " + this.surnom + " ARGENT:" + this.porteMonnaie + " SEXE:" + this.sexe + " ATTRIBUT:" + this.attributSpecial + " COTEPOP:" + coteDePopularite + " CRISIGNI" + crisignificatif + " ";
+        return "CLA:" + this.getClass().getSimpleName() + " NOM:" + this.prenom + " SURNOM:" + this.surnom + " ARGENT:" + this.porteMonnaie + " SEXE:" + this.sexe + " ATTRIBUT:" + this.attributSpecial + " COTEPOP:" + coteDePopularite + " CRISIGNI:" + crisignificatif + " ";
     }
 
     public abstract void boire(Boisson boisson) throws AbstractClientException;

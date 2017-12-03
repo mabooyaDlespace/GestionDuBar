@@ -15,6 +15,7 @@ import gestiondubar.humains.clients.ClientParent;
 import gestiondubar.humains.clients.Enfant;
 import gestiondubar.humains.clients.Patronne;
 import gestiondubar.humains.clients.Serveur;
+import gestiondubar.humains.clients.Sexe;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.encapsulations.ServirException;
 import java.lang.reflect.*;
@@ -26,6 +27,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Parent;
@@ -44,9 +46,9 @@ public class Manipuler {
 
     static {
         listeDesMethodesDesMenu.add("ChoisirHumainPuisActionEnFonctionDuNombre");
-//        listeDesMethodesDesMenu.add("ajouterUnClientAvecSonNom");
-//        listeDesMethodesDesMenu.add("ajouterUnServeurAvecSonNom");
-//        listeDesMethodesDesMenu.add("RemplacerLeBarmanConserverCaisseEtStock");
+//        listeDesMethodesDesMenus.add("ajouterUnClientAvecSonNom");
+//        listeDesMethodesDesMenus.add("ajouterUnServeurAvecSonNom");
+//        listeDesMethodesDesMenus.add("RemplacerLeBarmanConserverCaisseEtStock");
     }
 
     public static void main(String[] args) {
@@ -67,8 +69,8 @@ public class Manipuler {
 
                 } catch (Exception ex) {
                     Throwable cause = ex.getCause();
-                    System.out.println(ex.getMessage()+"\n\n**La methode n'a pas été executer : paramètre non comforme.**\n"
-                            + "Retry? type 'n' to stop Or anything to continue"  );
+                    System.out.println(ex.getMessage() + "\n\n**La methode n'a pas été executer : paramètre non comforme.**\n"
+                            + "Retry? type 'n' to stop Or anything to continue");
                     if (scan.nextLine().equals("n")) {
 
                         continuer = "n";
@@ -256,7 +258,7 @@ public class Manipuler {
 
     }
 
-    public Object[] scanParameters(Object[] args) {
+    public Object[] scanParameters(Object[] args) throws Exception {
 
         Object[] myargs = new Object[args.length];
         // if(args.length!=0)System.out.println("\n\n===Description: Dans un troisieme temps choisir Les parametre==");
@@ -266,7 +268,7 @@ public class Manipuler {
         return myargs;
     }
 
-    public Object scanStringParamtre(String param) {
+    public Object scanStringParamtre(String param) throws Exception {
 
         Object o = null;
         Scanner scan = null;
@@ -293,15 +295,23 @@ public class Manipuler {
                     o = Boisson.ChoisirUneBoisson(i);
                     break;
                 case "class gestiondubar.humains.clients.AttributSpecial": {
-                    try {
-                        System.out.print(AttributSpecial.afficherLesAttributDeLobjet(this.personneEnquestion));
 
-                        System.out.println("\nLa methode utilise un AttributSpecial-> Choisissez son n° :");
-                        i = scan.nextInt();
-                        o = AttributSpecial.choisirUnAttribut(personneEnquestion, i);
-                    } catch (Exception ex) {
-                        Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    System.out.print(AttributSpecial.afficherLesAttributDeLobjet(this.personneEnquestion));
+
+                    System.out.println("\nLa methode utilise un AttributSpecial-> Choisissez son n° :");
+                    i = scan.nextInt();
+                    o = AttributSpecial.choisirUnAttribut(personneEnquestion, i);
+
+                }
+                break;
+                case "class gestiondubar.humains.clients.Sexe": {
+
+                    System.out.print(Sexe.afficherLesSexes());
+
+                    System.out.println("\nLa methode utilise un Sexe-> Choisissez son n° :");
+                    i = scan.nextInt();
+                    o = Sexe.ChoisirUnSexe(i);
+
                 }
                 break;
                 case "class java.lang.String":
@@ -309,17 +319,18 @@ public class Manipuler {
                     o = scan.nextLine();
                     o = (String) o;
                     break;
+
                 case "class gestiondubar.manipulationprotagoniste.Manipuler":
                     o = (Manipuler) this;
                     break;
                 default:
-                    throw new ManipulationException("Le choix n'est pas encore implémenté");
+                    throw new ManipulationException("Le choix pour *" + param + "* n'est pas encore implémenté");
 
             }
 
         } catch (ManipulationException ex) {
-            Throwable cause = ex.getCause();
-            System.out.println("Message="+ex.getMessage()+"\nCause : " + cause.getMessage());
+            System.out.println("Message=" + ex.getMessage());
+            throw new Exception("Exception declancher lors du choix du parametre", ex);
         }
         return o;
     }
@@ -341,22 +352,23 @@ public class Manipuler {
             methode = o.getClass().getMethod(nomMethode, methode.getParameterTypes());
 //            Method m = o.getClass().getDeclaredMethod(nomMethode, paramTypes);
             return methode.invoke(o, args);
-        } catch (NoSuchMethodException x) {
-            //x.printStackTrace();
-            Throwable cause = x.getCause();
+        } catch (NoSuchMethodException ex) {
+            ex.printStackTrace();
+            Throwable cause = ex.getCause();
             System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalArgumentException ex) {
-            //ex.printStackTrace();
-            Throwable cause = ex.getCause();
-            System.out.println("Cause : " + cause.getMessage());
+            ex.printStackTrace();
+            //System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalAccessException ex) {
-            //ex.printStackTrace();
-            Throwable cause = ex.getCause();
-            System.out.println("Cause : " + cause.getMessage());
+            ex.printStackTrace();
+            //System.out.println("Cause : " + cause.getMessage());
         } catch (InvocationTargetException ex) {
-            //ex.printStackTrace();
+            ex.printStackTrace();
+            //System.out.println(ex.getMessage());
             Throwable cause = ex.getCause();
             System.out.println("Cause : " + cause.getMessage());
+            
+            //System.out.println("Cause : " + cause.getMessage());
         }
         return null;
     }
@@ -401,7 +413,7 @@ public class Manipuler {
         c = o.getClass();
         m = c.getMethods();
         //ArrayList<String> listeM = new ArrayList<>();
-        // listeDesMethodesDesMenu.add("ChoisirHumainPuisActionEnFonctionDuNombre");
+        // listeDesMethodesDesMenus.add("ChoisirHumainPuisActionEnFonctionDuNombre");
 
         return m;
     }
@@ -451,22 +463,22 @@ public class Manipuler {
         String compare = o.getClass().getSimpleName();
         switch (compare) {
             case "Patronne":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Patronne.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Patronne.listeDesMethodesDesMenus);
                 break;
             case "Client":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Client.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Client.listeDesMethodesDesMenus);
                 break;
             case "Barman":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Barman.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Barman.listeDesMethodesDesMenus);
                 break;
             case "Serveur":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Serveur.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Serveur.listeDesMethodesDesMenus);
                 break;
             case "Enfant":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Enfant.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, Enfant.listeDesMethodesDesMenus);
                 break;
             case "ClientParent":
-                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, ClientParent.listeDesMethodesDesMenu);
+                myMet = this.filtrerLesMethodesAvecAutorisation(methodes, ClientParent.listeDesMethodesDesMenus);
                 break;
 
             default:
@@ -479,13 +491,13 @@ public class Manipuler {
     private Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) throws Exception {
         Method[] myMet;
         int j = 0;
-         
-         Set set = new HashSet() ;
-        set.addAll(listedesmethodes) ;
-        listedesmethodes = new ArrayList(set) ;
+
+        Set set = new HashSet();
+        set.addAll(listedesmethodes);
+        listedesmethodes = new ArrayList(set);
         Collections.sort(listedesmethodes);
         for (int i = 0; i < methodes.length; ++i) {
-            
+
             if (Manipuler.stringExiste(methodes[i].getName(), listedesmethodes)) {
                 j++;
             }
@@ -495,10 +507,10 @@ public class Manipuler {
         int whereIsTheMethode;
         for (int i = 0; i < j; ++i) {
 //            if (
-                  whereIsTheMethode = Manipuler.methodeExistsInArrayList(methodes,listedesmethodes.get(i));//) {
-                myMet[k] = methodes[whereIsTheMethode];
-                k++;
-            }
+            whereIsTheMethode = Manipuler.methodeExistsInArrayList(methodes, listedesmethodes.get(i));//) {
+            myMet[k] = methodes[whereIsTheMethode];
+            k++;
+        }
         //}
         return myMet;
     }
@@ -512,13 +524,14 @@ public class Manipuler {
         }
         return false;
     }
+
     public static Integer methodeExistsInArrayList(Method[] m, String mName) throws Exception {
         for (int i = 0; i < m.length; i++) {
             if (m[i].getName().equals(mName)) {
                 return i;
             }
         }
-        throw new Exception("La methode "+mName+ " n'existe pas",new Throwable(mName));
+        throw new Exception("La methode " + mName + " n'existe pas", new Throwable(mName));
     }
 
     /*

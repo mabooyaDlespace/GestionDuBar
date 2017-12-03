@@ -21,11 +21,16 @@ public class Caisse {
     }
 
     public void setArgentDuBar(Integer argentDuBar) {
+        Integer delta =(argentDuBar-this.argentDuBar);
+        HistoriqueDubar+="\n "+this.argentDuBar.toString()+" + "+delta+"  =" +argentDuBar.toString();
         this.argentDuBar = argentDuBar;
+        
     }
 
     public String getHistoriqueDubar() {
+        
         return HistoriqueDubar;
+        
     }
 
     public void setHistoriqueDubar(String HistoriqueDubar) {

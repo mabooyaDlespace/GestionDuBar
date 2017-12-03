@@ -32,10 +32,10 @@ public enum Sexe {
         }
         return str;
     }
-    public static Sexe ChoisirUnSexe(Integer i){
-        if(i<Sexe.values().length){
+    public static Sexe ChoisirUnSexe(Integer i) throws Exception{
+        if(i<Sexe.values().length && i>=0){
             return Sexe.values()[i];
         }
-        return null;
+        throw new Exception(" n° choisi est incorrect => "+i);
     }
 }
