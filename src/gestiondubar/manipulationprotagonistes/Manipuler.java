@@ -64,24 +64,7 @@ public class Manipuler {
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.RICARD, 10);
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
             manip.manipulerLesProtagonistes(manip);
-//            String continuer = "o";
-//            Scanner scan = new Scanner(System.in);
-//            while (continuer.equals("o")) {
-//                try {
-//                    manip.choisirUnProtagonisteEtUtiliserSesMethodes(manip);
-//
-//                } catch (Exception ex) {
-//                    Throwable cause = ex.getCause();
-//                    System.out.println(ex.getMessage() + "\n\n**La methode n'a pas été executer : paramètre non comforme.**\n"
-//                            + "Retry? type 'n' to stop Or anything to continue");
-//                    if (scan.nextLine().equals("n")) {
-//
-//                        continuer = "n";
-//                    }
-//
-//                }
-//
-//            }
+
         } catch (AbstractClientException | StockException ex) {
             Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
         }
