@@ -344,6 +344,8 @@ public class AbstractClientIT {
             assertEquals(Boisson.SHOOTER, luc.commanderBoisson(Boisson.SHOOTER, babar));
         } catch (AbstractClientException ex) {
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StockException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -480,6 +482,8 @@ public class AbstractClientIT {
             assertTrue(ex.getMessage(), ex.getMessage().equals("humainChanceux n'est pas une instance"));
             //assertThat(ex.getMessage(), is("génial"));
             Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (StockException ex) {
+            Logger.getLogger(AbstractClientIT.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -546,7 +550,7 @@ public class AbstractClientIT {
             Boisson boisson = null;
             Integer quantite = null;
             boolean expResult = false;
-            boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+            boolean result = luc.demanderSiPresentDansLesStocksServeur(serveur, boisson, quantite);
             assertEquals(expResult, result);
             // TODO review the generated test code and remove the default call to fail.
             fail("The test case is a prototype.");
@@ -568,7 +572,7 @@ public class AbstractClientIT {
             Integer quantite = null;
             AbstractClient instance = null;
             boolean expResult = false;
-            boolean result = luc.demanderSiPresentDansLesStocks(serveur, boisson, quantite);
+            boolean result = luc.demanderSiPresentDansLesStocksBarman(serveur, boisson, quantite);
             assertEquals(expResult, result);
             // TODO review the generated test code and remove the default call to fail.
             fail("The test case is a prototype.");
