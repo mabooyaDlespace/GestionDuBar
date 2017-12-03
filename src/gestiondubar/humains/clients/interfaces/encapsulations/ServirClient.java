@@ -48,7 +48,7 @@ public class ServirClient implements Servir {
     @Override
     public void setMonnaieDuBar(Integer monnaieDuBar) {
         this.monnaieDuBar = monnaieDuBar;
-    }
+    }  
     /**
      * Permet de donner la monnaie du bar à un responsable qui l'ajoute à la casse du bar
      * et met la monnaie du bar des instance à zéro.

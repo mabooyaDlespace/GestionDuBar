@@ -198,7 +198,7 @@ public abstract class Humain {
 
     @Override
     public String toString() {
-        return "CLA:" + this.getClass().getSimpleName() + " NOM:" + this.prenom + " SURNOM:" + this.surnom + " ARGENT:" + this.porteMonnaie + " SEXE:" + this.sexe + " ATTRIBUT:" + this.attributSpecial + " COTEPOP:" + coteDePopularite + " CRISIGNI:" + crisignificatif + " ";
+        return "CLA: | " + this.getClass().getSimpleName() + " |  NOM:" + this.prenom + " SURNOM:" + this.surnom + " ARGENT:" + this.porteMonnaie + " SEXE:" + this.sexe + " ATTRIBUT:" + this.attributSpecial + " COTEPOP:" + coteDePopularite + " CRISIGNI:" + crisignificatif + " ";
     }
 
     public abstract String boire(Boisson boisson) throws AbstractClientException;

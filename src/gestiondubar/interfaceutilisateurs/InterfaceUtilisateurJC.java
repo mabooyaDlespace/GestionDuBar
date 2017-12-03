@@ -61,7 +61,7 @@ public class InterfaceUtilisateurJC {
             // On met tout dans une fonction
             //  InterfaceUtilisateurJC.firstScanner();
             Manipuler Bar = null;
-            
+
             if (inter.SNM.mode == '1') {
                 AffichageChoixConfigManu("la Patronne");
                 String NomPatronne = inter.scanNomUntilNotEmpty(SNM, 5).NomFinalPatronne;
@@ -72,14 +72,14 @@ public class InterfaceUtilisateurJC {
                 //et maintenant on crée une instance============================
                 inter.patronne = new Patronne(NomPatronne + SurnomPatronne);
                 Bar = new Manipuler(inter.patronne);
-                inter.barman=this.patronne.getBarman();
+                inter.barman = this.patronne.getBarman();
                 long argentPatronne = Math.round(Math.random() * (200 - 1));
                 inter.patronne.setPorteMonnaie((int) argentPatronne);
                 //inter.patronne.setSexe("Femme");
 
             } else if (inter.SNM.mode == '2') {
                 AffichageChoixConfigAuto("la patronne");
-                String NomFinalPatronne = RenvoieNomPatronne() +" "+ RenvoieAdjectifPatronne();
+                String NomFinalPatronne = RenvoieNomPatronne() + " " + RenvoieAdjectifPatronne();
                 System.out.println("La patronne s'appelle " + NomFinalPatronne);
                 inter.SNM.NomFinalPatronne = NomFinalPatronne;
                 //et maintenant on crée une instance============================
@@ -90,7 +90,7 @@ public class InterfaceUtilisateurJC {
                 // inter.barman=this.patronne.getBarman();
                 long argentPatronne = Math.round(Math.random() * (200 - 1));
                 inter.patronne.setPorteMonnaie((int) argentPatronne);
-              //  inter.patronne.setSexe("Femme");
+                //  inter.patronne.setSexe("Femme");
 
             }
 
@@ -124,7 +124,7 @@ public class InterfaceUtilisateurJC {
             }
 
             // Initialisation Client
-            String client = "le client"; 
+            String client = "le client";
             inter.SNM = firstScanner(inter.SNM, client);
 
             Scanner demande = new Scanner(System.in);
@@ -188,7 +188,7 @@ public class InterfaceUtilisateurJC {
                 } else if (inter.SNM.mode == '2') {
                     AffichageChoixConfigAuto("un serveur");
                     String NomCompletServeur = CreationServeur(NombreServeur);
-                    inter.SNM.NomFinalServeur = NomCompletServeur;               
+                    inter.SNM.NomFinalServeur = NomCompletServeur;
                     //et maintenant on crée une instance============================
                     //inter.patronne.getBarman().setSurnom(SurnomClient);
                     //Client client1 = new Client(NomCompletClient);
@@ -202,6 +202,7 @@ public class InterfaceUtilisateurJC {
 
             //----------------------------------------------------------------
             System.out.println(Bar.afficherLesProtagonnistes());
+            Bar.manipulerLesProtagonistes(Bar);
             return (inter.SNM);
 
         } catch (AbstractClientException ex) {
@@ -231,77 +232,80 @@ public class InterfaceUtilisateurJC {
         public String NomFinalServeur = "";
 
     }
-    public void AffichageChoixConfigManu( String NomEntité) {
-        System.out.println("vous avez choisi la configuration assitée pour " + NomEntité );
+
+    public void AffichageChoixConfigManu(String NomEntité) {
+        System.out.println("vous avez choisi la configuration assitée pour " + NomEntité);
         System.out.println("Choisissez un nom pour " + NomEntité);
-        
+
     }
-    public void AffichageChoixConfigAuto(String NomEntité){
-        System.out.println("vous avez choisi la configuration assitée pour " + NomEntité );
+
+    public void AffichageChoixConfigAuto(String NomEntité) {
+        System.out.println("vous avez choisi la configuration assitée pour " + NomEntité);
     }
-    
-    public static String CreationClient( int NombreClient){
-         String ChoixClient[] = {"Clint", "Chriss", "Clock", "Cliff", "Crause", "Chaune", "Claude", "Carl"};
-         String AdjectifClient[] = {"The Cid", "The Claustro", "La Canaille", "The Crane", "La Claque", "The Clique", "Le Crapaud", "Le Cretin", "Le Condé", "Le Clifenger", "The Clochard", "Le Crotain", "Le Choco"};
-         int j = (int) (Math.random() * (8 - 0));
-         int k = (int) (Math.random() * (12 - 0));
-         String NomClient = ChoixClient[j];
-         String SurnomClient = AdjectifClient[k];
+
+    public static String CreationClient(int NombreClient) {
+        String ChoixClient[] = {"Clint", "Chriss", "Clock", "Cliff", "Crause", "Chaune", "Claude", "Carl"};
+        String AdjectifClient[] = {"The Cid", "The Claustro", "La Canaille", "The Crane", "La Claque", "The Clique", "Le Crapaud", "Le Cretin", "Le Condé", "Le Clifenger", "The Clochard", "Le Crotain", "Le Choco"};
+        int j = (int) (Math.random() * (8 - 0));
+        int k = (int) (Math.random() * (12 - 0));
+        String NomClient = ChoixClient[j];
+        String SurnomClient = AdjectifClient[k];
         System.out.println("Le Client numéro " + NombreClient + " s'appelle " + NomClient + " " + SurnomClient);
-         String NomCompletClient = NomClient + " " + SurnomClient;
+        String NomCompletClient = NomClient + " " + SurnomClient;
         return NomCompletClient;
-            }
-    
-     public static String CreationServeur(int NombreServeur ){
+    }
+
+    public static String CreationServeur(int NombreServeur) {
         String ChoixServeur[] = {"Scott", "Spleen", "Steeve", "Stonne", "Slack", "Skin"};
         String AdjectifServeur[] = {"The Slope", "The Skype", "The Steak", "The Schlake", "The Snake", "The Snooze"};
-         int j = (int) (Math.random() * (6 - 0));
-         int k = (int) (Math.random() * (6 - 0));
-         String NomServeur = ChoixServeur[j];
-         String SurnomServeur = AdjectifServeur[k];
-        System.out.println("Le serveur numero " +NombreServeur+ " s'appelle " + NomServeur + " " + SurnomServeur);
-         String NomCompletServeur = NomServeur + " " + SurnomServeur;
+        int j = (int) (Math.random() * (6 - 0));
+        int k = (int) (Math.random() * (6 - 0));
+        String NomServeur = ChoixServeur[j];
+        String SurnomServeur = AdjectifServeur[k];
+        System.out.println("Le serveur numero " + NombreServeur + " s'appelle " + NomServeur + " " + SurnomServeur);
+        String NomCompletServeur = NomServeur + " " + SurnomServeur;
         return NomCompletServeur;
-            }
-     
-     public static String CreationBarman() {
-         String ChoixBarman[] = {"Jack", "Tony", "Steeve", "Michael", "Jicey", "Raoul"};
-         String AdjectifBarman[] = {"Le Brave", "Le Beau", "Le Saoul", "L'incompetent", "The King", "The Dog"};
-         int j = (int) (Math.random() * (6 - 0));
-         int k = (int) (Math.random() * (6 - 0));
-         String NomBarman = ChoixBarman[j];
-         String SurnomBarman = AdjectifBarman[k];
-         System.out.println("Le Barman s'appelle " + NomBarman + " " + SurnomBarman);
-         String NomCompletBarman = NomBarman + " " + SurnomBarman;
+    }
+
+    public static String CreationBarman() {
+        String ChoixBarman[] = {"Jack", "Tony", "Steeve", "Michael", "Jicey", "Raoul"};
+        String AdjectifBarman[] = {"Le Brave", "Le Beau", "Le Saoul", "L'incompetent", "The King", "The Dog"};
+        int j = (int) (Math.random() * (6 - 0));
+        int k = (int) (Math.random() * (6 - 0));
+        String NomBarman = ChoixBarman[j];
+        String SurnomBarman = AdjectifBarman[k];
+        System.out.println("Le Barman s'appelle " + NomBarman + " " + SurnomBarman);
+        String NomCompletBarman = NomBarman + " " + SurnomBarman;
         // inter.patronne.getBarman().setSurnom(SurnomBarman);
-     return NomCompletBarman;
-     }
-    
-     public static String RenvoieNomPatronne(){
-         String ChoixPatronne[] = {"Ingrid", "Ursule", "Roger", "Eli", "Jeanne", "Bob"};
-         int j = (int) (Math.random() * (5 - 0));
-         String Nom = ChoixPatronne[j];
-         
+        return NomCompletBarman;
+    }
+
+    public static String RenvoieNomPatronne() {
+        String ChoixPatronne[] = {"Ingrid", "Ursule", "Roger", "Eli", "Jeanne", "Bob"};
+        int j = (int) (Math.random() * (5 - 0));
+        String Nom = ChoixPatronne[j];
+
         return Nom;
-             }
-     
-     public static String RenvoieAdjectifPatronne(){
-         String AdjectifPatronne[] = {"La Soularde", "La Brute", "Le Truand", "La Cartouche", "L'illustre", "La Canaille"};
-         int k = (int) (Math.random() * (5 - 0));
-         String Adjectif = AdjectifPatronne[k];
-         
-         return Adjectif ;
-             }
+    }
+
+    public static String RenvoieAdjectifPatronne() {
+        String AdjectifPatronne[] = {"La Soularde", "La Brute", "Le Truand", "La Cartouche", "L'illustre", "La Canaille"};
+        int k = (int) (Math.random() * (5 - 0));
+        String Adjectif = AdjectifPatronne[k];
+
+        return Adjectif;
+    }
     /*
 
-    //public String EncoreUn (String reponse){
-    // }
-    /**
+     //public String EncoreUn (String reponse){
+     // }
+     /**
      * Remplace le code du début du scan
      *
      * @param SNM
      * @return
      */
+
     public ScanNomMode firstScanner(ScanNomMode SNM, String Entite) {
         do {//tant que reponse n'est pas 1 ou 2
             SNM.mode = ' ';
