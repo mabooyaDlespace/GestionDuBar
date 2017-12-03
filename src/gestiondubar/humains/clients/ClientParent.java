@@ -40,13 +40,13 @@ public class ClientParent extends Client {
     }
 
     @Override
-    public void boire(Boisson boisson) throws AbstractClientException {
+    public String boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
             if (this.getDegreAlccolemie() > 7) {
-                super.boire(boisson);
+               return super.boire(boisson);
             } else {
                 retirerLesEnfants();
-                super.boire(boisson);
+                return super.boire(boisson);
             }
         } else {
             throw new AbstractClientException("Le parametre boisson doit être une instance de Boisson");

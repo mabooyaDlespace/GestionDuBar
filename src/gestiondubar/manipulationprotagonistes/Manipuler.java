@@ -40,12 +40,13 @@ public class Manipuler {
 
     // ArrayListe<Humain> Protagoniste
     public Patronne patronne;
-    private Humain personneEnquestion;
+    public Humain personneEnquestion;
     public ArrayList<Humain> liste;
     public static ArrayList<String> listeDesMethodesDesMenu = new ArrayList<>();
 
     static {
-        listeDesMethodesDesMenu.add("ChoisirHumainPuisActionEnFonctionDuNombre");
+        listeDesMethodesDesMenu.add("choisirHumainPuisActionEnFonctionDuNombre");
+        // il faudrait rajouter manip a 
 //        listeDesMethodesDesMenus.add("ajouterUnClientAvecSonNom");
 //        listeDesMethodesDesMenus.add("ajouterUnServeurAvecSonNom");
 //        listeDesMethodesDesMenus.add("RemplacerLeBarmanConserverCaisseEtStock");
@@ -55,17 +56,44 @@ public class Manipuler {
 //*
         try {
             Manipuler manip = new Manipuler(new Patronne("Haaha"));
-            String continuer = "o";
+            
             manip.ajouterUnClientAvecSonNom("Client1");
             manip.ajouterUnParentEtSonEnfantAvecLeurNom("Papa1", "Enfant1");
 
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.EAU, 10);
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.RICARD, 10);
             manip.patronne.getBarman().setQuantiteDeLaBoisson(Boisson.SHOOTER, 10);
+            manip.manipulerLesProtagonistes(manip);
+//            String continuer = "o";
+//            Scanner scan = new Scanner(System.in);
+//            while (continuer.equals("o")) {
+//                try {
+//                    manip.choisirUnProtagonisteEtUtiliserSesMethodes(manip);
+//
+//                } catch (Exception ex) {
+//                    Throwable cause = ex.getCause();
+//                    System.out.println(ex.getMessage() + "\n\n**La methode n'a pas été executer : paramètre non comforme.**\n"
+//                            + "Retry? type 'n' to stop Or anything to continue");
+//                    if (scan.nextLine().equals("n")) {
+//
+//                        continuer = "n";
+//                    }
+//
+//                }
+//
+//            }
+        } catch (AbstractClientException | StockException ex) {
+            Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public void manipulerLesProtagonistes(Manipuler manip){
+        String continuer = "o";
             Scanner scan = new Scanner(System.in);
             while (continuer.equals("o")) {
                 try {
-                    manip.choisirLesMethodesDeManipulationEtLesExecuter(manip);
+                    manip.choisirUnProtagonisteEtUtiliserSesMethodes(manip);
 
                 } catch (Exception ex) {
                     Throwable cause = ex.getCause();
@@ -79,19 +107,30 @@ public class Manipuler {
                 }
 
             }
-        } catch (AbstractClientException | StockException ex) {
-            Logger.getLogger(Manipuler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//*/
-
     }
 
+    /**
+     * En terme de hierarchie la patronne a acces a toute les entité et créer le
+     * minimum sydical
+     * <br> pour le fonctionnement d'un bar a son instanciation
+     *
+     * @param patronne
+     * @throws AbstractClientException
+     */
     public Manipuler(Patronne patronne) throws AbstractClientException {
         this.patronne = patronne;
         this.liste = this.updateListeDesProtagonistes(patronne);
     }
 
-    private ArrayList<Humain> updateListeDesProtagonistes(Patronne patronne) throws AbstractClientException {
+    /**
+     * On créer une liste des protagoniste pour rendre les chose plus facilement
+     * accessibles
+     *
+     * @param patronne
+     * @return
+     * @throws AbstractClientException
+     */
+    public ArrayList<Humain> updateListeDesProtagonistes(Patronne patronne) throws AbstractClientException {
         if (patronne instanceof Patronne) {
             this.liste = new ArrayList<Humain>();
             this.liste.add(patronne);
@@ -164,6 +203,13 @@ public class Manipuler {
 
     }
 
+    /**
+     * On remple ce le barman parce qu'on a ne peur pas changer son nom
+     *
+     * @param nomBarman
+     * @throws AbstractClientException
+     * @throws ServirException
+     */
     public void RemplacerLeBarmanConserverCaisseEtStock(String nomBarman) throws AbstractClientException, ServirException {
         if (nomBarman instanceof String) {
             patronne.getBarman().donnerLaMonnaieAuxResponsables(patronne.getBarman());
@@ -176,7 +222,15 @@ public class Manipuler {
 
     }
 
-    public Humain ChoisirHumainPuisActionEnFonctionDuNombre(Integer i) throws ManipulationException {
+    /**
+     * On met a jour this.personne en question à chaque fois car scanParametre
+     * en besoin pour choisir les attribut de l'humain
+     *
+     * @param i
+     * @return renvoie l'Humain don on utilisera les methodes
+     * @throws ManipulationException
+     */
+    public Humain choisirHumainPuisActionEnFonctionDuNombre(Integer i) throws ManipulationException {
         if (i > -1 && i < liste.size()) {
             System.out.println(liste.get(i).toString());
             this.personneEnquestion = liste.get(i);
@@ -186,46 +240,36 @@ public class Manipuler {
         }
     }
 
-    //*
-    public void makeHumainDo(Humain humain, Integer choix) {
-
-    }
-
     /**
-     * On explore les mothodes filtrée<br>
-     * On consulte les methodes <br>
-     * On recupère la methode<br>
-     * On récupère les paramètres<br>
-     * On lance la methode<br>
      *
-     * @param o
+     *
+     * @param o engeneral unObjet manipuler
      */
-    public void choisirLesMethodesDeManipulationEtLesExecuter(Object o) throws Exception {
+    public void choisirUnProtagonisteEtUtiliserSesMethodes(Manipuler o) throws Exception {
+        //On recupertoutes les methodes
         Method[] m = this.explorerMethodes(o);
+        //on filtre celle qui nous intéresse (ici il y en a une seule)
         m = this.filtrerLesMethodesAvecAutorisation(m, Manipuler.listeDesMethodesDesMenu);
         System.out.println("\n**systeme pause**");
         new java.util.Scanner(System.in).nextLine();
         System.out.println("\n\n\n\nDescription: Dans un premier temps choisir le n°du protagoniste");
-        //+ "\n Les autres sont la pour ajouter un client ou renomer le barman");
-        //   System.out.println(consulterMethodes(m));
-        int choix = 0;
-        //Scanner scan = null;
-        //scan = new Scanner(System.in);
-        // System.out.println("Taper 0 pour executer la methode");
-        //choix = scan.nextInt();
-//        System.out.println("Scan int");
-//        choix = scan.nextInt();
-        Method methodechoisie = m[choix];
-        //     System.out.println(afficherMethode(methodechoisie, choix));
-        //Object[] my = methodechoisie.getParameterTypes();
+        Method methodechoisie = m[0];
         System.out.println(this.afficherLesProtagonnistes());
-
+        //la methode[0] de Manipuler a besoin d'un entier pour renvoyer un Humain dont on utilisera les methodes avec analyserLesMethodesDelObjetEtLesLancerHumain
         this.analyserLesMethodesDelObjetEtLesLancerHumain(lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
 
     }
 
     /**
+     * On utilise cette fonction pour analyser les methodes d'un objet ayant
+     * pour parent un humain.
+     * <br> Cette methode est coupler avec un choix d'Humain en amont<br>
+     * Elle permet pour un certain Object instancié, avec des methodes
+     * authorisées prédéfinies, d'executer de manière dynamique ses methodes
      * Utilier pour faire des action sur les classes Humaine
+     * <br> Elle inspiré de choisirUnProtagonisteEtUtiliserSesMethodes dou la
+     * ressemblance même si elle est plus poussée
+     *
      *
      * @param o
      * @throws Exception
@@ -234,27 +278,24 @@ public class Manipuler {
         System.out.println("\n\n\n===Description: Dans un second temps choisir le n° de la methode===");
         //on recuper toute les methodes de la classe
         Method[] m = this.explorerMethodes(o);
-        // on filtre les methodes autoriser
+        // on filtre les methodes autoriser et on les trie dans l'ordre croissant
         m = this.filtrerLesMethodesAvecAutorisationDeLobjet(m, o);
-//        trierMethode
         //on les affiches dans la console
         System.out.println(consulterMethodes(m));
         //on initie un scanner pour choisir
         Integer choix = this.choisirMethode();
+        //on choisie la methode
         Method methodechoisie = m[choix];
+        //on affiche la methode choisie
         System.out.println(afficherMethode(methodechoisie, choix));
-//        Object[] my = methodechoisie.getParameterTypes();
-//            Object type=my[0].getClass().getTypeName();
-//            Object[] args=this.scanParameters(methodechoisie.getParameterTypes());
-
+        //si le type du return est void on affiche pa le result
+        //n°1 On Scan les parametres que la methode choise a besoin 
+        //n°2 On lance la methode et catche les exception de la methode en avale
         if (!(methodechoisie.getReturnType().getSimpleName().equals("void"))) {
             System.out.println("RESULAT:" + lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName()));
         } else {
             lancerMethode(o, methodechoisie, this.scanParameters(methodechoisie.getParameterTypes()), methodechoisie.getName());
-        }//        } catch (Exception ex) {
-//            System.out.println(ex.getMessage());
-//        }
-        //System.out.println("Methode correctment executée");
+        }
 
     }
 
@@ -268,8 +309,20 @@ public class Manipuler {
         return myargs;
     }
 
+    /**
+     * <b>
+     * On passe en parametre une string representant la classe d'un parametre de
+     * la methode et la methode sadapte a celui ci et le scan .
+     * </b> On pourrait la renomer multi-Scan: pour les type de base un scan
+     * normal suffit
+     * <br> Pour le reste soit on regarde les Parties Static des classes, ou on
+     * cherche un protagoniste dans la liste d'une instance Manipuler
+     *
+     * @param param
+     * @return
+     * @throws Exception
+     */
     public Object scanStringParamtre(String param) throws Exception {
-
         Object o = null;
         Scanner scan = null;
         Integer i = 0;
@@ -281,37 +334,30 @@ public class Manipuler {
                     o = scan.nextInt();
                     o = (Integer) o;
                     break;
-
                 case "class gestiondubar.humains.Humain":
                     System.out.print(this.afficherLesProtagonnistes());
                     System.out.println("\nLa methode utilise un Humain -> Choisissez son n° :");
                     i = scan.nextInt();
-                    o = this.ChoisirHumainPuisActionEnFonctionDuNombre(i);
+                    o = this.choisirHumainPuisActionEnFonctionDuNombre(i);
                     break;
                 case "class gestiondubar.decore.Boisson":
                     System.out.print(Boisson.afficherLesBoissons());
                     System.out.println("\nLa methode utilise une Boisson-> Choisissez son n° :");
                     i = scan.nextInt();
-                    o = Boisson.ChoisirUneBoisson(i);
+                    o = Boisson.choisirUneBoisson(i);
                     break;
                 case "class gestiondubar.humains.clients.AttributSpecial": {
-
                     System.out.print(AttributSpecial.afficherLesAttributDeLobjet(this.personneEnquestion));
-
                     System.out.println("\nLa methode utilise un AttributSpecial-> Choisissez son n° :");
                     i = scan.nextInt();
                     o = AttributSpecial.choisirUnAttribut(personneEnquestion, i);
-
                 }
                 break;
                 case "class gestiondubar.humains.clients.Sexe": {
-
                     System.out.print(Sexe.afficherLesSexes());
-
                     System.out.println("\nLa methode utilise un Sexe-> Choisissez son n° :");
                     i = scan.nextInt();
                     o = Sexe.ChoisirUnSexe(i);
-
                 }
                 break;
                 case "class java.lang.String":
@@ -319,15 +365,12 @@ public class Manipuler {
                     o = scan.nextLine();
                     o = (String) o;
                     break;
-
                 case "class gestiondubar.manipulationprotagoniste.Manipuler":
                     o = (Manipuler) this;
                     break;
                 default:
                     throw new ManipulationException("Le choix pour *" + param + "* n'est pas encore implémenté");
-
             }
-
         } catch (ManipulationException ex) {
             System.out.println("Message=" + ex.getMessage());
             throw new Exception("Exception declancher lors du choix du parametre", ex);
@@ -335,45 +378,62 @@ public class Manipuler {
         return o;
     }
 
+    /**
+     * <b> Permet de le lancer la methode d'un object et de gérer les exceptions
+     * occasionnnées.
+     * </b>
+     *
+     * @param o objet contenant le corps de la methode
+     * @param methode la methode qu'on va utiliser
+     * @param args les parametre de la methode (déjà instancié)
+     * @param nomMethode nom de la methode
+     * @return revoie le resultat de la methode ex null si void
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws Exception
+     * @see java.lang.reflect.Method Methode
+     * @see java.lang.reflect.InvocationTargetException
+     * InvocationTargetException
+     */
     public Object lancerMethode(Object o, Method methode, Object[] args, String nomMethode) throws Exception {
         try {
-            Humain h = null;
-            Class[] paramTypes = null;
-            if (args != null) {
-                paramTypes = new Class[args.length];
-                for (int i = 0; i < args.length; ++i) {
-//                    if (args[i].getClass().equals("Barman")) {
-//                        paramTypes[i] = h.getClass();
-//                    } else {
-                    paramTypes[i] = args[i].getClass();
-//                    }
-                }
-            }
+
             methode = o.getClass().getMethod(nomMethode, methode.getParameterTypes());
-//            Method m = o.getClass().getDeclaredMethod(nomMethode, paramTypes);
             return methode.invoke(o, args);
+
         } catch (NoSuchMethodException ex) {
             ex.printStackTrace();
             Throwable cause = ex.getCause();
             System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalArgumentException ex) {
             ex.printStackTrace();
-            //System.out.println("Cause : " + cause.getMessage());
         } catch (IllegalAccessException ex) {
+            //pas nécessaire mais on ne sait jamais
             ex.printStackTrace();
-            //System.out.println("Cause : " + cause.getMessage());
         } catch (InvocationTargetException ex) {
+            //primordial pour catcher le message des exception générées par les methodes
             ex.printStackTrace();
-            //System.out.println(ex.getMessage());
             Throwable cause = ex.getCause();
             System.out.println("Cause : " + cause.getMessage());
-            
-            //System.out.println("Cause : " + cause.getMessage());
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            //System.out.println(ex.getMessage());
+
         }
-        return null;
+        throw new Exception("La methode n'a pas pu etre invoquée -> rien n'a été modifié");
     }
 
-    //*/
+    /**
+     * une simple fonction pour afficher et scanner le n° de la methode
+     * <br> Est utiliser dans analyserLesMethodesDelObjetEtLesLancerHumain
+     *
+     * @see #analyserLesMethodesDelObjetEtLesLancerHumain
+     * analyserLesMethodesDelObjetEtLesLancerHumain
+     * @return
+     */
     public Integer choisirMethode() {
         Scanner scan = null;
         scan = new Scanner(System.in);
@@ -381,6 +441,11 @@ public class Manipuler {
         return scan.nextInt();
     }
 
+    /**
+     * utile pour comprendre le getmethode
+     *
+     * @param o
+     */
     public void explorerChamps(Object o) {
         Field[] f = null;
         Class c = null;
@@ -390,7 +455,13 @@ public class Manipuler {
         consulterChamps(f, o);
     }
 
-    private void consulterChamps(Field[] f, Object o) {
+    /**
+     * utile pour comprendre le getmethode
+     *
+     * @param f
+     * @param o
+     */
+    public void consulterChamps(Field[] f, Object o) {
         for (int i = 0; i < f.length; ++i) {
             System.out.print(Modifier.toString(f[i].getModifiers()));
             System.out.print(" ");
@@ -406,19 +477,23 @@ public class Manipuler {
         }
     }
 
+    /**
+     * On fait une introspection de l'objet: on get la classe puis ses methodes
+     * On revoie la totalité des methodes qu'on filtra plus tard
+     *
+     * @param o sujet de l'introspection
+     * @return
+     */
     public Method[] explorerMethodes(Object o) {
         Method[] m = null;
         Class c = null;
 
         c = o.getClass();
         m = c.getMethods();
-        //ArrayList<String> listeM = new ArrayList<>();
-        // listeDesMethodesDesMenus.add("ChoisirHumainPuisActionEnFonctionDuNombre");
-
         return m;
     }
 
-    private String consulterMethodes(Method[] m) {
+    public String consulterMethodes(Method[] m) {
         Class[] params = null;
         String mystr = "";
         for (Integer i = 0; i < m.length; ++i) {
@@ -439,7 +514,7 @@ public class Manipuler {
         return mystr;
     }
 
-    private String afficherMethode(Method m, Integer i) {
+    public String afficherMethode(Method m, Integer i) {
 
         Class[] params = null;
         String mystr = "";
@@ -456,7 +531,7 @@ public class Manipuler {
         return mystr;
     }
 
-    private Method[] filtrerLesMethodesAvecAutorisationDeLobjet(Method[] methodes, Object o) throws Exception {
+    public Method[] filtrerLesMethodesAvecAutorisationDeLobjet(Method[] methodes, Object o) throws Exception {
         Method[] myMet = new Method[methodes.length];
         int j = 0;
         ArrayList<String> listedesmethodes = null;
@@ -488,7 +563,7 @@ public class Manipuler {
         return myMet;
     }
 
-    private Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) throws Exception {
+    public Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) throws Exception {
         Method[] myMet;
         int j = 0;
 
@@ -505,11 +580,17 @@ public class Manipuler {
         myMet = new Method[j];
         int k = 0;
         int whereIsTheMethode;
-        for (int i = 0; i < j; ++i) {
+        if (methodes instanceof Method[] && j > 0) {
+            for (int i = 0; i < j; ++i) {
 //            if (
-            whereIsTheMethode = Manipuler.methodeExistsInArrayList(methodes, listedesmethodes.get(i));//) {
-            myMet[k] = methodes[whereIsTheMethode];
-            k++;
+                whereIsTheMethode = Manipuler.methodeExistsInArrayList(methodes, listedesmethodes.get(i));//) {
+                myMet[k] = methodes[whereIsTheMethode];
+                k++;
+            }
+        } else {
+            throw new Exception("Aucune methode na trouver de match: "
+                    + "\n -Soit la methode est privée a la classe"
+                    + "\n -Soit la methode n'existe pas", new Throwable("probleme"));
         }
         //}
         return myMet;
@@ -526,56 +607,55 @@ public class Manipuler {
     }
 
     public static Integer methodeExistsInArrayList(Method[] m, String mName) throws Exception {
-        for (int i = 0; i < m.length; i++) {
-            if (m[i].getName().equals(mName)) {
-                return i;
+        if (m instanceof Method[] && m.length > 0) {
+            for (int i = 0; i < m.length; i++) {
+                if (m[i].getName().equals(mName)) {
+                    return i;
+                }
             }
         }
-        throw new Exception("La methode " + mName + " n'existe pas", new Throwable(mName));
+        throw new Exception("La methode " + mName + " n'existe pas ou est déclarée comme privée", new Throwable(mName));
     }
 
-    /*
-     en soit une action peut avoir un nom, des paramètre , une fonction
-     1? actionProtagoniste 
-     Tu veux quelle Humain  ? -> classe
-     Tu veux quelle methode ? -> int
-     Remplie les paramètre if Humain alors toruver else scan
-     DO
+    /*/ public Object lancerMethode(Object o, Method methode, Object[] args, String nomMethode) throws Exception {
+     try {
+     //            Humain h = null;
+     //            Class[] paramTypes = null;
+     //            if (args != null) {
+     //                paramTypes = new Class[args.length];
+     //                for (int i = 0; i < args.length; ++i) {
+     ////                    if (args[i].getClass().equals("Barman")) {
+     ////                        paramTypes[i] = h.getClass();
+     ////                    } else {
+     //                    paramTypes[i] = args[i].getClass();
+     ////                    }
+     //                }
+     //            }
+     methode = o.getClass().getMethod(nomMethode, methode.getParameterTypes());
+     return methode.invoke(o, args);
+     } catch (NoSuchMethodException ex) {
+     ex.printStackTrace();
+     Throwable cause = ex.getCause();
+     System.out.println("Cause : " + cause.getMessage());
+     } catch (IllegalArgumentException ex) {
+     ex.printStackTrace();
+     //System.out.println("Cause : " + cause.getMessage());
+     } catch (IllegalAccessException ex) {
+     ex.printStackTrace();
+     //System.out.println("Cause : " + cause.getMessage());
+     } catch (InvocationTargetException ex) {
+     ex.printStackTrace();
+     //System.out.println(ex.getMessage());
+     Throwable cause = ex.getCause();
+     System.out.println("Cause : " + cause.getMessage());
+     }
+     catch (Exception ex) {
+            
+     ex.printStackTrace();
+     //System.out.println(ex.getMessage());
+            
+     }
+     throw new Exception("La methode n'a pas pu etre invoquée -> rien n'a été modifié");
+     }
      //*/
-//    public void RemplacerLaPatronne() {
-//
-//    }
-
-    /*
-     private 
-     AutoClear
-     updatelisteDesProtagonistes /maj
-     trouverUnProtagoniste
-     afficherLesPortagoniste
-     changerPatronne  faiblesse sur les attributs propres
-     changerBarman    faiblesse sur les attributs propres
-     ajouterUnServeur /maj 
-     retirerUnServeur /maj 
-     ajouterunClient /maj
-     retierUnclient  /maj 
-     faireUnHumainparler
-     faireUnHumainJouer
-    
-    
-    
-    
-     //     */
-//    private class  ComparerMethodes  extends ClassValue<Methode> implements Comparable<Object>{
-//        
-//      
-//        @Override
-//        public int compareTo(Class t) {
-//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        }
-//
-//        @Override
-//        protected Methode computeValue(Class<?> type) {
-//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//        }
-//    }
 }

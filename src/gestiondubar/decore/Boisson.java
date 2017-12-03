@@ -95,7 +95,7 @@ public enum Boisson {
     }
 
     /**
-     * permet de savoir si la boisson est alcolisée
+     * permet de savoir si la boisson est alcolisée true si alcolisée
      *
      * @return
      */
@@ -121,7 +121,7 @@ public enum Boisson {
         }
         return str;
     }
-    public static Boisson ChoisirUneBoisson(Integer i){
+    public static Boisson choisirUneBoisson(Integer i){
         if(i<Boisson.values().length){
             return Boisson.values()[i];
         }

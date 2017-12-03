@@ -201,7 +201,7 @@ public abstract class Humain {
         return "CLA:" + this.getClass().getSimpleName() + " NOM:" + this.prenom + " SURNOM:" + this.surnom + " ARGENT:" + this.porteMonnaie + " SEXE:" + this.sexe + " ATTRIBUT:" + this.attributSpecial + " COTEPOP:" + coteDePopularite + " CRISIGNI:" + crisignificatif + " ";
     }
 
-    public abstract void boire(Boisson boisson) throws AbstractClientException;
+    public abstract String boire(Boisson boisson) throws AbstractClientException;
 //
 //    public abstract void payer(Humain humain, Integer prix) throws AbstractClientException;
 

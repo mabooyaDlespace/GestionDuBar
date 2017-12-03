@@ -7,6 +7,7 @@ package gestiondubar.humains.clients;
 
 import gestiondubar.humains.Humain;
 import gestiondubar.decore.Boisson;
+import gestiondubar.decore.bars.exceptions.StockException;
 import gestiondubar.humains.clients.exceptions.AbstractClientException;
 import gestiondubar.humains.clients.interfaces.Servir;
 import java.util.ArrayList;
@@ -97,9 +98,10 @@ public abstract class AbstractClient extends Humain {
      * @throws AbstractClientException
      */
     @Override
-    public void boire(Boisson boisson) throws AbstractClientException {
+    public String boire(Boisson boisson) throws AbstractClientException {
         if (boisson instanceof Boisson) {
             this.setDegreAlccolemie(this.getDegreAlccolemie() + boisson.getPointsAlcool());
+            return this.getPrenom() + " a bu de/du" + boisson.getNom();
         } else {
             throw new AbstractClientException("Le parametre boisson doit être une instance de Boisson");
         }
@@ -155,7 +157,7 @@ public abstract class AbstractClient extends Humain {
      * @return null sil n'y en a plus dans le stock
      * @throws gestiondubar.humains.clients.exceptions.AbstractClientException
      */
-    public Boisson commanderBoisson(Boisson boisson, Humain humain) throws AbstractClientException {
+    public Boisson commanderBoisson(Boisson boisson, Humain humain) throws AbstractClientException, StockException {
 
         if ((humain instanceof Servir
                 || humain instanceof Servir)
@@ -165,6 +167,15 @@ public abstract class AbstractClient extends Humain {
             Integer prix = boisson.getPrix();
             this.payer(humain, prix);//source exception
             //this.boire(boisson);
+            if (humain instanceof Serveur) {
+                Serveur s = (Serveur) humain;
+                int i = s.getPatronne().getBarman().getQuantiteDeLaBoisson(boisson);
+                s.getPatronne().getBarman().setQuantiteDeLaBoisson(boisson, i - 1);
+            } else {
+                Barman b = (Barman) humain;
+                int i = b.getQuantiteDeLaBoisson(boisson);
+                b.setQuantiteDeLaBoisson(boisson, i - 1);
+            }
             return boisson;
         } else {
             if (!(boisson instanceof Boisson)) {
@@ -214,8 +225,8 @@ public abstract class AbstractClient extends Humain {
         if (serveur instanceof Serveur
                 && boisson instanceof Boisson
                 && quantite.compareTo(0) > 0 // si supérieur à zero
-                && serveur.patronne.getBarman().estPresentDansLeStock(boisson) // on regarde s'il yen a au moins une
-                && serveur.patronne.getBarman().getQuantiteDeLaBoisson(boisson).compareTo(quantite) > -1) // on regarde sil y en a suffisament pour le client
+                && serveur.getPatronne().getBarman().estPresentDansLeStock(boisson) // on regarde s'il yen a au moins une
+                && serveur.getPatronne().getBarman().getQuantiteDeLaBoisson(boisson).compareTo(quantite) > -1) // on regarde sil y en a suffisament pour le client
         {
             return true;
         } else {
@@ -302,7 +313,7 @@ public abstract class AbstractClient extends Humain {
      * @param personnelServant Une instane barman serveur
      * @throws AbstractClientException
      */
-    public String offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException {
+    public String offrirUnVerre(Humain humainChanceux, Humain personnelServant) throws AbstractClientException, StockException {
 
         if (humainChanceux instanceof Humain) {
             if (personnelServant instanceof Humain) {

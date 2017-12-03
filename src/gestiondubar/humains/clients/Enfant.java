@@ -34,8 +34,12 @@ public class Enfant extends Humain {
    
 
     @Override
-    public void boire(Boisson boisson) throws AbstractClientException {
-        parent.offrirUnVerre(this, parent.patronne);
+    public String boire(Boisson boisson) throws AbstractClientException {
+        if (!(boisson instanceof Boisson) || boisson.isAvecAlcool()){
+            throw new AbstractClientException("Votre enfant essaie de se souler");
+        }else{parent.commanderBoisson(boisson, parent.patronne.getBarman());
+            return this.getPrenom() +" a bu "+boisson.getNom()+"offert par son père";
+        }
     }
 
     @Override

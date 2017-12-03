@@ -177,7 +177,7 @@ public class ManipulerIT {
     }
 
     /**
-     * Test of ChoisirHumainPuisActionEnFonctionDuNombre method, of class Manipuler.
+     * Test of choisirHumainPuisActionEnFonctionDuNombre method, of class Manipuler.
      */
     @Test
     public void testTrouverEnFonctionDuNombre() throws Exception {
@@ -185,7 +185,7 @@ public class ManipulerIT {
         Integer i = null;
         Manipuler instance = null;
         Humain expResult = null;
-        Humain result = instance.ChoisirHumainPuisActionEnFonctionDuNombre(i);
+        Humain result = instance.choisirHumainPuisActionEnFonctionDuNombre(i);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -206,15 +206,15 @@ public class ManipulerIT {
     }
 
     /**
-     * Test of choisirLesMethodesDeManipulationEtLesExecuter method, of class
-     * Manipuler.
+     * Test of choisirUnProtagonisteEtUtiliserSesMethodes method, of class
+ Manipuler.
      */
     @Test
     public void testChoisirLesMethodesDeManipulationEtLesExecuter() throws Exception {
         System.out.println("choisirLesMethodesDeManipulationEtLesExecuter");
         Object o = null;
         Manipuler instance = null;
-        instance.choisirLesMethodesDeManipulationEtLesExecuter(o);
+        instance.choisirUnProtagonisteEtUtiliserSesMethodes(o);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Serveur extends AbstractClient implements Servir {
 
-    Patronne patronne;
+    private Patronne patronne;
     private Servir servirDesClients = new ServirClient();
     public static ArrayList<String> listeDesMethodesDesMenus = new ArrayList<>();
 
@@ -31,7 +31,7 @@ public class Serveur extends AbstractClient implements Servir {
         super(prenom);
         this.patronne = patronne;
     }
-
+    
     @Override
     public String toString() {
         return super.toString() + " MON:" + this.getMonnaieDuBar(); //To change body of generated methods, choose Tools | Templates.
@@ -80,6 +80,10 @@ public class Serveur extends AbstractClient implements Servir {
     public void donnerLaMonnaieAuxResponsables(Humain humain) throws ServirException {
         this.servirDesClients.donnerLaMonnaieAuxResponsables(humain);
 
+    }
+
+    public Patronne getPatronne() {
+        return patronne;
     }
 
 }
