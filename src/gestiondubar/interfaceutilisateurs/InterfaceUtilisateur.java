@@ -35,19 +35,13 @@ public class InterfaceUtilisateur {
     }
 
     //Baronne
-    private InterfaceUtilisateur(Patronne patronne) {
+    public InterfaceUtilisateur(Patronne patronne) {
         this.patronne = patronne;
 
         //Barman
     }
 
-    private InterfaceUtilisateur(Barman barman) {
-        this.barman = barman;
-    }
-
-    private InterfaceUtilisateur(Client client) {
-        this.client = client;
-    }
+   
 
     public ScanNomMode monTest1QuiEstMaMethodeMain() throws Exception {
         try {

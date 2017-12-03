@@ -46,7 +46,6 @@ public class Manipuler {
 
     static {
         listeDesMethodesDesMenu.add("choisirHumainPuisActionEnFonctionDuNombre");
-        // il faudrait rajouter manip a 
 //        listeDesMethodesDesMenus.add("ajouterUnClientAvecSonNom");
 //        listeDesMethodesDesMenus.add("ajouterUnServeurAvecSonNom");
 //        listeDesMethodesDesMenus.add("RemplacerLeBarmanConserverCaisseEtStock");
@@ -70,7 +69,11 @@ public class Manipuler {
         }
 
     }
-    
+    /**
+     * Fonction principale de Manipuler.
+     * Elle permet de dutilier les actions de chaque protagoniste
+     * @param manip Intance maniplation Unique a chaque bar
+     */
     public void manipulerLesProtagonistes(Manipuler manip){
         String continuer = "o";
             Scanner scan = new Scanner(System.in);
@@ -94,7 +97,7 @@ public class Manipuler {
 
     /**
      * En terme de hierarchie la patronne a acces a toute les entité et créer le
-     * minimum sydical
+     * minimum sydical.
      * <br> pour le fonctionnement d'un bar a son instanciation
      *
      * @param patronne
@@ -106,7 +109,7 @@ public class Manipuler {
     }
 
     /**
-     * On créer une liste des protagoniste pour rendre les chose plus facilement
+     * On créer une liste des protagonistes pour rendre les chose plus facilement
      * accessibles
      *
      * @param patronne
@@ -125,7 +128,10 @@ public class Manipuler {
             throw new AbstractClientException("Patronne cant be null");
         }
     }
-
+    /**
+     * 
+     * @return renvoie une Une String composse de la liste de protagoniste du bar
+     */
     public String afficherLesProtagonnistes() {
         Humain hum;
         String description = "";
@@ -137,12 +143,20 @@ public class Manipuler {
         }
         return description.toString();
     }
-
+/**
+ * 
+ * @param nom nom du client qu'on veut ajouter
+ * @throws AbstractClientException 
+ */
     public void ajouterUnClientAvecSonNom(String nom) throws AbstractClientException {
         ajouterUnClient(new Client(nom));
 
     }
-
+/**
+ * 
+ * @param client instance du client qu'on veut ajouter
+ * @throws AbstractClientException 
+ */
     public void ajouterUnClient(Humain client) throws AbstractClientException {
         if (client instanceof Humain && !(client instanceof Barman) && !(client instanceof Serveur) && !(client instanceof Patronne)) {
             patronne.getBar().clients.add(client);
@@ -152,12 +166,20 @@ public class Manipuler {
         }
 
     }
-
+/**
+ * 
+ * @param nom nom du Serveur qu'on veut ajouter
+ * @throws AbstractClientException 
+ */
     public void ajouterUnServeurAvecSonNom(String nom) throws AbstractClientException {
         ajouterUnServeur(new Serveur(nom, this.patronne));
 
     }
-
+/**
+ * Instance du client qu'on veut ajouter
+ * @param serveur
+ * @throws AbstractClientException 
+ */
     public void ajouterUnServeur(Serveur serveur) throws AbstractClientException {
         if (serveur instanceof Humain && (serveur instanceof Serveur)) {
             patronne.getBar().serveurs.add(serveur);
@@ -167,7 +189,12 @@ public class Manipuler {
         }
 
     }
-
+/**
+ * Nom du parent et de l'enfant qu'on veut ajouter
+ * @param nom
+ * @param nomEnfant
+ * @throws AbstractClientException 
+ */
     public void ajouterUnParentEtSonEnfantAvecLeurNom(String nom, String nomEnfant) throws AbstractClientException {
         ClientParent p = new ClientParent(nom, this.patronne);
         Enfant e = new Enfant(nomEnfant, p);
@@ -187,7 +214,7 @@ public class Manipuler {
     }
 
     /**
-     * On remple ce le barman parce qu'on a ne peur pas changer son nom
+     * On remple ce le barman parce qu'on a ne peut pas changer son nom
      *
      * @param nomBarman
      * @throws AbstractClientException
@@ -225,7 +252,7 @@ public class Manipuler {
 
     /**
      *
-     *
+     * permet de choisir un protagoniste, et appel une fonction pour executer ses methodes
      * @param o engeneral unObjet manipuler
      */
     public void choisirUnProtagonisteEtUtiliserSesMethodes(Manipuler o) throws Exception {
@@ -281,7 +308,12 @@ public class Manipuler {
         }
 
     }
-
+/**
+ * Permet de trouver les parametre nécéssaire a l'execution de la methode
+ * @param args le return type de la methode
+ * @return renvoie les paremetre instancié
+ * @throws Exception 
+ */
     public Object[] scanParameters(Object[] args) throws Exception {
 
         Object[] myargs = new Object[args.length];
@@ -427,7 +459,7 @@ public class Manipuler {
     /**
      * utile pour comprendre le getmethode
      *
-     * @param o
+     * @param o 
      */
     public void explorerChamps(Object o) {
         Field[] f = null;
@@ -475,7 +507,11 @@ public class Manipuler {
         m = c.getMethods();
         return m;
     }
-
+/** 
+ *  permet d'afficher un tableau de methodes
+ * @param m
+ * @return 
+ */
     public String consulterMethodes(Method[] m) {
         Class[] params = null;
         String mystr = "";
@@ -496,7 +532,12 @@ public class Manipuler {
         }
         return mystr;
     }
-
+/**
+ * permet d'afficher une methode choisie (ie vous avez choisi la methode "i")
+ * @param m
+ * @param i
+ * @return 
+ */
     public String afficherMethode(Method m, Integer i) {
 
         Class[] params = null;
@@ -513,7 +554,13 @@ public class Manipuler {
         mystr += ")";
         return mystr;
     }
-
+/**
+ * Chaque objet que j'ai défini a une liste de methodes autorisée et pour chaque cas une liste de methodes autorisée
+ * @param methodes Liste des methodes que lon veut filtrer
+ * @param o objet de la dont on veut filtrer les methodes
+ * @return renvoie un tableau de methodes filtrer et triée
+ * @throws Exception
+ */
     public Method[] filtrerLesMethodesAvecAutorisationDeLobjet(Method[] methodes, Object o) throws Exception {
         Method[] myMet = new Method[methodes.length];
         int j = 0;
@@ -545,7 +592,16 @@ public class Manipuler {
 
         return myMet;
     }
-
+/**
+ * filtre le tableau de methodes et le trie en fonction de ArrayListe
+ * <br>On créer un hasset pour supprimer d'éventuelle doublons$
+ * <br> On regarde cb de "match" il ya
+ * <br> On renvoie un exception s'il nya pas de match
+ * @param methodes methode que lon veut filtrer
+ * @param listedesmethodes filtre que lon veut appliquer
+ * @return
+ * @throws Exception 
+ */
     public Method[] filtrerLesMethodesAvecAutorisation(Method[] methodes, ArrayList<String> listedesmethodes) throws Exception {
         Method[] myMet;
         int j = 0;
@@ -578,7 +634,12 @@ public class Manipuler {
         //}
         return myMet;
     }
-
+/**
+ * Permet de verifier si le nom d'une methode existe dans l"array liste
+ * @param str
+ * @param liste
+ * @return 
+ */
     public static boolean stringExiste(String str, ArrayList<String> liste) {
         for (int i = 0; i < liste.size(); i++) {
             if (liste.get(i).equals(str)) {
@@ -588,7 +649,13 @@ public class Manipuler {
         }
         return false;
     }
-
+/**
+ * permet de verifier s'il y a un match entre le nom de la methode et le parametre
+ * @param m
+ * @param mName
+ * @return renvoie la position dans le tableau
+ * @throws Exception 
+ */
     public static Integer methodeExistsInArrayList(Method[] m, String mName) throws Exception {
         if (m instanceof Method[] && m.length > 0) {
             for (int i = 0; i < m.length; i++) {
