@@ -250,7 +250,8 @@ public abstract class AbstractClient extends Humain {
      * @param quantite >=1
      * @return
      */
-    public boolean demanderSiPresentDansLesStocksBarman(Barman serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
+    public boolean demanderSiPresentDansLesStocksBarman
+        (Barman serveur, Boisson boisson, Integer quantite) throws AbstractClientException {
         if (serveur instanceof Barman
                 && boisson instanceof Boisson
                 && quantite.compareTo(0) > 0 // si supérieur à zero
